@@ -16,8 +16,12 @@ using namespace std;
 class PlayList {
 
 public:
-    PlayList();
+    PlayList(string _name);
 
+    bool addTrack(shared_ptr<Track>);
+    bool removeTrack(shared_ptr<Track>);
+    bool rename(string newName);
+    string & getName();
 
 protected:
 
