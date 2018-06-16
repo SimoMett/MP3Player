@@ -3,12 +3,17 @@
 //
 #include <memory>
 #include <wx/splash.h>
+#include <wx/wx.h>
 
 #include "MainApp.h"
 #include "MainFrame.h"
 
+using namespace std;
+
 bool MainApp::OnInit()
 {
+    cout << argv[1]<<endl;
+
     SetAppDisplayName("iPoorTunez");
     MainFrame * mainFrame=new MainFrame("iPoorTunes",wxPoint(50,50),wxSize(1024,728));
     if(mainFrame)
