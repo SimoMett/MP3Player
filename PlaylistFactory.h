@@ -10,6 +10,9 @@
 
 class PlaylistFactory {
 
+public:
+    PlayList * createPlaylist(string name);
+
 };
 
 
