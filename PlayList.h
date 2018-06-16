@@ -16,7 +16,6 @@ using namespace std;
 class PlayList {
 
 public:
-    PlayList(string _name);
 
     bool addTrack(shared_ptr<Track>);
     bool removeTrack(shared_ptr<Track>);
@@ -25,6 +24,7 @@ public:
 
 protected:
 
+    PlayList(string _name);
     string name;
     vector<shared_ptr<Track>> tracks;
 
