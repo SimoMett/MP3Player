@@ -10,7 +10,7 @@
 bool MainApp::OnInit()
 {
     SetAppDisplayName("iPoorTunez");
-    std::unique_ptr<MainFrame> mainFrame=new MainFrame("iPoorTunes",wxPoint(50,50),wxSize(1024,728));
+    std::unique_ptr<MainFrame> mainFrame(new MainFrame("iPoorTunes",wxPoint(50,50),wxSize(1024,728)));
     if(mainFrame)
     {
         wxBitmap bitmap("splash_screen.png",wxBITMAP_TYPE_PNG);
