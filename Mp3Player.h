@@ -22,8 +22,19 @@ public:
     PlayList mainLibrary;
     vector <shared_ptr<PlayList>> playlists;
     float volume;
-
     Track & currentTrack;
+    bool mp3Looping;
+
+    void loadPlayLists();
+    void savePlayLists();
+    int find(string text);
+    Track & getRandomTrackFromPlaylist(PlayList & list);
+    void setTrackPlayPoint(int seconds);
+
+private:
+    unique_ptr<Mp3Player> currentPlayer;
+    static const float defaultVolume;
+    int currentTrackTiming;
 
 };
 
