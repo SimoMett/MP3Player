@@ -14,3 +14,9 @@ void Subject::detachObserver(shared_ptr<Observer> observer)
 {
     observers.erase(std::remove(observers.begin(),observers.end(),observer));
 }
+
+void Subject::requestUpdate() const
+{
+    for(auto elem : observers)
+        elem->update();
+}
