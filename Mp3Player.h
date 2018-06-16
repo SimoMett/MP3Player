@@ -9,6 +9,11 @@
 
 class Mp3Player{
 
+public:
+    Mp3Player();
+
+
+
 };
 
 
