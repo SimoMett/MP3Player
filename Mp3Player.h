@@ -33,7 +33,7 @@ public:
 
 private:
     unique_ptr<Mp3Player> currentPlayer;
-    static const unsigned float defaultVolume=1;
+    static const float defaultVolume;
     int currentTrackTiming;
 
 };
