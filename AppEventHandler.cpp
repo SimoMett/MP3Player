@@ -17,9 +17,3 @@ void AppEventHandler::OnHello(wxCommandEvent& event)
 {
     wxLogMessage("Hello world from wxWidgets!");
 }
-
-void wxSplashScreen::OnCloseWindow(wxCloseEvent &event)
-{
-    std::cout<<"test"<<std::endl;
-}
-
