@@ -3,9 +3,9 @@ project(MP3Player)
 
 set(CMAKE_CXX_STANDARD 11)
 
-find_package(wxWidgets REQUIRED net gl core base)
+find_package(wxWidgets REQUIRED net gl core base adv)
 include(${wxWidgets_USE_FILE})
 
-add_executable(MP3Player Mp3Player.cpp Mp3Player.h)
+add_executable(MP3Player MainApp.h MainApp.cpp MainFrame.h MainFrame.cpp AppEventHandler.cpp AppEventHandler.h)
 
 target_link_libraries(MP3Player ${wxWidgets_LIBRARIES})

@@ -5,8 +5,9 @@
 #ifndef MP3PLAYER_MP3PLAYER_H
 #define MP3PLAYER_MP3PLAYER_H
 
+#include <wx/wx.h>
 
-class Mp3Player {
+class Mp3Player{
 
 };
 
