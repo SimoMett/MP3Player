@@ -5,14 +5,15 @@
 #ifndef MP3PLAYER_TRACK_H
 #define MP3PLAYER_TRACK_H
 
-#include <string>
+#include <iostream>
 
 using namespace std;
 
 class Track {
 
 public:
-    Track();
+
+    Track(string path): directory(path){};
 
     string title;
     string artist;
@@ -20,14 +21,19 @@ public:
     string genre;
     //bool like;
 
-    int getDuration();
-    string & getDirectory();
+    int getDuration() const{
+        return duration;
+    }
+    const string & getDirectory() const{
+        return directory;
+    }
+
+protected:
 
 private:
 
     int duration;
     string directory;
-
 };
 
 
