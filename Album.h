@@ -16,7 +16,9 @@ public:
     string artists;
     string date;
 
-    wxBitmap & getCoverBitmap() const;
+    const wxBitmap & getCoverBitmap() const{
+        return coverBitmap;
+    }
 
 private:
 
