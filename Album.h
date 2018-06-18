@@ -8,8 +8,9 @@
 #include <wx/wx.h>
 #include "PlayList.h"
 
-class Album : public PlayList{
+using namespace std;
 
+class Album : public PlayList {
 public:
     Album(string _name, wxBitmap & cover): PlayList(_name), coverBitmap(cover){};
 

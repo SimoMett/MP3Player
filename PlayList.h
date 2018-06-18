@@ -18,14 +18,13 @@ class PlayList {
 public:
     PlayList(string _name): name(_name){};
 
-
     bool addTrack(shared_ptr<Track>);
     bool removeTrack(shared_ptr<Track>);
     bool rename(string newName);
     Track & getTrack(int index) const{
         return *(tracks[index]);
     }
-    string & getName();
+    const string & getName();
 
 protected:
 

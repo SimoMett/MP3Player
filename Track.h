@@ -6,6 +6,7 @@
 #define MP3PLAYER_TRACK_H
 
 #include <iostream>
+//#include "Album.h"
 
 using namespace std;
 
@@ -18,6 +19,7 @@ public:
     string title;
     string artist;
     string album;
+    //Album * album;
     string genre;
     //bool like;
 
@@ -27,8 +29,6 @@ public:
     const string & getDirectory() const{
         return directory;
     }
-
-protected:
 
 private:
 
