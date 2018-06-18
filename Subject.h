@@ -18,10 +18,10 @@ public:
 
     virtual void attachObserver(shared_ptr<Observer> observer);
     virtual void detachObserver(shared_ptr<Observer> observer);
-    virtual void requestUpdate() const;
+    virtual void requestUpdate();
 
 
-private:
+protected:
     vector<shared_ptr<Observer>> observers;
 };
 

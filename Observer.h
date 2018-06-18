@@ -5,7 +5,6 @@
 #ifndef MP3PLAYER_OBSERVER_H
 #define MP3PLAYER_OBSERVER_H
 
-
 class Observer {
 
 public:

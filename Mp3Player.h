@@ -8,9 +8,12 @@
 #include <wx/wx.h>
 #include <vector>
 #include <memory>
+#include <random>
 #include "Subject.h"
 #include "PlayList.h"
 #include "Track.h"
+#include "TrackFactory.h"
+#include "Settings.h"
 
 using namespace std;
 
@@ -22,7 +25,7 @@ public:
     PlayList mainLibrary;
     vector <shared_ptr<PlayList>> playlists;
     float volume;
-    Track & currentTrack;
+    shared_ptr<Track> currentTrack;
     bool mp3Looping;
 
     void loadPlayLists();
