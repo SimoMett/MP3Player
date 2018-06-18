@@ -21,6 +21,7 @@ public:
     bool addTrack(shared_ptr<Track>);
     bool removeTrack(shared_ptr<Track>);
     bool rename(string newName);
+
     Track & getTrack(int index) const{
         return *(tracks[index]);
     }
@@ -32,6 +33,5 @@ protected:
     vector<shared_ptr<Track>> tracks;
 
 };
-
 
 #endif //MP3PLAYER_PLAYLIST_H

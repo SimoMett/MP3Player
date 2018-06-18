@@ -10,9 +10,12 @@
 
 using namespace std;
 
-class Album : public PlayList {
+class Album : public PlayList{
+
+
 public:
-    Album(string _name, wxBitmap & cover): PlayList(_name), coverBitmap(cover){};
+
+    Album(string _name, wxBitmap & cover);
 
     string artists;
     string date;

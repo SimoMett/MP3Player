@@ -5,7 +5,10 @@
 #ifndef MP3PLAYER_TRACK_H
 #define MP3PLAYER_TRACK_H
 
-#include <iostream>
+class Album;
+
+#include <string>
+#include <memory>
 //#include "Album.h"
 
 using namespace std;
@@ -18,8 +21,7 @@ public:
 
     string title;
     string artist;
-    string album;
-    //Album * album;
+    shared_ptr<Album> album;
     string genre;
     //bool like;
 

@@ -9,11 +9,12 @@
 #include <vector>
 #include <memory>
 #include <random>
+#include "Settings.h"
 #include "Subject.h"
 #include "PlayList.h"
+#include "Album.h"
 #include "Track.h"
 #include "TrackFactory.h"
-#include "Settings.h"
 
 using namespace std;
 
