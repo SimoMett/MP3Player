@@ -26,3 +26,8 @@ bool MainApp::OnInit()
 
     return mainFrame!= nullptr;
 }
+
+int MainApp::OnExit()
+{
+    //TODO save settings
+}

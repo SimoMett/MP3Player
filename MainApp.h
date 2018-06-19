@@ -12,6 +12,7 @@ class MainApp : public wxApp {
 
 public:
     virtual bool OnInit() override ;
+    virtual int OnExit() override ;
 };
 
 #endif //MP3PLAYER_MAINAPP_H
