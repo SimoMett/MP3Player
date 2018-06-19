@@ -12,13 +12,14 @@ using namespace std;
 
 bool MainApp::OnInit()
 {
-    cout << argv[1]<<endl;
+    if(argc > 1)
+        cout << argv[1]<<endl;
 
-    SetAppDisplayName("iPoorTunez");
+    //SetAppDisplayName("iPoorTunez");
     MainFrame * mainFrame=new MainFrame("iPoorTunes",wxPoint(50,50),wxSize(1024,728));
 
     //if(mainFrame!= nullptr) //è sempre vera??
-    wxBitmap bitmap("splash_screen.png",wxBITMAP_TYPE_PNG);
+    wxBitmap bitmap("resources/splash_screen.png",wxBITMAP_TYPE_PNG);
     wxSplashScreen splash(bitmap,wxSPLASH_CENTRE_ON_SCREEN|wxSPLASH_TIMEOUT,2000,nullptr,-1);
     wxYield();
     wxSleep(2);
