@@ -16,16 +16,19 @@ using namespace std;
 class PlayList {
 
 public:
-    PlayList(string _name): name(_name){};
+    explicit PlayList(string _name);
 
-    bool addTrack(shared_ptr<Track>);
-    bool removeTrack(shared_ptr<Track>);
-    bool rename(string newName);
+    bool addTrack(shared_ptr<Track> track);
+    bool removeTrack(shared_ptr<Track> track);
+    bool removeTrack(int index);
+    bool rename(string & newName);
 
     Track & getTrack(int index) const{
         return *(tracks[index]);
     }
-    const string & getName();
+    const string & getName() const{
+        return name;
+    }
 
 protected:
 
