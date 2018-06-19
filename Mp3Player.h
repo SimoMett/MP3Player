@@ -34,8 +34,12 @@ public:
     Track & getRandomTrackFromPlaylist(PlayList & list);
     void setTrackPlayPoint(int seconds);
 
+    static const Mp3Player & getMp3PlayerIstance(){
+        return *(currentPlayer);
+    }
+
 private:
-    unique_ptr<Mp3Player> currentPlayer;
+    static unique_ptr<Mp3Player> currentPlayer;
     static const float defaultVolume;
     int currentTrackTiming;
 
