@@ -8,7 +8,7 @@ const float Mp3Player::defaultVolume=1;
 
 Mp3Player::Mp3Player() : mainLibrary("#mainLibrary")
 {
- cout << endl;
+    srand(time(nullptr));
 }
 
 Track& Mp3Player::getRandomTrackFromPlaylist(PlayList &list)
