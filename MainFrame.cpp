@@ -7,20 +7,29 @@
 MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &size) : wxFrame(nullptr,wxID_ANY,title,pos,size)
 {
     wxMenu * fileMenu=new wxMenu;
-    fileMenu->Append(ID_Hello,"&Hello...\tCtrl-H", "Help string shown in status bar for this menu item");
-    fileMenu->AppendSeparator();
+    fileMenu->Append(ID_Open,"&Open", "Open a track");
 
     wxMenuBar *menuBar = new wxMenuBar;
     menuBar->Append( fileMenu, "&File" );
     SetMenuBar( menuBar );
     CreateStatusBar();
 
-    Bind(wxEVT_MENU,&MainFrame::OnHello,this, ID_Hello);
+    volumeSlider=new wxSlider(this,wxID_ANY,40,0,100);
+
+    Bind(wxEVT_MENU,&MainFrame::OnOpenFile,this, ID_Open);
+    Bind(wxEVT_SLIDER,&MainFrame::OnSlider,this);
+
 }
 
-void MainFrame::OnHello(wxCommandEvent& event)
+void MainFrame::OnOpenFile(wxCommandEvent& event)
 {
-    wxLogMessage("Hello world from wxWidgets!");
+    //TODO Import track and play it
+}
+
+void MainFrame::OnSlider(wxCommandEvent &event)//Just for test
+{
+    //Just for test
+    std::cout << volumeSlider->GetValue()<<std::endl;
 }
 
 wxIMPLEMENT_APP(MainApp);

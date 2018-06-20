@@ -10,7 +10,7 @@
 
 enum
 {
-    ID_Hello = 1
+    ID_Open = 1
 };
 
 class MainFrame : public wxFrame {
@@ -18,9 +18,10 @@ class MainFrame : public wxFrame {
 public:
     MainFrame(const wxString& title, const wxPoint& pos, const wxSize& size);
 
-    void OnHello(wxCommandEvent& event);
+    wxSlider * volumeSlider;
 
-
+    void OnOpenFile(wxCommandEvent& event);
+    void OnSlider(wxCommandEvent & event);//Just for test
 };
 
 #endif //MP3PLAYER_MAINFRAME_H
