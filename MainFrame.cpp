@@ -2,13 +2,16 @@
 // Created by matteo on 14/06/18.
 //
 #include "MainFrame.h"
+#include <wx/grid.h>
+#include <wx/splitter.h>
+#include <wx/slider.h>
 
 
 MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &size) : wxFrame(nullptr,wxID_ANY,title,pos,size)
 {
     //Menù Bar
     wxMenu * fileMenu=new wxMenu;
-    fileMenu->Append(ID_Open,"&Open", "Open a track");
+    fileMenu->Append(ID_Open,"&Open\tCTRL+O", "Open a track");
 
     wxMenuBar *menuBar = new wxMenuBar;
     menuBar->Append( fileMenu, "&File" );
@@ -18,15 +21,22 @@ MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &si
 
     //Widgets
 
-    volumeSlider=new wxSlider(this,wxID_ANY,90,0,100,wxPoint(0,10),wxSize(1000,1000),wxSL_HORIZONTAL,wxDefaultValidator,"VolumeSlider");
-    //testButton=new wxButton(this,wxID_ANY,"TestButton",wxPoint(100,100));
-    wxListCtrl * testList=new wxListCtrl(this,wxID_ANY,wxPoint(100,100),wxSize(100,100),wxLC_REPORT);
+    wxSize siz(100,100);
+    volumeSlider=new wxSlider(this,ID_VolumeSlider,90,0,100,wxPoint(0,10),siz,wxSL_HORIZONTAL,wxDefaultValidator,"VolumeSlider");
+    volumeSlider->SetAutoLayout(true);
+    testButton=new wxButton(this,ID_PlayButton,"PlayButton",wxPoint(100,200));
+
+    wxListCtrl * testList=new wxListCtrl(this,wxID_ANY,wxPoint(100,100),siz,wxLC_REPORT);
     testList->AppendColumn(wxString("Heed"),wxLIST_FORMAT_LEFT,10);
+
+
+
     //
 
     //Bindings
     Bind(wxEVT_MENU,&MainFrame::OnOpenFile,this, ID_Open);
-    Bind(wxEVT_SLIDER,&MainFrame::OnSlider,this);
+    Bind(wxEVT_SLIDER,&MainFrame::OnSlider,this,ID_VolumeSlider);
+    Bind(wxEVT_BUTTON,&MainFrame::OnButton1,this,ID_PlayButton);
 
 }
 
@@ -39,6 +49,11 @@ void MainFrame::OnSlider(wxCommandEvent &event)//Just for test
 {
     //Just for test
     std::cout << volumeSlider->GetValue()<<std::endl;
+}
+
+void MainFrame::OnButton1(wxCommandEvent &event)
+{
+    std::cout<< "playButton"<<std::endl;
 }
 
 wxIMPLEMENT_APP(MainApp);

@@ -11,7 +11,9 @@
 
 enum
 {
-    ID_Open = 1
+    ID_Open = wxID_HIGHEST+1,
+    ID_VolumeSlider=wxID_HIGHEST+2,
+    ID_PlayButton=wxID_HIGHEST+3
 };
 
 class MainFrame : public wxFrame {
@@ -24,6 +26,7 @@ public:
 
     void OnOpenFile(wxCommandEvent& event);
     void OnSlider(wxCommandEvent & event);//Just for test
+    void OnButton1(wxCommandEvent & event);
 };
 
 #endif //MP3PLAYER_MAINFRAME_H
