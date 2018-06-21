@@ -13,7 +13,8 @@ enum
 {
     ID_Open = wxID_HIGHEST+1,
     ID_VolumeSlider=wxID_HIGHEST+2,
-    ID_PlayButton=wxID_HIGHEST+3
+    ID_PlayButton=wxID_HIGHEST+3,
+    ID_Credits=wxID_HIGHEST+4
 };
 
 class MainFrame : public wxFrame {
@@ -22,7 +23,7 @@ public:
     MainFrame(const wxString& title, const wxPoint& pos, const wxSize& size);
 
     wxSlider * volumeSlider;
-    wxButton * testButton;
+    wxButton * playButton;
 
     void OnOpenFile(wxCommandEvent& event);
     void OnSlider(wxCommandEvent & event);//Just for test
