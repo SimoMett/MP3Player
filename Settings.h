@@ -20,9 +20,12 @@ public:
     ~Settings();
 
     float savedVolume;
+
+    void SaveSettings();
+
 private:
     void LoadSettings(string file);
-    void SaveSettings();
+
 };
 
 
