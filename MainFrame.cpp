@@ -26,19 +26,30 @@ MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &si
     //
 
     //Widgets
-    wxBoxSizer * boxSizer2=new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer * mainBoxSizer=new wxBoxSizer(wxVERTICAL);
 
-    wxSize siz(100,100);
-    volumeSlider=new wxSlider(this,ID_VolumeSlider,90,0,100,wxPoint(0,10),siz,wxSL_HORIZONTAL,wxDefaultValidator,"VolumeSlider");
+    volumeSlider=new wxSlider(this,ID_VolumeSlider,80,0,100,wxPoint(0,10),wxSize(500,25),wxSL_HORIZONTAL,wxDefaultValidator,"VolumeSlider");
 
-    playButton=new wxButton(this,ID_PlayButton,"PlayButton",wxPoint(400,200));
-    boxSizer2->Add(playButton,0,wxALIGN_CENTER_VERTICAL|wxALL|wxALIGN_RIGHT,5);
+    playButton=new wxButton(this,ID_PlayButton,"PlayButton");
+    nextTrackButton=new wxButton(this,ID_NextTrackButton,"NextTrack");
+    previousTrackButton=new wxButton(this,ID_PrevTrackButton,"PrevTrack");
 
-    this->SetSizer(boxSizer2);
+    //wxListCtrl * testList=new wxListCtrl(this,wxID_ANY,wxPoint(100,100),wxSize(200,200),wxLC_REPORT);
+    //testList->AppendColumn(wxString("Reed"),wxLIST_FORMAT_LEFT,50);
 
-    wxListCtrl * testList=new wxListCtrl(this,wxID_ANY,wxPoint(100,100),siz,wxLC_REPORT);
-    testList->AppendColumn(wxString("Reed"),wxLIST_FORMAT_LEFT,50);
+    //Composing boxSizer
+    mainBoxSizer->AddStretchSpacer(1);
+    mainBoxSizer->Add(volumeSlider,0,wxALIGN_CENTER|wxALIGN_BOTTOM);
 
+
+    wxBoxSizer * buttonSizer=new wxBoxSizer(wxHORIZONTAL);
+
+    buttonSizer->Add(previousTrackButton,0,wxALIGN_CENTER);
+    buttonSizer->Add(playButton,0,wxALIGN_CENTER);
+    buttonSizer->Add(nextTrackButton,0,wxALIGN_CENTER);
+    mainBoxSizer->Add(buttonSizer);
+
+    this->SetSizer(mainBoxSizer);
     //
 
     //Bindings
@@ -46,6 +57,8 @@ MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &si
     Bind(wxEVT_SLIDER,&MainFrame::OnSlider,this,ID_VolumeSlider);
     Bind(wxEVT_BUTTON,&MainFrame::OnButton1,this,ID_PlayButton);
     //TODO Bind About->Credits menù bar option
+    //TODO Bind NextTrackButton
+    //TODO Bind PrevTrackButton
 
 }
 
