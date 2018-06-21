@@ -10,6 +10,8 @@
 #include <wx/xml/xml.h>
 #include <wx/file.h>
 #include <string>
+#include <memory>
+#include <wx/sstream.h>
 
 using namespace std;
 
@@ -24,6 +26,7 @@ public:
     void SaveSettings();
 
 private:
+    string settingsPath;
     void LoadSettings(string file);
 
 };
