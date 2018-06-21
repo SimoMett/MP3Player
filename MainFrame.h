@@ -6,6 +6,7 @@
 #define MP3PLAYER_MAINFRAME_H
 
 #include <wx/wx.h>
+#include <wx/listctrl.h>
 #include "MainApp.h"
 
 enum
@@ -19,6 +20,7 @@ public:
     MainFrame(const wxString& title, const wxPoint& pos, const wxSize& size);
 
     wxSlider * volumeSlider;
+    wxButton * testButton;
 
     void OnOpenFile(wxCommandEvent& event);
     void OnSlider(wxCommandEvent & event);//Just for test
