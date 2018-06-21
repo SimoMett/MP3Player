@@ -6,7 +6,7 @@
 #define MP3PLAYER_TESTTRACK_H
 
 #include <cxxtest/TestSuite.h>
-#include "../Track.h"
+#include "../Settings.h"
 
 
 
