@@ -42,7 +42,7 @@ MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &si
     mainBoxSizer->Add(volumeSlider,0,wxALIGN_CENTER|wxALIGN_BOTTOM);
 
 
-    wxBoxSizer * buttonSizer=new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer * buttonSizer=new wxBoxSizer(wxHORIZONTAL);//TODO Align this boxSizer
 
     buttonSizer->Add(previousTrackButton,0,wxALIGN_CENTER);
     buttonSizer->Add(playButton,0,wxALIGN_CENTER);
