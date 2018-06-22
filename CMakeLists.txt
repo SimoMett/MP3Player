@@ -8,7 +8,7 @@ include(${wxWidgets_USE_FILE})
 
 add_subdirectory(GTest)
 
-set(SOURCE_FILES Mp3Player.h Mp3Player.cpp MainApp.h MainApp.cpp MainFrame.h MainFrame.cpp  Subject.h Subject.cpp Observer.cpp Observer.h PlayList.cpp PlayList.h PlaylistFactory.cpp PlaylistFactory.h Settings.cpp Settings.h Album.cpp Album.h TrackFactory.cpp Track.cpp Track.h TrackFactory.h GTest/TestSettings.h GTest/runAllTests.cpp)
+set(SOURCE_FILES Mp3Player.h Mp3Player.cpp MainApp.h MainApp.cpp MainFrame.h MainFrame.cpp  Subject.h Subject.cpp Observer.cpp Observer.h PlayList.cpp PlayList.h PlaylistFactory.cpp PlaylistFactory.h Settings.cpp Settings.h Album.cpp Album.h TrackFactory.cpp Track.cpp Track.h TrackFactory.h)
 add_executable(MP3Player ${SOURCE_FILES})
 
 add_library(core ${SOURCE_FILES})

@@ -5,8 +5,14 @@
 #ifndef MP3PLAYER_TESTTRACK_H
 #define MP3PLAYER_TESTTRACK_H
 
-#include <cxxtest/TestSuite.h>
+#include <gtest/gtest.h>
 #include "../Settings.h"
+
+
+TEST(Settings,DefaultConstructor)
+{
+
+}
 
 
 
