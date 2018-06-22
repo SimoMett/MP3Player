@@ -5,6 +5,7 @@
 #include <wx/grid.h>
 #include <wx/splitter.h>
 #include <wx/slider.h>
+#include "Mp3Player.h"
 
 
 MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &size) : wxFrame(nullptr,wxID_ANY,title,pos,size)
@@ -59,6 +60,10 @@ MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &si
     //TODO Bind About->Credits menù bar option
     //TODO Bind NextTrackButton
     //TODO Bind PrevTrackButton
+    //
+
+
+    shared_ptr<Mp3Player> player(new Mp3Player());
 
 }
 

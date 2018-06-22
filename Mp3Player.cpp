@@ -9,6 +9,7 @@ const float Mp3Player::defaultVolume=1;
 Mp3Player::Mp3Player() : mainLibrary("#mainLibrary")
 {
     srand(time(nullptr));
+    Settings settings;
 }
 
 Track& Mp3Player::getRandomTrackFromPlaylist(PlayList &list)

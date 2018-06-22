@@ -3,16 +3,17 @@
 //
 
 #include "Settings.h"
+#include <exception>
+#include <algorithm>
 
-Settings::Settings(string settingsfile) : settingsPath(settingsfile)
+Settings::Settings(string cfg) : settingsPath(cfg)
 {
-    if(!wxFileExists(settingsfile))
-    {
+
+    if (!wxFileExists(cfg)) {
         //Creates xml file and fills it with default values
         SaveSettings();
-    }
-
-    LoadSettings(settingsfile);
+    } else
+        LoadSettings(cfg);
 }
 
 Settings::~Settings()
@@ -22,14 +23,39 @@ Settings::~Settings()
 
 void Settings::LoadSettings(string file)
 {
-    //TODO implement
-    wxXmlDocument doc;
+    try {
+        //TODO implement
+        wxXmlDocument doc;
+        doc.Load(settingsPath);
+
+        wxXmlNode *root = doc.GetRoot();
+        if (root == nullptr || root->GetName() != "Settings")
+            throw std::runtime_error("'settings.xml' has a bad format. Default settings will be loaded");
+
+        wxXmlNode *node = root->GetChildren();
+        while (node) {
+            if (node->GetName() == "volume") {
+                wxString value;
+                node->GetAttribute("volume", &value);
+                cout << "value = " + value << endl;
+            }
+        }
+    }
+
+    catch(std::runtime_error &e)
+    {
+        cerr<<e.what()<<endl;
+        //TODO handle exception (load default values)
+        savedVolume=100;
+        SaveSettings();
+    }
+
 }
 
 void Settings::SaveSettings()
 {
-    wxXmlDocument doc;
-    if(!doc.Load(settingsPath))//If not exists create it
+    wxXmlDocument doc(settingsPath);
+    if(!wxFileExists(settingsPath))
     {
         wxFile settings(settingsPath, wxFile::OpenMode::write_excl);
         settings.Close();
@@ -46,4 +72,11 @@ void Settings::SaveSettings()
         wxStringOutputStream stream;
         doc.Save(stream);
     }
+}
+
+void Settings::setSavedVolume(float val)
+{
+    if(val>100 || val <0)
+        val=100;
+    savedVolume=val;
 }
