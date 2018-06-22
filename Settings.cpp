@@ -22,7 +22,8 @@ Settings::~Settings()
 
 void Settings::LoadSettings(string file)
 {
-
+    //TODO implement
+    wxXmlDocument doc;
 }
 
 void Settings::SaveSettings()
