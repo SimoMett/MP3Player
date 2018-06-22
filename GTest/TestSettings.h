@@ -14,6 +14,16 @@ TEST(Settings,DefaultConstructor)
 
 }
 
+TEST(Settings,TestLoadSettings)
+{
+
+}
+
+TEST(Settings,TestSaveSettings)
+{
+
+}
+
 
 
 #endif //MP3PLAYER_TESTTRACK_H
