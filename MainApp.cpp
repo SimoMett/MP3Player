@@ -31,5 +31,4 @@ bool MainApp::OnInit()
 int MainApp::OnExit()
 {
     //TODO save settings
-
 }
