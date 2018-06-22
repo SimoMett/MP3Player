@@ -18,14 +18,14 @@ using namespace std;
 class Settings {
 
 public:
-    explicit Settings(string settingsfile="settings.xml");
+    explicit Settings(string settingsfile="resources/settings.xml");
     ~Settings();
 
-    float savedVolume;
-
     void SaveSettings();
+    void setSavedVolume(float val);
 
 private:
+    float savedVolume;
     string settingsPath;
     void LoadSettings(string file);
 
