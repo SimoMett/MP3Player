@@ -35,6 +35,12 @@ public:
     void OnSlider(wxCommandEvent & event);//Just for test
     void OnButton1(wxCommandEvent & event);
     void OnCreditsButton(wxCommandEvent & event);
+
+private:
+    void menuSetup();
+    void widgetsSetup();
+
+    void bindingsSetup();
 };
 
 #endif //MP3PLAYER_MAINFRAME_H

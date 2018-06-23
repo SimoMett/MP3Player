@@ -13,61 +13,56 @@ MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &si
 {
     this->SetMinSize(wxSize(430,320));
 
-    //Menù Bar
-    wxMenu * fileMenu=new wxMenu;
-    fileMenu->Append(ID_Open,"&Open\tCTRL+O", "Open a track");
+    menuSetup();
 
-    wxMenu * infoMenu=new wxMenu;
-    infoMenu->Append(ID_Credits,"&Credits");
+    widgetsSetup();
 
-    wxMenuBar *menuBar = new wxMenuBar;
-    menuBar->Append( fileMenu, "&File" );
-    menuBar->Append(infoMenu,"&About");
-    SetMenuBar( menuBar );
-    CreateStatusBar();
+    bindingsSetup();
+
+    //Logic part
+    shared_ptr<Mp3Player> player(new Mp3Player());
+
+}
+
+void MainFrame::bindingsSetup()
+{
+    Bind(wxEVT_MENU, &MainFrame::OnOpenFile, this, ID_Open);
+    Bind(wxEVT_SLIDER, &MainFrame::OnSlider, this, ID_TrackSlider);
+    Bind(wxEVT_BUTTON, &MainFrame::OnButton1, this, ID_PlayButton);
+    Bind(wxEVT_MENU, &MainFrame::OnCreditsButton, this, ID_Credits);
+    //TODO Bind NextTrackButton
+    //TODO Bind PrevTrackButton
     //
 
-    //Widgets
+}
+
+void MainFrame::widgetsSetup() {
     wxBoxSizer * mainBoxSizer=new wxBoxSizer(wxVERTICAL);
 
-    trackSlider=new TrackSlider(Mp3Player::getMp3PlayerIstancePtr(),this,ID_TrackSlider,80,0,100,wxPoint(0,10),wxSize(500,25),wxSL_HORIZONTAL,wxDefaultValidator,"VolumeSlider");
+    trackSlider =new TrackSlider(Mp3Player::getMp3PlayerIstancePtr(), this, ID_TrackSlider, 80, 0, 100, wxPoint(0, 10), wxSize(500, 25), wxSL_HORIZONTAL, wxDefaultValidator, "VolumeSlider");
     //Slider * newSlider=new Slider(Mp3Player::getMp3PlayerIstancePtr(),Mp3Player::getMp3PlayerIstance().getVolume());
 
 
-    playButton=new wxButton(this,ID_PlayButton,"PlayButton");
-    nextTrackButton=new wxButton(this,ID_NextTrackButton,"NextTrack");
-    previousTrackButton=new wxButton(this,ID_PrevTrackButton,"PrevTrack");
+    playButton =new wxButton(this, ID_PlayButton, "PlayButton");
+    nextTrackButton =new wxButton(this, ID_NextTrackButton, "NextTrack");
+    previousTrackButton =new wxButton(this, ID_PrevTrackButton, "PrevTrack");
 
     //wxListCtrl * testList=new wxListCtrl(this,wxID_ANY,wxPoint(100,100),wxSize(200,200),wxLC_REPORT);
     //testList->AppendColumn(wxString("Reed"),wxLIST_FORMAT_LEFT,50);
 
     //Composing boxSizer
     mainBoxSizer->AddStretchSpacer(1);
-    mainBoxSizer->Add(trackSlider,0,wxALIGN_CENTER|wxALIGN_BOTTOM);
+    mainBoxSizer->Add(trackSlider, 0, wxALIGN_CENTER | wxALIGN_BOTTOM);
 
 
     wxBoxSizer * buttonSizer=new wxBoxSizer(wxHORIZONTAL);//TODO Align this boxSizer
 
-    buttonSizer->Add(previousTrackButton,0,wxALIGN_CENTER);
-    buttonSizer->Add(playButton,0,wxALIGN_CENTER);
-    buttonSizer->Add(nextTrackButton,0,wxALIGN_CENTER);
+    buttonSizer->Add(previousTrackButton, 0, wxALIGN_CENTER);
+    buttonSizer->Add(playButton, 0, wxALIGN_CENTER);
+    buttonSizer->Add(nextTrackButton, 0, wxALIGN_CENTER);
     mainBoxSizer->Add(buttonSizer);
 
-    this->SetSizer(mainBoxSizer);
-    //
-
-    //Bindings
-    Bind(wxEVT_MENU,&MainFrame::OnOpenFile,this, ID_Open);
-    Bind(wxEVT_SLIDER,&MainFrame::OnSlider,this,ID_TrackSlider);
-    Bind(wxEVT_BUTTON,&MainFrame::OnButton1,this,ID_PlayButton);
-    Bind(wxEVT_MENU,&MainFrame::OnCreditsButton,this,ID_Credits);//TODO Bind About->Credits menù bar option
-    //TODO Bind NextTrackButton
-    //TODO Bind PrevTrackButton
-    //
-
-    //Logic part
-    shared_ptr<Mp3Player> player(new Mp3Player());
-
+    SetSizer(mainBoxSizer);
 }
 
 void MainFrame::OnOpenFile(wxCommandEvent& event)
@@ -96,6 +91,20 @@ void MainFrame::OnButton1(wxCommandEvent &event)
 void MainFrame::OnCreditsButton(wxCommandEvent &event)
 {
     wxMessageBox("Mp3Player written by:\nMatteo Simonetti\nFilippo Amidei\n\nThis application uses wxWidgets library","Credits");
+}
+
+void MainFrame::menuSetup() {
+    wxMenu * fileMenu=new wxMenu;
+    fileMenu->Append(ID_Open,"&Open\tCTRL+O", "Open a track");
+
+    wxMenu * infoMenu=new wxMenu;
+    infoMenu->Append(ID_Credits,"&Credits");
+
+    wxMenuBar *menuBar = new wxMenuBar;
+    menuBar->Append( fileMenu, "&File" );
+    menuBar->Append(infoMenu,"&About");
+    SetMenuBar(menuBar );
+    CreateStatusBar();
 }
 
 wxIMPLEMENT_APP(MainApp);
