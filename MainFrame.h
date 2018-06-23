@@ -33,7 +33,7 @@ public:
 
     void OnOpenFile(wxCommandEvent& event);
     void OnSlider(wxCommandEvent & event);//Just for test
-    void OnButton1(wxCommandEvent & event);
+    void PlayButton(wxCommandEvent &event);
     void OnCreditsButton(wxCommandEvent & event);
 
 private:

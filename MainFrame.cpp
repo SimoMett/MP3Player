@@ -28,7 +28,7 @@ void MainFrame::bindingsSetup()
 {
     Bind(wxEVT_MENU, &MainFrame::OnOpenFile, this, ID_Open);
     Bind(wxEVT_SLIDER, &MainFrame::OnSlider, this, ID_TrackSlider);
-    Bind(wxEVT_BUTTON, &MainFrame::OnButton1, this, ID_PlayButton);
+    Bind(wxEVT_BUTTON, &MainFrame::PlayButton, this, ID_PlayButton);
     Bind(wxEVT_MENU, &MainFrame::OnCreditsButton, this, ID_Credits);
     //TODO Bind NextTrackButton
     //TODO Bind PrevTrackButton
@@ -83,7 +83,7 @@ void MainFrame::OnSlider(wxCommandEvent &event)//Just for test
     std::cout << trackSlider->GetValue()<<std::endl;
 }
 
-void MainFrame::OnButton1(wxCommandEvent &event)
+void MainFrame::PlayButton(wxCommandEvent &event)
 {
     std::cout<< "playButton"<<std::endl;
 }
