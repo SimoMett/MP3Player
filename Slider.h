@@ -11,11 +11,13 @@
 class Slider : public Observer
 {
 public:
-    Slider();
+    Slider(Subject * _subject);
 
     //Mp3Player * playerInstance;
     Subject * subject;
     int sliderValue;
+
+    virtual void update();
 
 };
 
