@@ -8,6 +8,7 @@
 #include <wx/wx.h>
 #include <wx/listctrl.h>
 #include "MainApp.h"
+#include "VolumeSlider.h"
 
 enum
 {
@@ -24,7 +25,7 @@ class MainFrame : public wxFrame {
 public:
     MainFrame(const wxString& title, const wxPoint& pos, const wxSize& size);
 
-    wxSlider * volumeSlider;
+    VolumeSlider * volumeSlider;
     wxButton * playButton;
     wxButton * nextTrackButton;
     wxButton * previousTrackButton;

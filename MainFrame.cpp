@@ -6,6 +6,7 @@
 #include <wx/splitter.h>
 #include <wx/slider.h>
 #include "Mp3Player.h"
+#include "Slider.h"
 
 
 MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &size) : wxFrame(nullptr,wxID_ANY,title,pos,size)
@@ -29,7 +30,9 @@ MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &si
     //Widgets
     wxBoxSizer * mainBoxSizer=new wxBoxSizer(wxVERTICAL);
 
-    volumeSlider=new wxSlider(this,ID_VolumeSlider,80,0,100,wxPoint(0,10),wxSize(500,25),wxSL_HORIZONTAL,wxDefaultValidator,"VolumeSlider");
+    volumeSlider=new VolumeSlider(Mp3Player::getMp3PlayerIstancePtr(),this,ID_VolumeSlider,80,0,100,wxPoint(0,10),wxSize(500,25),wxSL_HORIZONTAL,wxDefaultValidator,"VolumeSlider");
+    //Slider * newSlider=new Slider(Mp3Player::getMp3PlayerIstancePtr(),Mp3Player::getMp3PlayerIstance().getVolume());
+
 
     playButton=new wxButton(this,ID_PlayButton,"PlayButton");
     nextTrackButton=new wxButton(this,ID_NextTrackButton,"NextTrack");
@@ -70,6 +73,7 @@ MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &si
 void MainFrame::OnOpenFile(wxCommandEvent& event)
 {
     //TODO Import track and play it
+    //FIXME all
     wxFileCtrl * fileCtrl=new wxFileCtrl(this,wxID_ANY);
     fileCtrl->SetWildcard("MP3 files (*.mp3)|*.mp3");
 
