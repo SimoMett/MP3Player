@@ -25,6 +25,7 @@ void Mp3Player::setVolume(float val)
     if(val<0 || val >100)
         val =100;
     volume=val;
+    requestUpdate();
 }
 
 Track& Mp3Player::getRandomTrackFromPlaylist(PlayList &list)
