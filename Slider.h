@@ -5,8 +5,9 @@
 #ifndef MP3PLAYER_SLIDER_H
 #define MP3PLAYER_SLIDER_H
 
+#include "Observer.h"
 
-class Slider {
+class Slider : public Observer{
 
 };
 
