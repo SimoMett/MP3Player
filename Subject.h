@@ -14,7 +14,7 @@ using namespace std;
 class Subject {
 
 public:
-    virtual ~Subject()=0;
+    virtual ~Subject();
 
     virtual void attachObserver(shared_ptr<Observer> observer);
     virtual void detachObserver(shared_ptr<Observer> observer);
