@@ -9,7 +9,15 @@ const float Mp3Player::defaultVolume=1;
 Mp3Player::Mp3Player() : mainLibrary("#mainLibrary")
 {
     srand(time(nullptr));
-    Settings settings;
+    Settings::Istantiate();
+    setVolume(Settings::getIstance()->getSavedVolume());
+}
+
+void Mp3Player::setVolume(float val)
+{
+    if(val<0 || val >100)
+        val =100;
+    volume=val;
 }
 
 Track& Mp3Player::getRandomTrackFromPlaylist(PlayList &list)

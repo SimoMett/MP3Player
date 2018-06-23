@@ -6,6 +6,15 @@
 #include <exception>
 #include <algorithm>
 
+Settings * Settings::singleIstance= nullptr;
+
+void Settings::Istantiate(string settingsfile)
+{
+    if(singleIstance== nullptr) {
+        singleIstance=new Settings(settingsfile);
+    }
+}
+
 Settings::Settings(string cfg) : settingsPath(cfg)
 {
 
@@ -26,19 +35,30 @@ void Settings::LoadSettings(string file)
     try {
         //TODO implement
         wxXmlDocument doc;
-        doc.Load(settingsPath);
+        doc.Load(settingsPath,"UTF-8");
 
         wxXmlNode *root = doc.GetRoot();
         if (root == nullptr || root->GetName() != "Settings")
             throw std::runtime_error("'settings.xml' has a bad format. Default settings will be loaded");
 
         wxXmlNode *node = root->GetChildren();
-        while (node) {
-            if (node->GetName() == "volume") {
-                wxString value;
-                node->GetAttribute("volume", &value);
-                cout << "value = " + value << endl;
+        while (node)
+        {
+            if (node->GetName() == "volume")
+            {
+                wxXmlAttribute *attributes=node->GetAttributes();
+                while(attributes)
+                {
+                    if(attributes->GetName()=="value")
+                    {
+                        float val;
+                        val=stof(attributes->GetValue().ToStdString());
+                        setSavedVolume(val);
+                    }
+                    attributes=attributes->GetNext();
+                }
             }
+            node=node->GetNext();
         }
     }
 
@@ -46,10 +66,9 @@ void Settings::LoadSettings(string file)
     {
         cerr<<e.what()<<endl;
         //TODO handle exception (load default values)
-        savedVolume=100;
+        setSavedVolume(100);
         SaveSettings();
     }
-
 }
 
 void Settings::SaveSettings()
@@ -63,6 +82,8 @@ void Settings::SaveSettings()
     }
     else
     {
+        doc.SetFileEncoding("UTF-8");
+        doc.SetVersion("1.0");
         wxXmlNode * root=new wxXmlNode(nullptr,wxXML_ELEMENT_NODE,"Settings");
         doc.SetRoot(root);
 
@@ -71,6 +92,12 @@ void Settings::SaveSettings()
 
         wxStringOutputStream stream;
         doc.Save(stream);
+        wxFile file(settingsPath,wxFile::OpenMode::write);
+        if(file.IsOpened())
+        {
+            file.Write(stream.GetString());
+            file.Close();
+        }
     }
 }
 
