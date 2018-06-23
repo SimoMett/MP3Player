@@ -6,8 +6,16 @@
 #define MP3PLAYER_SLIDER_H
 
 #include "Observer.h"
+#include "Subject.h"
 
-class Slider : public Observer{
+class Slider : public Observer
+{
+public:
+    Slider();
+
+    //Mp3Player * playerInstance;
+    Subject * subject;
+    int sliderValue;
 
 };
 
