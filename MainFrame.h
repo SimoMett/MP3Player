@@ -9,6 +9,7 @@
 #include <wx/listctrl.h>
 #include "MainApp.h"
 #include "TrackSlider.h"
+#include <wx/mediactrl.h>
 
 enum
 {
@@ -18,7 +19,8 @@ enum
     ID_Credits=wxID_HIGHEST+4,
     ID_NextTrackButton=wxID_HIGHEST+5,
     ID_PrevTrackButton=wxID_HIGHEST+6,
-    ID_VolumeSlider=wxID_HIGHEST+7
+    ID_VolumeSlider=wxID_HIGHEST+7,
+    ID_MediaCtrl=wxID_HIGHEST+8
 };
 
 class MainFrame : public wxFrame {
@@ -30,11 +32,13 @@ public:
     wxButton * playButton;
     wxButton * nextTrackButton;
     wxButton * previousTrackButton;
+    wxMediaCtrl * mediaCtrl;
 
     void OnOpenFile(wxCommandEvent& event);
     void OnSlider(wxCommandEvent & event);//Just for test
     void PlayButton(wxCommandEvent &event);
     void OnCreditsButton(wxCommandEvent & event);
+    void TestPlay(wxCommandEvent & event);
 
 private:
     void menuSetup();

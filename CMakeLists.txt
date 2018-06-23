@@ -3,7 +3,7 @@ project(MP3Player)
 
 set(CMAKE_CXX_STANDARD 11)
 
-find_package(wxWidgets REQUIRED net gl core base adv xml)
+find_package(wxWidgets REQUIRED net core base adv xml media)
 include(${wxWidgets_USE_FILE})
 
 add_subdirectory(GTest)

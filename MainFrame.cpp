@@ -8,7 +8,6 @@
 #include "Mp3Player.h"
 #include "Slider.h"
 
-
 MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &size) : wxFrame(nullptr,wxID_ANY,title,pos,size)
 {
     this->SetMinSize(wxSize(430,320));
@@ -27,13 +26,13 @@ MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &si
 void MainFrame::bindingsSetup()
 {
     Bind(wxEVT_MENU, &MainFrame::OnOpenFile, this, ID_Open);
-    //Bind(wxEVT_SCROLL_THUMBRELEASE,&TrackSlider::OnValueChanged);
     Bind(wxEVT_SCROLL_THUMBRELEASE, &MainFrame::OnSlider, this, ID_TrackSlider);
     Bind(wxEVT_BUTTON, &MainFrame::PlayButton, this, ID_PlayButton);
     Bind(wxEVT_MENU, &MainFrame::OnCreditsButton, this, ID_Credits);
     //TODO Bind NextTrackButton
     //TODO Bind PrevTrackButton
     //
+    Bind(wxEVT_MEDIA_LOADED,&MainFrame::TestPlay,this,ID_MediaCtrl);
 
 }
 
@@ -64,6 +63,10 @@ void MainFrame::widgetsSetup() {
     mainBoxSizer->Add(buttonSizer);
 
     SetSizer(mainBoxSizer);
+
+
+    mediaCtrl=new wxMediaCtrl(this,ID_MediaCtrl);
+    mediaCtrl->Load("resources/Demons - Imagine Dragons.mp3");
 }
 
 void MainFrame::OnOpenFile(wxCommandEvent& event)
@@ -94,7 +97,8 @@ void MainFrame::OnCreditsButton(wxCommandEvent &event)
     wxMessageBox("Mp3Player written by:\nMatteo Simonetti\nFilippo Amidei\n\nThis application uses wxWidgets library","Credits");
 }
 
-void MainFrame::menuSetup() {
+void MainFrame::menuSetup()
+{
     wxMenu * fileMenu=new wxMenu;
     fileMenu->Append(ID_Open,"&Open\tCTRL+O", "Open a track");
 
@@ -106,6 +110,14 @@ void MainFrame::menuSetup() {
     menuBar->Append(infoMenu,"&About");
     SetMenuBar(menuBar );
     CreateStatusBar();
+}
+
+void MainFrame::TestPlay(wxCommandEvent &event)
+{
+    cout << "Loaded "<<mediaCtrl->GetName()<<endl;
+    cout << "Duration : "<<mediaCtrl->Length()/1000<<" Seconds"<<endl;
+    mediaCtrl->Play();
+    mediaCtrl->SetVolume(0.1);
 }
 
 wxIMPLEMENT_APP(MainApp);
