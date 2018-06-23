@@ -21,6 +21,7 @@ class Mp3Player : public Subject{
 
 public:
     Mp3Player();
+    ~Mp3Player();
 
     PlayList mainLibrary;
     vector <shared_ptr<PlayList>> playlists;
@@ -41,6 +42,14 @@ public:
     static const Mp3Player & getMp3PlayerIstance(){
         return *(currentPlayer);
     }
+
+    static Mp3Player * getMp3PlayerIstancePtr(){
+        return currentPlayer.get();
+    }
+
+    int getCurrentTrackTiming() const {
+        return currentTrackTiming;
+    };
 
 private:
     static unique_ptr<Mp3Player> currentPlayer;
