@@ -32,8 +32,8 @@ Settings::~Settings()
 
 void Settings::LoadSettings(string file)
 {
-    try {
-        //TODO implement
+    try
+    {
         wxXmlDocument doc;
         doc.Load(settingsPath,"UTF-8");
 
@@ -67,6 +67,7 @@ void Settings::LoadSettings(string file)
         cerr<<e.what()<<endl;
         //TODO handle exception (load default values)
         setSavedVolume(100);
+        //Recreate a correct xml file
         SaveSettings();
     }
 }
@@ -78,7 +79,7 @@ void Settings::SaveSettings()
     {
         wxFile settings(settingsPath, wxFile::OpenMode::write_excl);
         settings.Close();
-        SaveSettings();//Recursive call to avoid to repeat the else statement under here
+        SaveSettings();//Recursive call to avoid repeating the else statement under here
     }
     else
     {
