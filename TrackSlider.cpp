@@ -15,3 +15,8 @@ void TrackSlider::update()
 
     wxSlider::SetValue(val);
 }
+
+void TrackSlider::OnValueChanged()
+{
+    cout<<wxSlider::GetValue()<<endl;
+}

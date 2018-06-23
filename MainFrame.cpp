@@ -27,7 +27,8 @@ MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &si
 void MainFrame::bindingsSetup()
 {
     Bind(wxEVT_MENU, &MainFrame::OnOpenFile, this, ID_Open);
-    Bind(wxEVT_SLIDER, &MainFrame::OnSlider, this, ID_TrackSlider);
+    //Bind(wxEVT_SCROLL_THUMBRELEASE,&TrackSlider::OnValueChanged);
+    Bind(wxEVT_SCROLL_THUMBRELEASE, &MainFrame::OnSlider, this, ID_TrackSlider);
     Bind(wxEVT_BUTTON, &MainFrame::PlayButton, this, ID_PlayButton);
     Bind(wxEVT_MENU, &MainFrame::OnCreditsButton, this, ID_Credits);
     //TODO Bind NextTrackButton
@@ -80,7 +81,7 @@ void MainFrame::OnOpenFile(wxCommandEvent& event)
 void MainFrame::OnSlider(wxCommandEvent &event)//Just for test
 {
     //Just for test
-    std::cout << trackSlider->GetValue()<<std::endl;
+    trackSlider->OnValueChanged();
 }
 
 void MainFrame::PlayButton(wxCommandEvent &event)
