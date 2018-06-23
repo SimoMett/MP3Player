@@ -19,7 +19,7 @@ class Settings {
 
 public:
 
-    static void Istantiate(string settingsfile="resources/settings.xml");
+    static Settings * Istantiate(string settingsfile="resources/settings.xml");
 
     void SaveSettings();
     void setSavedVolume(float val);

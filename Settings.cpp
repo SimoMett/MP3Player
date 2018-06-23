@@ -8,7 +8,7 @@
 
 Settings * Settings::singleIstance= nullptr;
 
-void Settings::Istantiate(string settingsfile)
+Settings * Settings::Istantiate(string settingsfile)
 {
     if(singleIstance== nullptr) {
         singleIstance=new Settings(settingsfile);

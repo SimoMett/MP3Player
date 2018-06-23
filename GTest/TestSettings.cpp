@@ -9,9 +9,9 @@
 
 TEST(Settings,DefaultConstructor)
 {
-    Settings s;
+    Settings * s=Settings::Istantiate();
 
-    ifstream file ("settings.xml");
+    ifstream file ("resources/settings.xml");
 
     ASSERT_TRUE(file.is_open());
 
