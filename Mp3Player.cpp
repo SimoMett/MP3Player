@@ -11,6 +11,7 @@ Mp3Player::Mp3Player() : mainLibrary("#mainLibrary")
     srand(time(nullptr));
     Settings::Istantiate();
     setVolume(Settings::getIstance()->getSavedVolume());
+    requestUpdate();
 }
 
 void Mp3Player::setVolume(float val)
