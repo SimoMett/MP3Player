@@ -70,6 +70,12 @@ MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &si
 void MainFrame::OnOpenFile(wxCommandEvent& event)
 {
     //TODO Import track and play it
+    wxFileCtrl * fileCtrl=new wxFileCtrl(this,wxID_ANY);
+    fileCtrl->SetWildcard("MP3 files (*.mp3)|*.mp3");
+
+    cout << fileCtrl->GetPath()<<endl;
+
+    delete fileCtrl;
 }
 
 void MainFrame::OnSlider(wxCommandEvent &event)//Just for test
