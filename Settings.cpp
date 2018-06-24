@@ -28,6 +28,7 @@ Settings::Settings(string cfg) : settingsPath(cfg)
 Settings::~Settings()
 {
     SaveSettings();
+    singleIstance= nullptr;
 }
 
 void Settings::LoadSettings(string file)

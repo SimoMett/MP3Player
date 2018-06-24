@@ -19,6 +19,8 @@ class Settings {
 
 public:
 
+    ~Settings();
+
     static Settings * Istantiate(string settingsfile="resources/settings.xml");
 
     void SaveSettings();
@@ -33,7 +35,7 @@ public:
 
 protected:
     explicit Settings(string settingsfile);
-    ~Settings();
+
 
 private:
     static Settings * singleIstance;
