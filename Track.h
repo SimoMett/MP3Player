@@ -16,7 +16,7 @@ class Track {
 
 public:
 
-    Track(string path): directory(path){};
+    Track(string path);
 
     string title;
     string artist;
