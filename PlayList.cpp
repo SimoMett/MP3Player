@@ -3,10 +3,17 @@
 //
 #include <algorithm>
 #include "PlayList.h"
+#include "Mp3Player.h"
 
 PlayList::PlayList(string _name) : name(_name)
 {
-    //TODO append to Mp3Player list of playlst
+    Mp3Player::getMp3PlayerIstancePtr()->playlists.push_back(shared_ptr<PlayList>(this));
+}
+
+PlayList::~PlayList()
+{
+    auto & playlistalias= Mp3Player::getMp3PlayerIstancePtr()->playlists;
+    playlistalias.erase(std::remove(playlistalias.begin(),playlistalias.end(),shared_ptr<PlayList>(this)));
 }
 
 bool PlayList::addTrack(shared_ptr<Track> track)
@@ -21,7 +28,8 @@ bool PlayList::removeTrack(shared_ptr<Track> track)
 
 bool PlayList::removeTrack(int index)
 {
-    //TODO implement
+    if(index > 0)
+        removeTrack(tracks[index]);
 }
 
 bool PlayList::rename(string & newName)

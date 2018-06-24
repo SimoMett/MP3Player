@@ -17,6 +17,7 @@ class PlayList {
 
 public:
     explicit PlayList(string _name);
+    ~PlayList();
 
     bool addTrack(shared_ptr<Track> track);
     bool removeTrack(shared_ptr<Track> track);
