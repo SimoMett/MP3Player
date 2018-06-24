@@ -7,7 +7,9 @@
 
 PlayList::PlayList(string _name) : name(_name)
 {
-    Mp3Player::getMp3PlayerIstancePtr()->playlists.push_back(shared_ptr<PlayList>(this));
+    //XXX do not append here or it will crash
+    //Mp3Player::getMp3PlayerIstancePtr()->playlists.push_back(shared_ptr<PlayList>(this));
+    //cout << (Mp3Player::getMp3PlayerIstancePtr())<<endl;
 }
 
 PlayList::~PlayList()

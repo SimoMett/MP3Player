@@ -20,7 +20,8 @@ using namespace std;
 class Mp3Player : public Subject{
 
 public:
-    Mp3Player();
+    static void Create();
+
     ~Mp3Player();
 
     PlayList mainLibrary;
@@ -39,19 +40,16 @@ public:
     Track & getRandomTrackFromPlaylist(PlayList & list);
     void setTrackPlayPoint(int seconds);
 
-    static Mp3Player & getMp3PlayerIstance(){
-        return *(currentPlayer);
-    }
-
     static Mp3Player * getMp3PlayerIstancePtr(){
         return currentPlayer;
     }
 
     int getCurrentTrackTiming() const {
         return currentTrackTiming;
-    };
+    }
 
 private:
+    Mp3Player();
     static Mp3Player * currentPlayer;
     static const float defaultVolume;
     int currentTrackTiming;

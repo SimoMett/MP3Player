@@ -4,8 +4,17 @@
 
 #include "Mp3Player.h"
 
-Mp3Player * Mp3Player::currentPlayer=nullptr;
+//unique_ptr<Mp3Player> Mp3Player::currentPlayer(nullptr);
+Mp3Player * Mp3Player::currentPlayer= nullptr;
 const float Mp3Player::defaultVolume=1;
+
+void Mp3Player::Create()
+{
+    if(currentPlayer== nullptr)
+    {
+        currentPlayer=new Mp3Player();
+    }
+}
 
 Mp3Player::Mp3Player() : mainLibrary("#mainLibrary")
 {
@@ -21,8 +30,8 @@ Mp3Player::Mp3Player() : mainLibrary("#mainLibrary")
 
 Mp3Player::~Mp3Player()
 {
-    if(Settings::getIstance()!= nullptr)
-        Settings::getIstance()->SaveSettings();
+    /*if(Settings::getIstance()!= nullptr)
+        Settings::getIstance()->SaveSettings();*/
     currentPlayer= nullptr;
 }
 

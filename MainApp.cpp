@@ -25,7 +25,7 @@ bool MainApp::OnInit()
     wxSleep(2);
     mainFrame->Show(true);
 
-    new Mp3Player();
+    Mp3Player::Create();
 
     return mainFrame!= nullptr;
 }

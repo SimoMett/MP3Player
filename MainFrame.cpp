@@ -86,8 +86,8 @@ void MainFrame::OnTrackSlider(wxCommandEvent &event)//Just for test
 void MainFrame::OnVolumeSlider(wxCommandEvent &event)
 {
     //volumeSlider->OnValueChanged();
-    Mp3Player::getMp3PlayerIstancePtr()->setVolume(volumeSlider->GetValue());
-    cout << "Volume : "<<Mp3Player::getMp3PlayerIstance().getVolume()<<endl;
+    //Mp3Player::getMp3PlayerIstancePtr()->setVolume(volumeSlider->GetValue());
+    //cout << "Volume : "<<Mp3Player::getMp3PlayerIstance().getVolume()<<endl;
 }
 
 void MainFrame::PlayButton(wxCommandEvent &event)
