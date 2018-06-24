@@ -15,7 +15,7 @@ public:
 
     void update() final ;
 
-    void OnValueChanged();
+    virtual void OnValueChanged() override ;
 };
 
 

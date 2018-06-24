@@ -17,6 +17,8 @@ public:
         playerInstance->detachObserver(shared_ptr<Observer>(this));
     }
 
+    virtual void OnValueChanged() override{};
+
     void update() final ;
 };
 
