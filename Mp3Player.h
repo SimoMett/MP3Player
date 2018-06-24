@@ -44,7 +44,7 @@ public:
     }
 
     static Mp3Player * getMp3PlayerIstancePtr(){
-        return currentPlayer.get();
+        return currentPlayer;
     }
 
     int getCurrentTrackTiming() const {
@@ -52,7 +52,7 @@ public:
     };
 
 private:
-    static unique_ptr<Mp3Player> currentPlayer;
+    static Mp3Player * currentPlayer;
     static const float defaultVolume;
     int currentTrackTiming;
     float volume;

@@ -4,7 +4,7 @@
 
 #include "Mp3Player.h"
 
-unique_ptr<Mp3Player> Mp3Player::currentPlayer(nullptr);
+Mp3Player * Mp3Player::currentPlayer=nullptr;
 const float Mp3Player::defaultVolume=1;
 
 Mp3Player::Mp3Player() : mainLibrary("#mainLibrary")
@@ -17,7 +17,7 @@ Mp3Player::Mp3Player() : mainLibrary("#mainLibrary")
 
 Mp3Player::~Mp3Player()
 {
-
+    //Settings::getIstance()->SaveSettings();
 }
 
 void Mp3Player::setVolume(float val)
