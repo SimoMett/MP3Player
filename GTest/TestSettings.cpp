@@ -3,9 +3,8 @@
 //
 
 #include <gtest/gtest.h>
-#include "../Settings.h"
 #include <fstream>
-
+#include "../Settings.h"
 
 TEST(Settings,DefaultConstructor)
 {
@@ -21,10 +20,7 @@ TEST(Settings,DefaultConstructor)
 
 TEST(Settings,TestLoadSettings)
 {
+    Settings * s=Settings::Istantiate();
 
-}
-
-TEST(Settings,TestSaveSettings)
-{
-
+    delete s;
 }
