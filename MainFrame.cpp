@@ -17,53 +17,49 @@ MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &si
     widgetsSetup();
 
     bindingsSetup();
-
-    //Logic part
-    shared_ptr<Mp3Player> player(new Mp3Player());
-
 }
 
 void MainFrame::bindingsSetup()
 {
     Bind(wxEVT_MENU, &MainFrame::OnOpenFile, this, ID_Open);
-    Bind(wxEVT_SCROLL_THUMBRELEASE, &MainFrame::OnSlider, this, ID_TrackSlider);
-    Bind(wxEVT_BUTTON, &MainFrame::PlayButton, this, ID_PlayButton);
     Bind(wxEVT_MENU, &MainFrame::OnCreditsButton, this, ID_Credits);
-    //TODO Bind NextTrackButton
-    //TODO Bind PrevTrackButton
-    //
+    Bind(wxEVT_SCROLL_THUMBRELEASE, &MainFrame::OnTrackSlider, this, ID_TrackSlider);
+    Bind(wxEVT_SLIDER,&MainFrame::OnVolumeSlider,this,ID_VolumeSlider);
+    Bind(wxEVT_BUTTON, &MainFrame::PlayButton, this, ID_PlayButton);
+    Bind(wxEVT_BUTTON,&MainFrame::NextTrackButton,this,ID_NextTrackButton);
+    Bind(wxEVT_BUTTON,&MainFrame::PrevTrackButton,this,ID_PrevTrackButton);
     Bind(wxEVT_MEDIA_LOADED,&MainFrame::TestPlay,this,ID_MediaCtrl);
-
 }
 
-void MainFrame::widgetsSetup() {
+void MainFrame::widgetsSetup()
+{
     wxBoxSizer * mainBoxSizer=new wxBoxSizer(wxVERTICAL);
 
-    trackSlider =new TrackSlider(Mp3Player::getMp3PlayerIstancePtr(), this, ID_TrackSlider, 80, 0, 100, wxPoint(0, 10), wxSize(500, 25), wxSL_HORIZONTAL, wxDefaultValidator, "VolumeSlider");
     //Slider * newSlider=new Slider(Mp3Player::getMp3PlayerIstancePtr(),Mp3Player::getMp3PlayerIstance().getVolume());
+    trackSlider =new TrackSlider(Mp3Player::getMp3PlayerIstancePtr(), this, ID_TrackSlider, 80, 0, 100, wxDefaultPosition, wxSize(600, 25), wxSL_HORIZONTAL, wxDefaultValidator, "VolumeSlider");
+    volumeSlider=new VolumeSlider(Mp3Player::getMp3PlayerIstancePtr(),this,ID_VolumeSlider,100,0,100,wxDefaultPosition,wxSize(150,25));
 
-
-    playButton =new wxButton(this, ID_PlayButton, "PlayButton");
-    nextTrackButton =new wxButton(this, ID_NextTrackButton, "NextTrack");
-    previousTrackButton =new wxButton(this, ID_PrevTrackButton, "PrevTrack");
+    playButton =new wxButton(this, ID_PlayButton, "Play");
+    nextTrackButton =new wxButton(this, ID_NextTrackButton, "Next");
+    previousTrackButton =new wxButton(this, ID_PrevTrackButton, "Previous");
 
     //wxListCtrl * testList=new wxListCtrl(this,wxID_ANY,wxPoint(100,100),wxSize(200,200),wxLC_REPORT);
     //testList->AppendColumn(wxString("Reed"),wxLIST_FORMAT_LEFT,50);
 
     //Composing boxSizer
-    mainBoxSizer->AddStretchSpacer(1);
+    mainBoxSizer->AddStretchSpacer();
     mainBoxSizer->Add(trackSlider, 0, wxALIGN_CENTER | wxALIGN_BOTTOM);
 
-
-    wxBoxSizer * buttonSizer=new wxBoxSizer(wxHORIZONTAL);//TODO Align this boxSizer
-
+    wxBoxSizer * buttonSizer=new wxBoxSizer(wxHORIZONTAL);
     buttonSizer->Add(previousTrackButton, 0, wxALIGN_CENTER);
     buttonSizer->Add(playButton, 0, wxALIGN_CENTER);
     buttonSizer->Add(nextTrackButton, 0, wxALIGN_CENTER);
-    mainBoxSizer->Add(buttonSizer);
+
+    mainBoxSizer->Add(buttonSizer,0,wxALIGN_CENTER_HORIZONTAL);
+    buttonSizer->AddSpacer(100);
+    buttonSizer->Add(volumeSlider,0,wxALIGN_RIGHT);
 
     SetSizer(mainBoxSizer);
-
 
     mediaCtrl=new wxMediaCtrl(this,ID_MediaCtrl);
     mediaCtrl->Load("resources/Demons - Imagine Dragons.mp3");
@@ -81,15 +77,32 @@ void MainFrame::OnOpenFile(wxCommandEvent& event)
     delete fileCtrl;
 }
 
-void MainFrame::OnSlider(wxCommandEvent &event)//Just for test
+void MainFrame::OnTrackSlider(wxCommandEvent &event)//Just for test
 {
     //Just for test
     trackSlider->OnValueChanged();
 }
 
+void MainFrame::OnVolumeSlider(wxCommandEvent &event)
+{
+    //volumeSlider->OnValueChanged();
+    Mp3Player::getMp3PlayerIstancePtr()->setVolume(volumeSlider->GetValue());
+    cout << "Volume : "<<Mp3Player::getMp3PlayerIstance().getVolume()<<endl;
+}
+
 void MainFrame::PlayButton(wxCommandEvent &event)
 {
     std::cout<< "playButton"<<std::endl;
+}
+
+void MainFrame::NextTrackButton(wxCommandEvent &event)
+{
+    //TODO
+}
+
+void MainFrame::PrevTrackButton(wxCommandEvent &event)
+{
+    //TODO
 }
 
 void MainFrame::OnCreditsButton(wxCommandEvent &event)
@@ -116,7 +129,7 @@ void MainFrame::TestPlay(wxCommandEvent &event)
 {
     cout << "Loaded "<<mediaCtrl->GetName()<<endl;
     cout << "Duration : "<<mediaCtrl->Length()/1000<<" Seconds"<<endl;
-    mediaCtrl->Play();
+    //mediaCtrl->Play();
     mediaCtrl->SetVolume(0.1);
 }
 

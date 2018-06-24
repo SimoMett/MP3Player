@@ -7,9 +7,10 @@
 
 #include <wx/wx.h>
 #include <wx/listctrl.h>
+#include <wx/mediactrl.h>
 #include "MainApp.h"
 #include "TrackSlider.h"
-#include <wx/mediactrl.h>
+#include "VolumeSlider.h"
 
 enum
 {
@@ -29,14 +30,18 @@ public:
     MainFrame(const wxString& title, const wxPoint& pos, const wxSize& size);
 
     TrackSlider * trackSlider;
+    VolumeSlider * volumeSlider;
     wxButton * playButton;
     wxButton * nextTrackButton;
     wxButton * previousTrackButton;
     wxMediaCtrl * mediaCtrl;
 
     void OnOpenFile(wxCommandEvent& event);
-    void OnSlider(wxCommandEvent & event);//Just for test
+    void OnTrackSlider(wxCommandEvent &event);
+    void OnVolumeSlider(wxCommandEvent & event);
     void PlayButton(wxCommandEvent &event);
+    void NextTrackButton(wxCommandEvent & event);
+    void PrevTrackButton(wxCommandEvent & event);
     void OnCreditsButton(wxCommandEvent & event);
     void TestPlay(wxCommandEvent & event);
 
