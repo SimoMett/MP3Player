@@ -32,5 +32,5 @@ bool MainApp::OnInit()
 
 int MainApp::OnExit()
 {
-    //TODO save settings
+    delete Mp3Player::getMp3PlayerIstancePtr();
 }
