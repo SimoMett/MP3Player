@@ -39,7 +39,7 @@ public:
     Track & getRandomTrackFromPlaylist(PlayList & list);
     void setTrackPlayPoint(int seconds);
 
-    static const Mp3Player & getMp3PlayerIstance(){
+    static Mp3Player & getMp3PlayerIstance(){
         return *(currentPlayer);
     }
 

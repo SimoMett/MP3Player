@@ -7,8 +7,8 @@
 
 TEST(Mp3Player,Contructor)
 {
-    Mp3Player p;
-    ASSERT_EQ("#mainLibrary",p.mainLibrary.getName());
+    Mp3Player * p=new Mp3Player();
+    ASSERT_EQ("#mainLibrary",p->mainLibrary.getName());
 }
 
 TEST(Mp3Player,setVolume)

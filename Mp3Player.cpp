@@ -9,15 +9,21 @@ const float Mp3Player::defaultVolume=1;
 
 Mp3Player::Mp3Player() : mainLibrary("#mainLibrary")
 {
-    srand(time(nullptr));
-    Settings::Istantiate();
-    setVolume(Settings::getIstance()->getSavedVolume());
-    requestUpdate();
+    if(currentPlayer== nullptr)
+    {
+        srand(time(nullptr));
+        Settings::Istantiate();
+        setVolume(Settings::getIstance()->getSavedVolume());
+        requestUpdate();
+        currentPlayer=this;
+    }
 }
 
 Mp3Player::~Mp3Player()
 {
-    //Settings::getIstance()->SaveSettings();
+    if(Settings::getIstance()!= nullptr)
+        Settings::getIstance()->SaveSettings();
+    currentPlayer= nullptr;
 }
 
 void Mp3Player::setVolume(float val)
