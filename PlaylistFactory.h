@@ -11,7 +11,10 @@
 class PlaylistFactory {
 
 public:
-    PlayList * createPlaylist(string name);
+    PlayList * createPlaylist(string name)
+    {
+        return new PlayList(name);
+    }
 
 };
 
