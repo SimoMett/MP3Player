@@ -9,12 +9,12 @@
 
 TEST(PlayList,construction)
 {
-    Mp3Player p;
+    Mp3Player::Create();
     PlaylistFactory f;
     PlayList * list=f.createPlaylist("lista1");
 
     bool ok=false;
-    for(auto item : p.playlists)
+    for(auto item : Mp3Player::getMp3PlayerIstancePtr()->playlists)
     {
         if(item->getName()=="lista1")
             ok=true;
