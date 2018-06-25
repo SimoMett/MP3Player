@@ -21,6 +21,6 @@ TEST(Settings,DefaultConstructor)
 TEST(Settings,TestLoadSettings)
 {
     Settings * s=Settings::Istantiate();
-
+//TODO
     delete s;
 }

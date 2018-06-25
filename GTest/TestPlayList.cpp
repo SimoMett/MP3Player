@@ -27,9 +27,11 @@ TEST(PlayList, save)
 {
     PlaylistFactory f;
     PlayList * list=f.createPlaylist("lista");
+    TrackFactory t;
+    list->addTrack(t.importTrack("directory/file.mp3"));
     list->save();
 
-    ifstream file ("playlists/lista.xml");
+    ifstream file ("resources/playlists/lista.xml");
 
     ASSERT_TRUE(file.is_open());
 
