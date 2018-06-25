@@ -31,7 +31,7 @@ public:
         return name;
     }
 
-    void save();
+    virtual void save();
 
 protected:
 

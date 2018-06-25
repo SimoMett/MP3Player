@@ -38,6 +38,7 @@ bool PlayList::removeTrack(int index)
 
 bool PlayList::rename(string & newName)
 {
+    //TODO check if there are playlists with same name, in case deny rename
     //TODO if playlist is already saved (existing xml file) rename the file also
     name=newName;
 }
