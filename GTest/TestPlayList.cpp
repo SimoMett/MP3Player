@@ -20,5 +20,19 @@ TEST(PlayList,construction)
             ok=true;
     }
 
-    ASSERT_EQ(ok,true);
+    ASSERT_TRUE(ok);
+}
+
+TEST(PlayList, save)
+{
+    PlaylistFactory f;
+    PlayList * list=f.createPlaylist("lista");
+    list->save();
+
+    ifstream file ("playlists/lista.xml");
+
+    ASSERT_TRUE(file.is_open());
+
+    if(file.is_open())
+        file.close();
 }
