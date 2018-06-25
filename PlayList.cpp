@@ -45,5 +45,42 @@ bool PlayList::rename(string & newName)
 
 void PlayList::save()
 {
-    //TODO
+    string path="resources/playlists/"+name+".xml";
+    wxXmlDocument doc;
+
+    if(!wxFileExists(path))
+    {
+        std::ofstream outfile (path);
+        outfile.close();
+    }
+    else
+        doc.Load(path);
+
+    doc.SetVersion("1.0");
+    doc.SetFileEncoding("UTF-8");
+
+    wxXmlNode * root=new wxXmlNode(nullptr,wxXML_ELEMENT_NODE,"Playlist");
+    doc.SetRoot(root);
+
+    vector<wxXmlNode*> trackNodes;
+    trackNodes.reserve(tracks.size());
+
+    wxXmlNode * trackNode=new wxXmlNode(root,wxXML_ELEMENT_NODE,"Track");
+
+    for(auto item : tracks)
+    {
+        wxXmlNode * tmp=new wxXmlNode(wxXML_TEXT_NODE, "", item->getDirectory());
+        trackNode->AddChild(tmp);
+        trackNodes.push_back(tmp);
+    }
+
+    wxStringOutputStream stream;
+    doc.Save(stream);
+
+    wxFile file(path,wxFile::OpenMode::write);
+    if(file.IsOpened())
+    {
+        file.Write(stream.GetString());
+        file.Close();
+    }
 }
