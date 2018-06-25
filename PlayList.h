@@ -31,6 +31,8 @@ public:
         return name;
     }
 
+    void save();
+
 protected:
 
     string name;

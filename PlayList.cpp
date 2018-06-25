@@ -16,6 +16,8 @@ PlayList::~PlayList()
 {
     auto & playlistalias= Mp3Player::getMp3PlayerIstancePtr()->playlists;
     playlistalias.erase(std::remove(playlistalias.begin(),playlistalias.end(),shared_ptr<PlayList>(this)));
+
+    save();
 }
 
 bool PlayList::addTrack(shared_ptr<Track> track)
@@ -36,5 +38,11 @@ bool PlayList::removeTrack(int index)
 
 bool PlayList::rename(string & newName)
 {
+    //TODO if playlist is already saved (existing xml file) rename the file also
     name=newName;
+}
+
+void PlayList::save()
+{
+    //TODO
 }
