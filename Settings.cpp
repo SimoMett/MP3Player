@@ -76,30 +76,28 @@ void Settings::LoadSettings(string file)
 void Settings::SaveSettings()
 {
     wxXmlDocument doc(settingsPath);
+
     if(!wxFileExists(settingsPath))
     {
         wxFile settings(settingsPath, wxFile::OpenMode::write_excl);
         settings.Close();
-        SaveSettings();//Recursive call to avoid repeating the else statement under here
     }
-    else
+
+    doc.SetFileEncoding("UTF-8");
+    doc.SetVersion("1.0");
+    wxXmlNode * root=new wxXmlNode(nullptr,wxXML_ELEMENT_NODE,"Settings");
+    doc.SetRoot(root);
+
+    wxXmlNode * node=new wxXmlNode(root,wxXML_ELEMENT_NODE,"volume");
+    node->AddAttribute("value",std::to_string(savedVolume));
+
+    wxStringOutputStream stream;
+    doc.Save(stream);
+    wxFile file(settingsPath,wxFile::OpenMode::write);
+    if(file.IsOpened())
     {
-        doc.SetFileEncoding("UTF-8");
-        doc.SetVersion("1.0");
-        wxXmlNode * root=new wxXmlNode(nullptr,wxXML_ELEMENT_NODE,"Settings");
-        doc.SetRoot(root);
-
-        wxXmlNode * node=new wxXmlNode(root,wxXML_ELEMENT_NODE,"volume");
-        node->AddAttribute("value",std::to_string(savedVolume));
-
-        wxStringOutputStream stream;
-        doc.Save(stream);
-        wxFile file(settingsPath,wxFile::OpenMode::write);
-        if(file.IsOpened())
-        {
-            file.Write(stream.GetString());
-            file.Close();
-        }
+        file.Write(stream.GetString());
+        file.Close();
     }
 }
 
