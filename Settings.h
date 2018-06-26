@@ -35,7 +35,6 @@ public:
 protected:
     explicit Settings(string settingsfile);
 
-
 private:
     static Settings * singleIstance;
     float savedVolume;

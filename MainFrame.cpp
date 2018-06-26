@@ -10,7 +10,7 @@
 
 MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &size) : wxFrame(nullptr,wxID_ANY,title,pos,size)
 {
-    this->SetMinSize(wxSize(430,320));
+    SetMinSize(wxSize(430,320));
 
     menuSetup();
 
@@ -39,7 +39,8 @@ void MainFrame::widgetsSetup()
     trackSlider =new TrackSlider(Mp3Player::getMp3PlayerIstancePtr(), this, ID_TrackSlider, 80, 0, 100, wxDefaultPosition, wxSize(600, 25), wxSL_HORIZONTAL, wxDefaultValidator, "VolumeSlider");
     volumeSlider=new VolumeSlider(Mp3Player::getMp3PlayerIstancePtr(),this,ID_VolumeSlider,100,0,100,wxDefaultPosition,wxSize(150,25));
 
-    playButton =new wxButton(this, ID_PlayButton, "Play");
+    //TODO Buttons to be replaced with bitmap Buttons
+    playButton =new wxButton(this, ID_PlayButton, "PlayPause");
     nextTrackButton =new wxButton(this, ID_NextTrackButton, "Next");
     previousTrackButton =new wxButton(this, ID_PrevTrackButton, "Previous");
 
@@ -63,6 +64,20 @@ void MainFrame::widgetsSetup()
 
     mediaCtrl=new wxMediaCtrl(this,ID_MediaCtrl);
     mediaCtrl->Load("resources/Demons - Imagine Dragons.mp3");
+
+    //PlayLists listbox
+    wxBoxSizer * panel=new wxBoxSizer(wxVERTICAL);
+    //wxScrolled
+    //wxScrollBar * bar=new wxScrollBar(this,wxID_ANY,wxDefaultPosition,wxSize(0,400),wxVERTICAL);
+    wxListBox * playListsBox=new wxListBox(this,wxID_ANY,wxDefaultPosition,wxSize(200,200));
+
+    panel->Add(playListsBox,wxALIGN_LEFT);
+
+    for(int i=0;i<10;i++)
+    {
+        playListsBox->Append(string("testo"));
+    }
+
 }
 
 void MainFrame::OnOpenFile(wxCommandEvent& event)
@@ -92,7 +107,25 @@ void MainFrame::OnVolumeSlider(wxCommandEvent &event)
 
 void MainFrame::PlayButton(wxCommandEvent &event)
 {
-    std::cout<< "playButton"<<std::endl;
+    switch(mediaCtrl->GetState())
+    {
+        case wxMEDIASTATE_STOPPED:
+        {
+            //TODO select a track
+            mediaCtrl->Play();
+            break;
+        }
+        case wxMEDIASTATE_PAUSED:
+        {
+            mediaCtrl->Play();
+            break;
+        }
+        case wxMEDIASTATE_PLAYING:
+        {
+            mediaCtrl->Pause();
+            break;
+        }
+    }
 }
 
 void MainFrame::NextTrackButton(wxCommandEvent &event)
