@@ -23,6 +23,24 @@ TEST(PlayList,construction)
     ASSERT_TRUE(ok);
 }
 
+TEST(PlayList, newSave)
+{
+    remove("resources/playlists/lista.xml");
+
+    PlaylistFactory f;
+    PlayList * list=f.createPlaylist("lista");
+    TrackFactory t;
+    list->addTrack(t.importTrack("directory/file.mp3"));
+    list->save();
+
+    ifstream file ("resources/playlists/lista.xml");
+
+    ASSERT_TRUE(file.is_open());
+
+    if(file.is_open())
+        file.close();
+}
+
 TEST(PlayList, save)
 {
     PlaylistFactory f;
