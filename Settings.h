@@ -18,7 +18,6 @@ using namespace std;
 class Settings {
 
 public:
-
     ~Settings();
 
     static Settings * Istantiate(string settingsfile="resources/settings.xml");

@@ -18,9 +18,22 @@ TEST(Settings,DefaultConstructor)
         file.close();
 }
 
+TEST(Settings,TestNewLoadSettings)
+{
+    remove("resources/settings.xml");
+
+    Settings * s=Settings::Istantiate();
+
+    ASSERT_FLOAT_EQ(100,s->getSavedVolume());
+
+    delete s;
+}
+
 TEST(Settings,TestLoadSettings)
 {
     Settings * s=Settings::Istantiate();
-//TODO
+
+    ASSERT_FLOAT_EQ(100,s->getSavedVolume());
+
     delete s;
 }

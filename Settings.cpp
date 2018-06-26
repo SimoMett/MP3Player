@@ -13,13 +13,16 @@ Settings * Settings::Istantiate(string settingsfile)
     if(singleIstance== nullptr) {
         singleIstance=new Settings(settingsfile);
     }
+    return singleIstance;
 }
 
 Settings::Settings(string cfg) : settingsPath(cfg)
 {
 
-    if (!wxFileExists(cfg)) {
+    if (!wxFileExists(cfg))
+    {
         //Creates xml file and fills it with default values
+        setSavedVolume(100);
         SaveSettings();
     } else
         LoadSettings(cfg);
@@ -75,13 +78,16 @@ void Settings::LoadSettings(string file)
 
 void Settings::SaveSettings()
 {
-    wxXmlDocument doc(settingsPath);
+    wxXmlDocument doc;
 
     if(!wxFileExists(settingsPath))
     {
         wxFile settings(settingsPath, wxFile::OpenMode::write_excl);
         settings.Close();
     }
+    else
+        doc.Load(settingsPath);
+
 
     doc.SetFileEncoding("UTF-8");
     doc.SetVersion("1.0");
