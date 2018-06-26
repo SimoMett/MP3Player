@@ -38,11 +38,28 @@ bool PlayList::removeTrack(int index)
         removeTrack(tracks[index]);
 }
 
-bool PlayList::rename(string & newName)
+bool PlayList::rename(string newName)
 {
-    //TODO check if there are playlists with same name, in case deny rename
-    //TODO if playlist is already saved (existing xml file) rename the file also
-    name=newName;
+    bool existingName=false;
+    bool success=false;
+    for(auto item: existingLists)
+    {
+        if(item->name==newName)
+        {
+            existingName= true;
+            break;
+        }
+    }
+    if(!existingName)
+    {
+        if(wxFileExists("resources/playlists/"+name+".xml"))
+            wxRenameFile("resources/playlists/"+name+".xml","resources/playlists/"+newName+".xml", false);
+
+        name=newName;
+        save();
+        success=true;
+    }
+    return success;
 }
 
 void PlayList::save()

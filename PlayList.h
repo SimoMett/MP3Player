@@ -24,7 +24,7 @@ public:
     bool addTrack(shared_ptr<Track> track);
     bool removeTrack(shared_ptr<Track> track);
     bool removeTrack(int index);
-    bool rename(string & newName);
+    bool rename(string newName);
 
     Track & getTrack(int index) const{
         return *(tracks[index]);

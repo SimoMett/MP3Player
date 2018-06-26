@@ -56,3 +56,14 @@ TEST(PlayList, save)
     if(file.is_open())
         file.close();
 }
+
+TEST(PlayList,rename)
+{
+    PlaylistFactory f;
+    PlayList * list=f.createPlaylist("lista");
+    list->save();
+
+    list->rename("lista2");
+
+    ASSERT_TRUE(wxFileExists("resources/playlists/lista2.xml"));
+}
