@@ -50,7 +50,7 @@ bool PlayList::rename(string newName)
             break;
         }
     }
-    if(!existingName)
+    if(!existingName && !wxFileExists("resources/playlists/"+newName+".xml"))
     {
         if(wxFileExists("resources/playlists/"+name+".xml"))
             wxRenameFile("resources/playlists/"+name+".xml","resources/playlists/"+newName+".xml", false);
