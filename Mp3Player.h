@@ -25,7 +25,7 @@ public:
     ~Mp3Player();
 
     PlayList mainLibrary;
-    vector <shared_ptr<PlayList>> playlists;
+    vector <PlayList*> & playlists;
 
     shared_ptr<Track> currentTrack;
     bool mp3Looping;

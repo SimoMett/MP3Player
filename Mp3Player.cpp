@@ -16,16 +16,12 @@ void Mp3Player::Create()
     }
 }
 
-Mp3Player::Mp3Player() : mainLibrary("#mainLibrary")
+Mp3Player::Mp3Player() : mainLibrary("#mainLibrary"), playlists(PlayList::existingLists)
 {
-    if(currentPlayer== nullptr)
-    {
-        srand(time(nullptr));
-        Settings::Istantiate();
-        setVolume(Settings::getIstance()->getSavedVolume());
-        requestUpdate();
-        currentPlayer=this;
-    }
+    srand(time(nullptr));
+    Settings::Istantiate();
+    setVolume(Settings::getIstance()->getSavedVolume());
+    requestUpdate();
 }
 
 Mp3Player::~Mp3Player()

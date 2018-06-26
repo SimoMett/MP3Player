@@ -5,17 +5,19 @@
 #include "PlayList.h"
 #include "Mp3Player.h"
 
+vector<PlayList*> PlayList::existingLists;
+
 PlayList::PlayList(string _name) : name(_name)
 {
     //XXX do not append here or it will crash
     //Mp3Player::getMp3PlayerIstancePtr()->playlists.push_back(shared_ptr<PlayList>(this));
-    //cout << (Mp3Player::getMp3PlayerIstancePtr())<<endl;
+    existingLists.push_back(this);
 }
 
 PlayList::~PlayList()
 {
     auto & playlistalias= Mp3Player::getMp3PlayerIstancePtr()->playlists;
-    playlistalias.erase(std::remove(playlistalias.begin(),playlistalias.end(),shared_ptr<PlayList>(this)));
+    playlistalias.erase(std::remove(playlistalias.begin(),playlistalias.end(),this));
 
     save();
 }
