@@ -8,7 +8,7 @@
 TEST(Mp3Player,Contructor)
 {
     Mp3Player::Create();
-    Mp3Player * p=Mp3Player::getMp3PlayerIstancePtr();
+    Mp3Player * p= Mp3Player::getInstancePtr();
     ASSERT_EQ("#mainLibrary",p->mainLibrary.getName());
 }
 
@@ -22,7 +22,7 @@ TEST(Mp3Player,Destructor)
 TEST(Mp3Player,setVolume)
 {
     Mp3Player::Create();
-    Mp3Player &p=*(Mp3Player::getMp3PlayerIstancePtr());
+    Mp3Player &p=*(Mp3Player::getInstancePtr());
     p.setVolume(124);
     ASSERT_FLOAT_EQ(100,p.getVolume());
     p.setVolume(-2);
@@ -35,7 +35,7 @@ TEST(Mp3Player,setVolume)
 TEST(Mp3Player,setTrackPlaypoint)
 {
     Mp3Player::Create();
-    Mp3Player &p=*(Mp3Player::getMp3PlayerIstancePtr());
+    Mp3Player &p=*(Mp3Player::getInstancePtr());
     p.setTrackPlayPoint(20);
     ASSERT_EQ(20,p.getCurrentTrackTiming());
     p.setTrackPlayPoint(-5);

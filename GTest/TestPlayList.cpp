@@ -14,7 +14,7 @@ TEST(PlayList,construction)
     PlayList * list=f.createPlaylist("lista1");
 
     bool ok=false;
-    for(auto item : Mp3Player::getMp3PlayerIstancePtr()->playlists)
+    for(auto item : Mp3Player::getInstancePtr()->playlists)
     {
         if(item->getName()=="lista1")
             ok=true;

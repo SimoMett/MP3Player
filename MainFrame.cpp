@@ -37,9 +37,9 @@ void MainFrame::widgetsSetup()
 {
     wxBoxSizer * mainBoxSizer=new wxBoxSizer(wxVERTICAL);
 
-    //Slider * newSlider=new Slider(Mp3Player::getMp3PlayerIstancePtr(),Mp3Player::getMp3PlayerIstance().getVolume());
-    trackSlider =new TrackSlider(Mp3Player::getMp3PlayerIstancePtr(), this, ID_TrackSlider, 80, 0, 100, wxDefaultPosition, wxSize(600, 25), wxSL_HORIZONTAL, wxDefaultValidator, "VolumeSlider");
-    volumeSlider=new VolumeSlider(Mp3Player::getMp3PlayerIstancePtr(),this,ID_VolumeSlider,100,0,100,wxDefaultPosition,wxSize(150,25));
+    //Slider * newSlider=new Slider(Mp3Player::getInstancePtr(),Mp3Player::getMp3PlayerIstance().getVolume());
+    trackSlider =new TrackSlider(Mp3Player::getInstancePtr(), this, ID_TrackSlider, 80, 0, 100, wxDefaultPosition, wxSize(600, 25), wxSL_HORIZONTAL, wxDefaultValidator, "VolumeSlider");
+    volumeSlider=new VolumeSlider(Mp3Player::getInstancePtr(),this,ID_VolumeSlider,100,0,100,wxDefaultPosition,wxSize(150,25));
 
     //TODO Buttons to be replaced with bitmap Buttons
     playButton =new wxButton(this, ID_PlayButton, "PlayPause");
@@ -97,7 +97,7 @@ void MainFrame::OnTrackSlider(wxCommandEvent &event)//Just for test
 void MainFrame::OnVolumeSlider(wxCommandEvent &event)
 {
     //volumeSlider->OnValueChanged();
-    //Mp3Player::getMp3PlayerIstancePtr()->setVolume(volumeSlider->GetValue());
+    //Mp3Player::getInstancePtr()->setVolume(volumeSlider->GetValue());
     //cout << "Volume : "<<Mp3Player::getMp3PlayerIstance().getVolume()<<endl;
 }
 

@@ -41,7 +41,7 @@ public:
     Track & getRandomTrackFromPlaylist(PlayList & list);
     void setTrackPlayPoint(int seconds);
 
-    static Mp3Player * getMp3PlayerIstancePtr(){
+    static Mp3Player * getInstancePtr(){
         return currentPlayer;
     }
 
