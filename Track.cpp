@@ -8,5 +8,5 @@ Track::Track(string path) : directory(path)
 {
     title=path;
     title.erase(0,title.find_last_of("/")+1);
-    //TODO Retrieve other infos
+    //TODO Retrieve other infos (album name, artists, duration ...)
 }
