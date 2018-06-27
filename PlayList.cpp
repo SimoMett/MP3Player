@@ -102,3 +102,15 @@ void PlayList::save()
         file.Close();
     }
 }
+
+bool PlayList::isValidName(string name)
+{
+    bool valid=false;
+
+    string finalPath="resources/playlists/"+name+".xml";
+
+    if(!wxFileExists(finalPath))
+        valid=true;
+
+    return valid;
+}

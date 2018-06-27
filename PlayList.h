@@ -35,6 +35,8 @@ public:
 
     virtual void save();
 
+    static bool isValidName(string name);
+
 protected:
 
     string name;
