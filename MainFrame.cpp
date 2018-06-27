@@ -150,8 +150,12 @@ void MainFrame::menuSetup()
     wxMenu * infoMenu=new wxMenu;
     infoMenu->Append(ID_Credits,"&Credits");
 
+    wxMenu * editMenu=new wxMenu;
+    editMenu->Append(ID_NewPlayLst,"New Playlist");
+
     wxMenuBar *menuBar = new wxMenuBar;
-    menuBar->Append( fileMenu, "&File" );
+    menuBar->Append( fileMenu, "&File");
+    menuBar->Append(editMenu,"&Edit");
     menuBar->Append(infoMenu,"&About");
     SetMenuBar(menuBar );
     CreateStatusBar();

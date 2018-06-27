@@ -21,7 +21,8 @@ enum
     ID_NextTrackButton=wxID_HIGHEST+5,
     ID_PrevTrackButton=wxID_HIGHEST+6,
     ID_VolumeSlider=wxID_HIGHEST+7,
-    ID_MediaCtrl=wxID_HIGHEST+8
+    ID_MediaCtrl=wxID_HIGHEST+8,
+    ID_NewPlayLst=wxID_HIGHEST+9
 };
 
 class MainFrame : public wxFrame {
