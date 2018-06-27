@@ -12,6 +12,14 @@ TEST(Mp3Player,Contructor)
     ASSERT_EQ("#mainLibrary",p->mainLibrary.getName());
 }
 
+TEST(Mp3Player,Destructor)
+{
+    Mp3Player::Create();
+    Mp3Player * p=Mp3Player::getMp3PlayerIstancePtr();
+
+    delete Mp3Player::getMp3PlayerIstancePtr();
+}
+
 TEST(Mp3Player,setVolume)
 {
     Mp3Player::Create();
