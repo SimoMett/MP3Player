@@ -15,6 +15,6 @@ Slider::Slider(Mp3Player * _subject, wxWindow *parent, wxWindowID id, int value,
 
 Slider::~Slider()
 {
-    //FIXME this is where the segmentation violation comes on exit
+    //this is where the segmentation violation comes on exit
     //playerInstance->detachObserver(shared_ptr<Observer>(this));
 }

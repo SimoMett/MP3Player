@@ -21,6 +21,7 @@ class Mp3Player : public Subject{
 
 public:
     static void Create();
+    static void Destroy();
 
     ~Mp3Player();
 

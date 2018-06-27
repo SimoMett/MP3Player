@@ -24,18 +24,24 @@ Mp3Player::Mp3Player() : mainLibrary("#mainLibrary"), playlists(PlayList::existi
     requestUpdate();
 }
 
+void Mp3Player::Destroy()
+{
+    if(currentPlayer!= nullptr)
+    {
+        currentPlayer->mainLibrary.save();
+
+        for(auto item : currentPlayer->observers)
+        {
+            delete item;
+        }
+        currentPlayer->observers.clear();
+        delete currentPlayer;
+    }
+}
+
 Mp3Player::~Mp3Player()
 {
-    /*if(Settings::getIstance()!= nullptr)
-        Settings::getIstance()->SaveSettings();*/
     currentPlayer= nullptr;
-    mainLibrary.save();
-
-    for(auto item : observers)
-    {
-        delete item;
-    }
-    observers.clear();
 }
 
 void Mp3Player::setVolume(float val)
