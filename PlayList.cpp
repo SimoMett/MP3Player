@@ -16,9 +16,8 @@ PlayList::PlayList(string _name) : name(_name)
 
 PlayList::~PlayList()
 {
-    auto & playlistalias= Mp3Player::getMp3PlayerIstancePtr()->playlists;
-    playlistalias.erase(std::remove(playlistalias.begin(),playlistalias.end(),this));
-
+    //auto & playlistalias= Mp3Player::getMp3PlayerIstancePtr()->playlists;
+    existingLists.erase(std::remove(existingLists.begin(),existingLists.end(),this));
     save();
 }
 
