@@ -196,15 +196,21 @@ void MainFrame::OnNewPlayList(wxCommandEvent &event)
 
 void MainFrame::playlistBoxSetup()
 {
-    //PlayLists listbox
     wxBoxSizer * panel=new wxBoxSizer(wxVERTICAL);
     //wxScrolled
     //wxScrollBar * bar=new wxScrollBar(this,wxID_ANY,wxDefaultPosition,wxSize(0,400),wxVERTICAL);
-    playListsBox=new wxListBox(this,wxID_ANY,wxDefaultPosition,wxSize(200,200));
-    wxSize siz=GetSize();
-    playListsBox->SetSize(200,siz.y);
 
-    panel->Add(playListsBox,wxALIGN_LEFT);
+    playListsBox=new wxListBox(this,wxID_ANY,wxDefaultPosition,wxSize(200,300));
+    //wxSize siz=GetSize();
+    //panel->Add(playListsBox);
+    //playListsBox->SetSize(200,siz.y);
+    //TODO this listBox should resize when main frame resize
+
+    //panel->Add(playListsBox,wxEXPAND);
+    //panel->SetMinSize(430,320);
+    panel->Add(playListsBox,1,wxVERTICAL);
+
+    //SetSizerAndFit(panel);
 }
 
 wxIMPLEMENT_APP(MainApp);
