@@ -36,6 +36,7 @@ public:
     wxButton * nextTrackButton;
     wxButton * previousTrackButton;
     wxMediaCtrl * mediaCtrl;
+    wxListBox * playListsBox;
 
     void OnOpenFile(wxCommandEvent& event);
     void OnTrackSlider(wxCommandEvent &event);

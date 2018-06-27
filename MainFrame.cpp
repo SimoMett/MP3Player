@@ -7,6 +7,7 @@
 #include <wx/slider.h>
 #include "Mp3Player.h"
 #include "Slider.h"
+#include "PlaylistFactory.h"
 
 MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &size) : wxFrame(nullptr,wxID_ANY,title,pos,size)
 {
@@ -70,7 +71,7 @@ void MainFrame::widgetsSetup()
     wxBoxSizer * panel=new wxBoxSizer(wxVERTICAL);
     //wxScrolled
     //wxScrollBar * bar=new wxScrollBar(this,wxID_ANY,wxDefaultPosition,wxSize(0,400),wxVERTICAL);
-    wxListBox * playListsBox=new wxListBox(this,wxID_ANY,wxDefaultPosition,wxSize(200,200));
+    playListsBox=new wxListBox(this,wxID_ANY,wxDefaultPosition,wxSize(200,200));
 
     panel->Add(playListsBox,wxALIGN_LEFT);
 
@@ -165,8 +166,8 @@ void MainFrame::menuSetup()
 
 void MainFrame::TestPlay(wxCommandEvent &event)
 {
-    cout << "Loaded "<<mediaCtrl->GetName()<<endl;
-    cout << "Duration : "<<mediaCtrl->Length()/1000<<" Seconds"<<endl;
+    //cout << "Loaded "<<mediaCtrl->GetName()<<endl;
+    //cout << "Duration : "<<mediaCtrl->Length()/1000<<" Seconds"<<endl;
     //mediaCtrl->Play();
     mediaCtrl->SetVolume(0.1);
 }
@@ -175,12 +176,23 @@ void MainFrame::OnNewPlayList(wxCommandEvent &event)
 {
     wxTextEntryDialog *textEntryDialog=new wxTextEntryDialog(this,"Name of new playlist","New Playlist");
     int result=textEntryDialog->ShowModal();
-    string name(textEntryDialog->GetValue().c_str());
+
     if(result==wxID_OK)
     {
+        string name(textEntryDialog->GetValue().c_str());
+
+        //TODO properly check if in the "name" string there aren't any bad characters such as "/ | \"
+        /*wxString wxname(textEntryDialog->GetValue());
+        wxTextValidator validator(wxFILTER_NONE,&wxname);*/
+
         if(PlayList::isValidName(name))
         {
-            //TODO create playlist and append to listBox
+            PlaylistFactory factory;
+            PlayList * list=factory.createPlaylist(name);
+            list->save();
+            //Just for test
+            playListsBox->Append(name);
+            //TODO append playlist to listBox (can be done in PlayList constructor? or in the factory?)
         }
     }
 
