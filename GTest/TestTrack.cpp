@@ -9,9 +9,12 @@
 TEST(Track,Constructor)
 {
     Mp3Player::Create();
-    Track t("directory/nome.mp3");
+    TrackFactory trackFactory;
+    Track * t=trackFactory.importTrack("nome.mp3");
 
-    ASSERT_EQ("nome.mp3",t.title);
+    ASSERT_EQ("nome.mp3",t->title);
 
+    ASSERT_TRUE(Mp3Player::getInstancePtr()->mainLibrary.findTrack("nome.mp3")!= nullptr);
 
+    Mp3Player::Destroy();
 }
