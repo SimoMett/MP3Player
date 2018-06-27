@@ -7,6 +7,6 @@
 Track * TrackFactory::importTrack(string path)
 {
     Track* finalPtr=new Track(path);
-
+    Mp3Player::getMp3PlayerIstancePtr()->mainLibrary.addTrack(finalPtr);
     return finalPtr;
 }
