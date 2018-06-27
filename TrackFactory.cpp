@@ -4,8 +4,9 @@
 
 #include "TrackFactory.h"
 
-unique_ptr<Track> TrackFactory::importTrack(string path)
+Track * TrackFactory::importTrack(string path)
 {
-    unique_ptr<Track> finalPtr(new Track(path));
+    Track* finalPtr=new Track(path);
+
     return finalPtr;
 }

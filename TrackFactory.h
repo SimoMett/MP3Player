@@ -6,6 +6,7 @@
 #define MP3PLAYER_TRACKFACTORY_H
 
 #include "Track.h"
+#include "Mp3Player.h"
 #include <string>
 #include <memory>
 
@@ -15,7 +16,7 @@ class TrackFactory {
 
 public:
 
-    unique_ptr<Track> importTrack(string path);
+    Track* importTrack(string path);
 
 };
 
