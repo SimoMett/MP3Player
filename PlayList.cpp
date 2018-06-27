@@ -37,6 +37,21 @@ bool PlayList::removeTrack(int index)
         removeTrack(tracks[index]);
 }
 
+Track* PlayList::findTrack(string name) const
+{
+    Track * ptr=nullptr;
+
+    for(auto item : tracks)
+    {
+        if(name==item->title)
+        {
+            ptr=item;
+            break;
+        }
+    }
+    return ptr;
+}
+
 bool PlayList::rename(string newName)
 {
     bool existingName=false;

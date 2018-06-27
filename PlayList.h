@@ -33,6 +33,8 @@ public:
         return name;
     }
 
+    Track * findTrack(string name) const;
+
     virtual void save();
 
     static bool isValidName(string name);
