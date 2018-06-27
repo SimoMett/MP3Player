@@ -175,10 +175,16 @@ void MainFrame::OnNewPlayList(wxCommandEvent &event)
 {
     wxTextEntryDialog *textEntryDialog=new wxTextEntryDialog(this,"Name of new playlist","New Playlist");
     int result=textEntryDialog->ShowModal();
+    string name(textEntryDialog->GetValue().c_str());
     if(result==wxID_OK)
     {
-        //TODO check if name is valid , in case create playlist
+        if(PlayList::isValidName(name))
+        {
+            //TODO create playlist and append to listBox
+        }
     }
+
+    delete textEntryDialog;
 }
 
 wxIMPLEMENT_APP(MainApp);
