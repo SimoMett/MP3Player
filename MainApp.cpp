@@ -33,5 +33,6 @@ bool MainApp::OnInit()
 int MainApp::OnExit()
 {
     //FIXME there is a segmentation violation here
-    delete Mp3Player::getMp3PlayerIstancePtr();
+    //delete Mp3Player::getMp3PlayerIstancePtr();
+    //TODO implement proper destructor
 }
