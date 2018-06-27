@@ -29,6 +29,7 @@ void MainFrame::bindingsSetup()
     Bind(wxEVT_BUTTON,&MainFrame::NextTrackButton,this,ID_NextTrackButton);
     Bind(wxEVT_BUTTON,&MainFrame::PrevTrackButton,this,ID_PrevTrackButton);
     Bind(wxEVT_MEDIA_LOADED,&MainFrame::TestPlay,this,ID_MediaCtrl);
+    Bind(wxEVT_MENU,&MainFrame::OnNewPlayList,this,ID_NewPlayLst);
 }
 
 void MainFrame::widgetsSetup()
@@ -73,10 +74,10 @@ void MainFrame::widgetsSetup()
 
     panel->Add(playListsBox,wxALIGN_LEFT);
 
-    for(int i=0;i<10;i++)
+    /*for(int i=0;i<10;i++)
     {
         playListsBox->Append(string("testo"));
-    }
+    }*/
 }
 
 void MainFrame::OnOpenFile(wxCommandEvent& event)
@@ -86,7 +87,8 @@ void MainFrame::OnOpenFile(wxCommandEvent& event)
     wxFileCtrl * fileCtrl=new wxFileCtrl(this,wxID_ANY);
     fileCtrl->SetWildcard("MP3 files (*.mp3)|*.mp3");
 
-    cout << fileCtrl->GetPath()<<endl;
+    //cout << fileCtrl->GetPath()<<endl;
+    fileCtrl->Show(true);
 
     delete fileCtrl;
 }
@@ -167,6 +169,16 @@ void MainFrame::TestPlay(wxCommandEvent &event)
     cout << "Duration : "<<mediaCtrl->Length()/1000<<" Seconds"<<endl;
     //mediaCtrl->Play();
     mediaCtrl->SetVolume(0.1);
+}
+
+void MainFrame::OnNewPlayList(wxCommandEvent &event)
+{
+    wxTextEntryDialog *textEntryDialog=new wxTextEntryDialog(this,"Name of new playlist","New Playlist");
+    int result=textEntryDialog->ShowModal();
+    if(result==wxID_OK)
+    {
+        //TODO check if name is valid , in case create playlist
+    }
 }
 
 wxIMPLEMENT_APP(MainApp);
