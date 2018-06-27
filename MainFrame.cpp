@@ -67,13 +67,7 @@ void MainFrame::widgetsSetup()
     mediaCtrl=new wxMediaCtrl(this,ID_MediaCtrl);
     mediaCtrl->Load("resources/Demons - Imagine Dragons.mp3");
 
-    //PlayLists listbox
-    wxBoxSizer * panel=new wxBoxSizer(wxVERTICAL);
-    //wxScrolled
-    //wxScrollBar * bar=new wxScrollBar(this,wxID_ANY,wxDefaultPosition,wxSize(0,400),wxVERTICAL);
-    playListsBox=new wxListBox(this,wxID_ANY,wxDefaultPosition,wxSize(200,200));
-
-    panel->Add(playListsBox,wxALIGN_LEFT);
+    playlistBoxSetup();
 
     /*for(int i=0;i<10;i++)
     {
@@ -198,6 +192,19 @@ void MainFrame::OnNewPlayList(wxCommandEvent &event)
     }
 
     delete textEntryDialog;
+}
+
+void MainFrame::playlistBoxSetup()
+{
+    //PlayLists listbox
+    wxBoxSizer * panel=new wxBoxSizer(wxVERTICAL);
+    //wxScrolled
+    //wxScrollBar * bar=new wxScrollBar(this,wxID_ANY,wxDefaultPosition,wxSize(0,400),wxVERTICAL);
+    playListsBox=new wxListBox(this,wxID_ANY,wxDefaultPosition,wxSize(200,200));
+    wxSize siz=GetSize();
+    playListsBox->SetSize(200,siz.y);
+
+    panel->Add(playListsBox,wxALIGN_LEFT);
 }
 
 wxIMPLEMENT_APP(MainApp);
