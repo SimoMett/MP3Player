@@ -21,8 +21,8 @@ public:
 
     static vector<PlayList*> existingLists;
 
-    bool addTrack(shared_ptr<Track> track);
-    bool removeTrack(shared_ptr<Track> track);
+    bool addTrack(Track* track);
+    bool removeTrack(Track* track);
     bool removeTrack(int index);
     bool rename(string newName);
 
@@ -40,7 +40,7 @@ public:
 protected:
 
     string name;
-    vector<shared_ptr<Track>> tracks;
+    vector<Track*> tracks;
 
 };
 

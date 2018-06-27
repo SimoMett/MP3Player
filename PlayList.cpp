@@ -21,12 +21,12 @@ PlayList::~PlayList()
     save();
 }
 
-bool PlayList::addTrack(shared_ptr<Track> track)
+bool PlayList::addTrack(Track* track)
 {
     tracks.push_back(track);
 }
 
-bool PlayList::removeTrack(shared_ptr<Track> track)
+bool PlayList::removeTrack(Track* track)
 {
     tracks.erase(std::remove(tracks.begin(),tracks.end(),track));
 }
