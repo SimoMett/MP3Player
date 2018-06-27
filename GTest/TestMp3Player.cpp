@@ -15,9 +15,8 @@ TEST(Mp3Player,Contructor)
 TEST(Mp3Player,Destructor)
 {
     Mp3Player::Create();
-    Mp3Player * p=Mp3Player::getMp3PlayerIstancePtr();
 
-    delete Mp3Player::getMp3PlayerIstancePtr();
+    Mp3Player::Destroy();
 }
 
 TEST(Mp3Player,setVolume)
@@ -39,4 +38,11 @@ TEST(Mp3Player,setTrackPlaypoint)
     Mp3Player &p=*(Mp3Player::getMp3PlayerIstancePtr());
     p.setTrackPlayPoint(20);
     ASSERT_EQ(20,p.getCurrentTrackTiming());
+    p.setTrackPlayPoint(-5);
+    ASSERT_EQ(0,p.getCurrentTrackTiming());
+    //currentTrack not initialised yet
+    /*
+    p.setTrackPlayPoint(p.currentTrack->getDuration()+6);
+    ASSERT_EQ(0,p.getCurrentTrackTiming());
+     */
 }

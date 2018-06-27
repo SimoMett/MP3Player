@@ -59,6 +59,9 @@ Track& Mp3Player::getRandomTrackFromPlaylist(PlayList &list)
 
 void Mp3Player::setTrackPlayPoint(int seconds)
 {
+    if(seconds <0 /*|| seconds>currentTrack->getDuration()*/)//currentTrack not initialised yet
+        seconds=0;
+
     currentTrackTiming=seconds;
     requestUpdate();
 }
