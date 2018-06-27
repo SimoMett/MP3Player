@@ -7,12 +7,12 @@
 
 Subject::~Subject() {}
 
-void Subject::attachObserver(shared_ptr<Observer> observer)
+void Subject::attachObserver(Observer* observer)
 {
     observers.push_back(observer);
 }
 
-void Subject::detachObserver(shared_ptr<Observer> observer)
+void Subject::detachObserver(Observer* observer)
 {
     observers.erase(std::remove(observers.begin(),observers.end(),observer));
 }

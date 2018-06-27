@@ -77,7 +77,6 @@ void MainFrame::widgetsSetup()
     {
         playListsBox->Append(string("testo"));
     }
-
 }
 
 void MainFrame::OnOpenFile(wxCommandEvent& event)

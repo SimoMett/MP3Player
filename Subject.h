@@ -16,13 +16,13 @@ class Subject {
 public:
     virtual ~Subject();
 
-    virtual void attachObserver(shared_ptr<Observer> observer);
-    virtual void detachObserver(shared_ptr<Observer> observer);
+    virtual void attachObserver(Observer* observer);
+    virtual void detachObserver(Observer* observer);
     virtual void requestUpdate();
 
 
 protected:
-    vector<shared_ptr<Observer>> observers;
+    vector<Observer*> observers;
 };
 
 

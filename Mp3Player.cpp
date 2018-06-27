@@ -29,6 +29,13 @@ Mp3Player::~Mp3Player()
     /*if(Settings::getIstance()!= nullptr)
         Settings::getIstance()->SaveSettings();*/
     currentPlayer= nullptr;
+    mainLibrary.save();
+
+    for(auto item : observers)
+    {
+        delete item;
+    }
+    observers.clear();
 }
 
 void Mp3Player::setVolume(float val)

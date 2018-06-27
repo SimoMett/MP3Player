@@ -14,7 +14,7 @@ public:
     const wxValidator &validator = wxDefaultValidator, const wxString &name = wxSliderNameStr);
 
     ~VolumeSlider(){
-        playerInstance->detachObserver(shared_ptr<Observer>(this));
+        playerInstance->detachObserver(this);
     }
 
     virtual void OnValueChanged() override{};
