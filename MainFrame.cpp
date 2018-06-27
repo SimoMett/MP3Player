@@ -160,6 +160,7 @@ void MainFrame::menuSetup()
     menuBar->Append( fileMenu, "&File");
     menuBar->Append(editMenu,"&Edit");
     menuBar->Append(infoMenu,"&About");
+
     SetMenuBar(menuBar );
     CreateStatusBar();
 }
