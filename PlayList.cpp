@@ -12,6 +12,7 @@ PlayList::PlayList(string _name) : name(_name)
     //XXX do not append here or it will crash
     //Mp3Player::getInstancePtr()->playlists.push_back(shared_ptr<PlayList>(this));
     //TODO load playlist from its xml file
+    load();
     existingLists.push_back(this);
 }
 
@@ -90,6 +91,26 @@ bool PlayList::rename(string newName)
         success=true;
     }
     return success;
+}
+
+void PlayList::load()
+{
+    //TODO load playlist from its xml file
+    if(wxFileExists("resources/playlists/"+name+".xml"))
+    {
+        string path="resources/playlists/"+name+".xml";
+        wxXmlDocument doc;
+        doc.Load(path);
+        if(doc.GetRoot()->GetName()=="Playlist")
+        {
+            wxXmlNode * child=doc.GetRoot()->GetChildren();
+            while (child)
+            {
+                cout << child->GetChildren()->GetName()<<endl;
+                child->GetNext();
+            }
+        }
+    }
 }
 
 void PlayList::save()

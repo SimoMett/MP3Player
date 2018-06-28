@@ -33,7 +33,7 @@ public:
     unsigned long getTracksCount() const {
         return tracks.size();
     }
-    
+
     const string & getName() const{
         return name;
     }
@@ -48,6 +48,9 @@ protected:
 
     string name;
     vector<Track*> tracks;
+
+private:
+    void load();
 
 };
 
