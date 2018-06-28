@@ -162,7 +162,7 @@ void MainFrame::TestPlay(wxCommandEvent &event)
     //cout << "Loaded "<<mediaCtrl->GetName()<<endl;
     //cout << "Duration : "<<mediaCtrl->Length()/1000<<" Seconds"<<endl;
     //mediaCtrl->Play();
-    mediaCtrl->SetVolume(0.1);
+    mediaCtrl->SetVolume(volumeSlider->GetValue()/100.0);
 }
 
 void MainFrame::OnNewPlayList(wxCommandEvent &event)
