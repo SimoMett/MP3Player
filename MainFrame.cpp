@@ -104,7 +104,7 @@ void MainFrame::PlayButton(wxCommandEvent &event)
     {
         case wxMEDIASTATE_STOPPED:
         {
-            //TODO select a track
+            //TODO select a track (first track on mainLibrary)
             mediaCtrl->Play();
             break;
         }
