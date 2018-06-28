@@ -12,6 +12,8 @@ using namespace std;
 
 bool MainApp::OnInit()
 {
+    Mp3Player::Create();
+
     if(argc > 1)
         cout << argv[1]<<endl;
 
@@ -24,8 +26,6 @@ bool MainApp::OnInit()
     wxYield();
     wxSleep(2);
     mainFrame->Show(true);
-
-    Mp3Player::Create();
 
     return mainFrame!= nullptr;
 }
