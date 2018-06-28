@@ -29,6 +29,11 @@ public:
     Track & getTrack(int index) const{
         return *(tracks[index]);
     }
+
+    unsigned long getTracksCount() const {
+        return tracks.size();
+    }
+    
     const string & getName() const{
         return name;
     }

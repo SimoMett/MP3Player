@@ -67,3 +67,21 @@ TEST(PlayList,rename)
 
     ASSERT_TRUE(wxFileExists("resources/playlists/lista2.xml"));
 }
+
+TEST(PlayList, addTrackTwice)
+{
+    PlaylistFactory f;
+    PlayList * list=f.createPlaylist("lista");
+    TrackFactory t;
+    list->addTrack(t.importTrack("directory/file.mp3"));
+    list->addTrack(t.importTrack("directory/file.mp3"));
+    
+    int count=0;
+    for(int i=0;i<list->getTracksCount();i++)
+    {
+        if(list->getTrack(i).title=="file");
+            count++;
+    }
+    
+    ASSERT_EQ(count,1);    
+}
