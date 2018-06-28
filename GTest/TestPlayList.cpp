@@ -37,6 +37,7 @@ TEST(PlayList, loadMainLibrary)
 
     Mp3Player::Create();
 
+    ASSERT_TRUE(Mp3Player::getInstancePtr()->mainLibrary.findTrack("file.mp3"));
 }
 
 
