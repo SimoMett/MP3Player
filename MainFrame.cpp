@@ -96,6 +96,7 @@ void MainFrame::OnVolumeSlider(wxCommandEvent &event)
     //volumeSlider->OnValueChanged();
     //Mp3Player::getInstancePtr()->setVolume(volumeSlider->GetValue());
     //cout << "Volume : "<<Mp3Player::getMp3PlayerIstance().getVolume()<<endl;
+    mediaCtrl->SetVolume(volumeSlider->GetValue()/100.0);
 }
 
 void MainFrame::PlayButton(wxCommandEvent &event)
