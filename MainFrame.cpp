@@ -62,7 +62,7 @@ void MainFrame::widgetsSetup()
     SetSizer(mainBoxSizer);
 
     mediaCtrl=new wxMediaCtrl(this,ID_MediaCtrl);
-    mediaCtrl->Load("resources/Demons - Imagine Dragons.mp3");//Just for testing wxMediaCtrl
+    mediaCtrl->Load("resources/test.mp3");//Just for testing wxMediaCtrl
 
     playlistBoxSetup();
 
