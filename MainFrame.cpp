@@ -46,9 +46,6 @@ void MainFrame::widgetsSetup()
     nextTrackButton =new wxButton(this, ID_NextTrackButton, "Next");
     previousTrackButton =new wxButton(this, ID_PrevTrackButton, "Previous");
 
-    //wxListCtrl * testList=new wxListCtrl(this,wxID_ANY,wxPoint(100,100),wxSize(200,200),wxLC_REPORT);
-    //testList->AppendColumn(wxString("Reed"),wxLIST_FORMAT_LEFT,50);
-
     //Composing boxSizer
     mainBoxSizer->AddStretchSpacer();
     mainBoxSizer->Add(trackSlider, 0, wxALIGN_CENTER | wxALIGN_BOTTOM);
