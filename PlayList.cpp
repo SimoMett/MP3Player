@@ -23,7 +23,23 @@ PlayList::~PlayList()
 
 bool PlayList::addTrack(Track* track)
 {
-    tracks.push_back(track);
+    bool found=false;
+    for(auto item: tracks)
+    {
+        if(item->getDirectory()==track->getDirectory())
+        {
+            found=true;
+            break;
+        }
+    }
+    bool ok=false;
+    if(!found)
+    {
+        tracks.push_back(track);
+        ok=true;
+    }
+
+    return ok;
 }
 
 bool PlayList::removeTrack(Track* track)
