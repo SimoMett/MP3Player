@@ -23,6 +23,23 @@ TEST(PlayList,construction)
     ASSERT_TRUE(ok);
 }
 
+TEST(PlayList, loadMainLibrary)
+{
+    //TODO to be finished
+    //this test should check if mainLibrary is properly loaded from the xml file
+    Mp3Player::Create();
+    PlayList & lib=Mp3Player::getInstancePtr()->mainLibrary;
+    TrackFactory t;
+
+    lib.addTrack(t.importTrack("direc/file.mp3"));
+
+    Mp3Player::Destroy();
+
+    Mp3Player::Create();
+
+}
+
+
 TEST(PlayList, newSave)
 {
     remove("resources/playlists/lista.xml");
@@ -75,13 +92,13 @@ TEST(PlayList, addTrackTwice)
     TrackFactory t;
     list->addTrack(t.importTrack("directory/file.mp3"));
     list->addTrack(t.importTrack("directory/file.mp3"));
-    
+
     int count=0;
     for(int i=0;i<list->getTracksCount();i++)
     {
         if(list->getTrack(i).title=="file");
             count++;
     }
-    
-    ASSERT_EQ(count,1);    
+
+    ASSERT_EQ(count,1);
 }
