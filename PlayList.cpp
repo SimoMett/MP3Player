@@ -38,7 +38,6 @@ bool PlayList::addTrack(Track* track)
         tracks.push_back(track);
         ok=true;
     }
-
     return ok;
 }
 
