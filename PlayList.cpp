@@ -11,6 +11,7 @@ PlayList::PlayList(string _name) : name(_name)
 {
     //XXX do not append here or it will crash
     //Mp3Player::getInstancePtr()->playlists.push_back(shared_ptr<PlayList>(this));
+    //TODO load playlist from its xml file
     existingLists.push_back(this);
 }
 
