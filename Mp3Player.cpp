@@ -32,7 +32,9 @@ void Mp3Player::Destroy()
 
         for(auto item : currentPlayer->observers)
         {
-            delete item;
+            //FIXME there is a segmentation violation here on exit
+            if(item!= nullptr)
+                delete item;
         }
         currentPlayer->observers.clear();
         delete currentPlayer;
