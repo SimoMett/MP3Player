@@ -100,8 +100,6 @@ bool PlayList::rename(string newName)
 
 void PlayList::load()
 {
-    //TODO load playlist from its xml file
-    //to be finished (currently crashing)
     if(wxFileExists("resources/playlists/"+name+".xml"))
     {
         string path="resources/playlists/"+name+".xml";
