@@ -18,7 +18,7 @@ public:
            const wxPoint &pos = wxDefaultPosition, const wxSize &size = wxDefaultSize, long style = wxSL_HORIZONTAL,
            const wxValidator &validator = wxDefaultValidator, const wxString &name = wxSliderNameStr);
 
-    ~Slider();
+    virtual ~Slider();
 
     Mp3Player *playerInstance;
 
