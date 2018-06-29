@@ -53,8 +53,15 @@ void MainFrame::widgetsSetup()
 
     bSizer2->Add( playlistListBox, 0, wxALL|wxEXPAND, 4 );
 
-    wxListBox * tracksListBox = new wxListBox( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, NULL, 0 );
-    bSizer2->Add( tracksListBox, 1, wxALL|wxEXPAND, 4 );
+    wxListCtrl * tracksListCtrl = new wxListCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_REPORT );
+    tracksListCtrl->AppendColumn("Name");
+    bSizer2->Add( tracksListCtrl, 1, wxALL|wxEXPAND, 5 );
+
+    //just for test
+    for(int i=0;i<15;i++)
+    {
+        tracksListCtrl->InsertItem(i,"track.mp3");
+    }
 
     wxBoxSizer* bSizer3;
     bSizer3 = new wxBoxSizer( wxVERTICAL );
