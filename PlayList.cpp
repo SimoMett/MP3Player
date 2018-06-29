@@ -50,8 +50,13 @@ bool PlayList::removeTrack(Track* track)
 
 bool PlayList::removeTrack(int index)
 {
-    if(index > 0)
+    bool success=false;
+    if(index > 0 || index > tracks.size())
+    {
         removeTrack(tracks[index]);
+        success=true;
+    }
+    return success;
 }
 
 Track* PlayList::findTrack(string name) const
@@ -105,10 +110,11 @@ void PlayList::load()
         if(doc.GetRoot()->GetName()=="Playlist")
         {
             wxXmlNode * child=doc.GetRoot()->GetChildren();
+            TrackFactory factory;
             while (child)
             {
-                cout << child->GetChildren()->GetName()<<endl;
-                child->GetNext();
+                addTrack( factory.importTrack( string( child->GetNodeContent().c_str() ) ) );
+                child=child->GetNext();
             }
         }
     }
@@ -136,10 +142,9 @@ void PlayList::save()
     vector<wxXmlNode*> trackNodes;
     trackNodes.reserve(tracks.size());
 
-    wxXmlNode * trackNode=new wxXmlNode(root,wxXML_ELEMENT_NODE,"Track");
-
     for(auto item : tracks)
     {
+        wxXmlNode * trackNode=new wxXmlNode(root,wxXML_ELEMENT_NODE,"Track");
         wxXmlNode * tmp=new wxXmlNode(wxXML_TEXT_NODE, "", item->getDirectory());
         trackNode->AddChild(tmp);
         trackNodes.push_back(tmp);
