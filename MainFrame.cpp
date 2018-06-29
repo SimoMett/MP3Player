@@ -85,17 +85,15 @@ void MainFrame::OnOpenFile(wxCommandEvent& event)
     delete fileCtrl;
 }
 
-void MainFrame::OnTrackSlider(wxCommandEvent &event)//Just for test
+void MainFrame::OnTrackSlider(wxCommandEvent &event)
 {
-    //Just for test
-    trackSlider->OnValueChanged();
+    unsigned long val=float(trackSlider->GetValue()) / trackSlider->GetMax() * mediaCtrl->Length();
+
+    mediaCtrl->Seek(val);
 }
 
 void MainFrame::OnVolumeSlider(wxCommandEvent &event)
 {
-    //volumeSlider->OnValueChanged();
-    //Mp3Player::getInstancePtr()->setVolume(volumeSlider->GetValue());
-    //cout << "Volume : "<<Mp3Player::getMp3PlayerIstance().getVolume()<<endl;
     mediaCtrl->SetVolume(volumeSlider->GetValue()/100.0);
 }
 
