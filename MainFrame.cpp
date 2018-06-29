@@ -260,7 +260,7 @@ void MainFrame::OnNewPlayList(wxCommandEvent &event)
 
     delete textEntryDialog;
 }
-
+#ifndef USE_NEW_GUI
 void MainFrame::playlistBoxSetup()
 {
     wxBoxSizer * panel=new wxBoxSizer(wxVERTICAL);
@@ -279,5 +279,6 @@ void MainFrame::playlistBoxSetup()
 
     //SetSizerAndFit(panel);
 }
+#endif
 
 wxIMPLEMENT_APP(MainApp);
