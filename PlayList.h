@@ -9,11 +9,12 @@
 #include <vector>
 #include <memory>
 
+#include "Subject.h"
 #include "Track.h"
 
 using namespace std;
 
-class PlayList {
+class PlayList : public Subject{
 
 public:
     explicit PlayList(string _name);
