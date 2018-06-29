@@ -25,8 +25,6 @@ TEST(PlayList,construction)
 
 TEST(PlayList, loadMainLibrary)
 {
-    //TODO to be finished
-    //this test should check if mainLibrary is properly loaded from the xml file
     Mp3Player::Create();
     PlayList & lib=Mp3Player::getInstancePtr()->mainLibrary;
     TrackFactory t;
@@ -38,6 +36,8 @@ TEST(PlayList, loadMainLibrary)
     Mp3Player::Create();
 
     ASSERT_TRUE(Mp3Player::getInstancePtr()->mainLibrary.findTrack("file.mp3"));
+    
+    Mp3Player::Destroy();
 }
 
 
