@@ -33,7 +33,7 @@ void MainFrame::bindingsSetup()
     Bind(wxEVT_BUTTON, &MainFrame::PlayButton, this, ID_PlayButton);
     Bind(wxEVT_BUTTON,&MainFrame::NextTrackButton,this,ID_NextTrackButton);
     Bind(wxEVT_BUTTON,&MainFrame::PrevTrackButton,this,ID_PrevTrackButton);
-    Bind(wxEVT_MEDIA_LOADED,&MainFrame::TestPlay,this,ID_MediaCtrl);
+    Bind(wxEVT_MEDIA_LOADED, &MainFrame::OnMediaLoaded,this,ID_MediaCtrl);
     Bind(wxEVT_MENU,&MainFrame::OnNewPlayList,this,ID_NewPlayLst);
 }
 
@@ -233,7 +233,7 @@ void MainFrame::menuSetup()
     CreateStatusBar();
 }
 
-void MainFrame::TestPlay(wxCommandEvent &event)
+void MainFrame::OnMediaLoaded(wxCommandEvent &event)
 {
     //cout << "Loaded "<<mediaCtrl->GetName()<<endl;
     //cout << "Duration : "<<mediaCtrl->Length()/1000<<" Seconds"<<endl;

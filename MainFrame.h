@@ -45,7 +45,7 @@ public:
     void NextTrackButton(wxCommandEvent & event);
     void PrevTrackButton(wxCommandEvent & event);
     void OnCreditsButton(wxCommandEvent & event);
-    void TestPlay(wxCommandEvent & event);
+    void OnMediaLoaded(wxCommandEvent &event);
     void OnNewPlayList(wxCommandEvent & event);
 
 private:
