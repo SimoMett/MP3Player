@@ -11,7 +11,7 @@
 #include "Slider.h"
 #include "PlaylistFactory.h"
 
-MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &size) : wxFrame(nullptr,wxID_ANY,title,pos,size)
+MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &size) : wxFrame(nullptr,wxID_ANY,title,pos,size), mediaCtrl(new wxMediaCtrl(this,ID_MediaCtrl))
 {
     SetMinSize(wxSize(430,320));
 
@@ -20,6 +20,8 @@ MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &si
     widgetsSetup();
 
     bindingsSetup();
+
+    mediaCtrl->Load("resources/test.mp3");//Just for testing wxMediaCtrl
 }
 
 void MainFrame::bindingsSetup()
@@ -47,7 +49,7 @@ void MainFrame::widgetsSetup()
     bSizer2 = new wxBoxSizer( wxHORIZONTAL );
 
     wxListBox * playlistListBox = new wxListBox( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, NULL, 0 );
-    playlistListBox->SetMinSize( wxSize( 100,-1 ) );
+    playlistListBox->SetMinSize( wxSize( 200,-1 ) );
 
     bSizer2->Add( playlistListBox, 0, wxALL|wxEXPAND, 4 );
 
@@ -57,13 +59,15 @@ void MainFrame::widgetsSetup()
     wxBoxSizer* bSizer3;
     bSizer3 = new wxBoxSizer( wxVERTICAL );
 
-    wxStaticBitmap * staticBitmap = new wxStaticBitmap( this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, 0 );
-    staticBitmap->SetMinSize( wxSize( 50,50 ) );
+    wxBitmap bitmap(200,200);
+    bitmap.LoadFile("resources/default_album.png");
+    wxStaticBitmap * staticBitmap = new wxStaticBitmap( this, wxID_ANY, bitmap, wxDefaultPosition, wxDefaultSize, 0 );
+    staticBitmap->SetMinSize( wxSize( 200,200 ) );
 
     bSizer3->Add( staticBitmap, 1, wxEXPAND|wxALIGN_RIGHT|wxALL, 4 );
 
     wxListBox * albumsListBox = new wxListBox( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, NULL, 0 );
-    albumsListBox->SetMinSize(wxSize(100,-1));
+    albumsListBox->SetMinSize(wxSize(200,-1));
     bSizer3->Add( albumsListBox, 1, wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxRIGHT|wxLEFT, 4 );
 
 
@@ -75,25 +79,25 @@ void MainFrame::widgetsSetup()
     wxStaticLine * staticLine = new wxStaticLine( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL );
     bSizer1->Add( staticLine, 0, wxEXPAND | wxALL, 5 );
 
-    trackSlider = new TrackSlider(Mp3Player::getInstancePtr(), this, wxID_ANY, 50, 0, 100, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL );
+    trackSlider = new TrackSlider(Mp3Player::getInstancePtr(), this, ID_TrackSlider, 50, 0, 100, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL );
     bSizer1->Add( trackSlider, 0, wxALIGN_CENTER_HORIZONTAL|wxEXPAND|wxBOTTOM|wxRIGHT, 5 );
 
     wxBoxSizer* bSizer4;
     bSizer4 = new wxBoxSizer( wxHORIZONTAL );
 
-    previousTrackButton = new wxButton( this, wxID_ANY, wxT("Prev"), wxDefaultPosition, wxDefaultSize, 0 );
+    previousTrackButton = new wxButton( this, ID_PrevTrackButton, wxT("Prev"), wxDefaultPosition, wxDefaultSize, 0 );
     bSizer4->Add( previousTrackButton, 0, wxALL, 5 );
 
-    playButton = new wxButton( this, wxID_ANY, wxT("PlayPause"), wxDefaultPosition, wxDefaultSize, 0 );
+    playButton = new wxButton( this, ID_PlayButton, wxT("PlayPause"), wxDefaultPosition, wxDefaultSize, 0 );
     bSizer4->Add( playButton, 0, wxALL, 5 );
 
-    nextTrackButton = new wxButton( this, wxID_ANY, wxT("Next"), wxDefaultPosition, wxDefaultSize, 0 );
+    nextTrackButton = new wxButton( this, ID_NextTrackButton, wxT("Next"), wxDefaultPosition, wxDefaultSize, 0 );
     bSizer4->Add( nextTrackButton, 0, wxALL, 5 );
 
 
     bSizer4->Add( 0, 0, 1, wxEXPAND, 5 );
 
-    volumeSlider = new VolumeSlider(Mp3Player::getInstancePtr(), this, wxID_ANY, 50, 0, 100, wxDefaultPosition, wxSize( 150,25 ), wxSL_HORIZONTAL );
+    volumeSlider = new VolumeSlider(Mp3Player::getInstancePtr(), this, ID_VolumeSlider, 50, 0, 100, wxDefaultPosition, wxSize( 150,25 ), wxSL_HORIZONTAL );
     bSizer4->Add( volumeSlider, 0, wxTOP|wxLEFT|wxALIGN_RIGHT, 5 );
 
 
@@ -101,7 +105,7 @@ void MainFrame::widgetsSetup()
 
 
     this->SetSizer( bSizer1 );
-    this->Layout();
+    //this->Layout();
 #else
 
     wxBoxSizer * mainBoxSizer=new wxBoxSizer(wxVERTICAL);
@@ -129,9 +133,6 @@ void MainFrame::widgetsSetup()
     buttonSizer->Add(volumeSlider,0,wxALIGN_RIGHT);
 
     SetSizer(mainBoxSizer);
-
-    mediaCtrl=new wxMediaCtrl(this,ID_MediaCtrl);
-    mediaCtrl->Load("resources/test.mp3");//Just for testing wxMediaCtrl
 
     playlistBoxSetup();
 
