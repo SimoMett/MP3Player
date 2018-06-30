@@ -11,5 +11,5 @@ TracksListBox::TracksListBox(wxWindow * parent,wxWindowID winid) : wxListCtrl(pa
 
 void TracksListBox::update(Subject *subject)
 {
-
+    //TODO refresh text box
 }
