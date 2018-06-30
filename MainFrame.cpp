@@ -10,6 +10,7 @@
 #include "Mp3Player.h"
 #include "Slider.h"
 #include "PlaylistFactory.h"
+#include "PlaylistsListBox.h"
 
 MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &size) : wxFrame(nullptr,wxID_ANY,title,pos,size), mediaCtrl(new wxMediaCtrl(this,ID_MediaCtrl))
 {
@@ -48,7 +49,7 @@ void MainFrame::widgetsSetup()
     wxBoxSizer* bSizer2;
     bSizer2 = new wxBoxSizer( wxHORIZONTAL );
 
-    wxListBox * playlistListBox = new wxListBox( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, NULL, 0 );
+    PlaylistsListBox * playlistListBox = new PlaylistsListBox( this, wxID_ANY);
     playlistListBox->SetMinSize( wxSize( 200,-1 ) );
 
     bSizer2->Add( playlistListBox, 0, wxALL|wxEXPAND, 4 );

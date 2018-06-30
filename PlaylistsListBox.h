@@ -11,7 +11,9 @@
 class PlaylistsListBox :public wxListBox, public Observer
 {
 public:
-    PlaylistsListBox();
+    PlaylistsListBox(wxWindow *parent, wxWindowID id, const wxPoint &pos=wxDefaultPosition, const wxSize &size=wxDefaultSize);
+
+    virtual void update();
 
 };
 
