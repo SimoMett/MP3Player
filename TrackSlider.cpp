@@ -8,7 +8,7 @@ TrackSlider::TrackSlider(Mp3Player *_subject, wxWindow *parent, wxWindowID id, i
                            const wxPoint &pos, const wxSize &size, long style, const wxValidator &validator, const wxString &name) :
         Slider(_subject,parent,id,value,minValue,maxValue,pos,size,style,validator,name){}
 
-void TrackSlider::update()
+void TrackSlider::update(Subject * subject)
 {
     int currentTrackDuration=playerInstance->currentTrack->getDuration();
     float val=(playerInstance->getCurrentTrackTiming()/currentTrackDuration)*wxSlider::GetMax();

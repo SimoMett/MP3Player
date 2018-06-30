@@ -20,5 +20,5 @@ void Subject::detachObserver(Observer* observer)
 void Subject::requestUpdate()
 {
     for(auto elem : observers)
-        elem->update();
+        elem->update(this);
 }

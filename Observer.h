@@ -5,13 +5,17 @@
 #ifndef MP3PLAYER_OBSERVER_H
 #define MP3PLAYER_OBSERVER_H
 
+class Subject;
+
 class Observer {
 
 public:
     virtual ~Observer(){};
 
-    virtual void update()=0;
+    virtual void update(Subject * subject)=0;
 
+protected:
+    Observer(){};
 };
 
 

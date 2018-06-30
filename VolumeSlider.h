@@ -20,7 +20,7 @@ public:
 
     virtual void OnValueChanged() override{};
 
-    void update() final ;
+    void update(Subject * subject) final ;
 };
 
 
