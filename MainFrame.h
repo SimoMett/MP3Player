@@ -11,6 +11,7 @@
 #include "MainApp.h"
 #include "TrackSlider.h"
 #include "VolumeSlider.h"
+#include "PlaylistsListBox.h"
 
 enum
 {
@@ -37,6 +38,7 @@ public:
     wxButton * previousTrackButton;
     wxMediaCtrl * mediaCtrl;
     wxListBox * playListsBox;
+    PlaylistsListBox * playlistListBox;
 
     void OnOpenFile(wxCommandEvent& event);
     void OnTrackSlider(wxCommandEvent &event);

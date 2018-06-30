@@ -10,7 +10,6 @@
 #include "Mp3Player.h"
 #include "Slider.h"
 #include "PlaylistFactory.h"
-#include "PlaylistsListBox.h"
 
 MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &size) : wxFrame(nullptr,wxID_ANY,title,pos,size), mediaCtrl(new wxMediaCtrl(this,ID_MediaCtrl))
 {
@@ -38,19 +37,14 @@ void MainFrame::bindingsSetup()
     Bind(wxEVT_MENU,&MainFrame::OnNewPlayList,this,ID_NewPlayLst);
 }
 
-#define USE_NEW_GUI
-
 void MainFrame::widgetsSetup()
 {
-    wxBoxSizer * mainBoxSizer;
-#ifdef USE_NEW_GUI
+    wxBoxSizer * mainBoxSizer=new wxBoxSizer( wxVERTICAL );
     //TODO rename those bSizer1-2-3... in something more appropriate
-    mainBoxSizer = new wxBoxSizer( wxVERTICAL );
-
     wxBoxSizer* bSizer2;
     bSizer2 = new wxBoxSizer( wxHORIZONTAL );
 
-    PlaylistsListBox * playlistListBox = new PlaylistsListBox( this, wxID_ANY);
+    playlistListBox = new PlaylistsListBox( this, wxID_ANY);
     playlistListBox->SetMinSize( wxSize( 200,-1 ) );
 
     bSizer2->Add( playlistListBox, 0, wxALL|wxEXPAND, 4 );
@@ -112,44 +106,7 @@ void MainFrame::widgetsSetup()
 
     mainBoxSizer->Add( bSizer4, 0, wxEXPAND, 5 );
 
-
-    this->SetSizer( mainBoxSizer );
-    //this->Layout();
-#else
-
-    mainBoxSizer=new wxBoxSizer(wxVERTICAL);
-
-    //Slider * newSlider=new Slider(Mp3Player::getInstancePtr(),Mp3Player::getMp3PlayerIstance().getVolume());
-    trackSlider =new TrackSlider(Mp3Player::getInstancePtr(), this, ID_TrackSlider, 80, 0, 100, wxDefaultPosition, wxSize(600, 25), wxSL_HORIZONTAL, wxDefaultValidator, "VolumeSlider");
-    volumeSlider=new VolumeSlider(Mp3Player::getInstancePtr(),this,ID_VolumeSlider,100,0,100,wxDefaultPosition,wxSize(150,25));
-
-    //TODO Buttons to be replaced with bitmap Buttons
-    playButton =new wxButton(this, ID_PlayButton, "PlayPause");
-    nextTrackButton =new wxButton(this, ID_NextTrackButton, "Next");
-    previousTrackButton =new wxButton(this, ID_PrevTrackButton, "Previous");
-
-    //Composing boxSizer
-    mainBoxSizer->AddStretchSpacer();
-    mainBoxSizer->Add(trackSlider, 0, wxALIGN_CENTER | wxALIGN_BOTTOM);
-
-    wxBoxSizer * buttonSizer=new wxBoxSizer(wxHORIZONTAL);
-    buttonSizer->Add(previousTrackButton, 0, wxALIGN_CENTER);
-    buttonSizer->Add(playButton, 0, wxALIGN_CENTER);
-    buttonSizer->Add(nextTrackButton, 0, wxALIGN_CENTER);
-
-    mainBoxSizer->Add(buttonSizer,0,wxALIGN_CENTER_HORIZONTAL);
-    buttonSizer->AddSpacer(100);
-    buttonSizer->Add(volumeSlider,0,wxALIGN_RIGHT);
-
     SetSizer(mainBoxSizer);
-
-    playlistBoxSetup();
-
-    /*for(int i=0;i<10;i++)
-    {
-        playListsBox->Append(string("testo"));
-    }*/
-#endif
 }
 
 void MainFrame::OnOpenFile(wxCommandEvent& event)
@@ -264,6 +221,7 @@ void MainFrame::OnNewPlayList(wxCommandEvent &event)
             //Just for test
             playListsBox->Append(name);
             //TODO append playlist to listBox (can be done in PlayList constructor? or in the factory?)
+            //playlistListBox->update();//crash
         }
     }
 
