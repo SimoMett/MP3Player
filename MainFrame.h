@@ -12,6 +12,7 @@
 #include "TrackSlider.h"
 #include "VolumeSlider.h"
 #include "PlaylistsListBox.h"
+#include "TracksListBox.h"
 
 enum
 {
@@ -39,6 +40,7 @@ public:
     wxButton * prevTrackButton;
     wxMediaCtrl * mediaCtrl;
     PlaylistsListBox * playlistListBox;
+    TracksListBox * tracksListCtrl;
 
     void OnOpenFile(wxCommandEvent& event);
     void OnTrackSlider(wxCommandEvent &event);

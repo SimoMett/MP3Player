@@ -50,7 +50,7 @@ void MainFrame::widgetsSetup()
 
     listsSizer->Add( playlistListBox, 0, wxALL|wxEXPAND, 4 );
 
-    wxListCtrl * tracksListCtrl = new wxListCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_REPORT );
+    tracksListCtrl = new TracksListBox( this, wxID_ANY);
     tracksListCtrl->AppendColumn("Name");
     listsSizer->Add( tracksListCtrl, 1, wxALL|wxEXPAND, 5 );
 

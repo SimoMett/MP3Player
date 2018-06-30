@@ -3,3 +3,13 @@
 //
 
 #include "TracksListBox.h"
+
+TracksListBox::TracksListBox(wxWindow * parent,wxWindowID winid) : wxListCtrl(parent,winid,wxDefaultPosition, wxDefaultSize, wxLC_REPORT )
+{
+
+}
+
+void TracksListBox::update(Subject *subject)
+{
+
+}
