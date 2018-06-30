@@ -23,7 +23,8 @@ enum
     ID_PrevTrackButton=wxID_HIGHEST+6,
     ID_VolumeSlider=wxID_HIGHEST+7,
     ID_MediaCtrl=wxID_HIGHEST+8,
-    ID_NewPlayLst=wxID_HIGHEST+9
+    ID_NewPlayLst=wxID_HIGHEST+9,
+    ID_PlayLstBox=wxID_HIGHEST+10
 };
 
 class MainFrame : public wxFrame {
@@ -48,6 +49,7 @@ public:
     void OnCreditsButton(wxCommandEvent & event);
     void OnMediaLoaded(wxCommandEvent &event);
     void OnNewPlayList(wxCommandEvent & event);
+    void OnPlaylistSelected(wxCommandEvent & event);
 
 private:
     void menuSetup();

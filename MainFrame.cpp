@@ -35,6 +35,7 @@ void MainFrame::bindingsSetup()
     Bind(wxEVT_BUTTON,&MainFrame::PrevTrackButton,this,ID_PrevTrackButton);
     Bind(wxEVT_MEDIA_LOADED, &MainFrame::OnMediaLoaded,this,ID_MediaCtrl);
     Bind(wxEVT_MENU,&MainFrame::OnNewPlayList,this,ID_NewPlayLst);
+    Bind(wxEVT_LISTBOX_DCLICK,&MainFrame::OnPlaylistSelected,this,ID_PlayLstBox);
 }
 
 void MainFrame::widgetsSetup()
@@ -44,7 +45,7 @@ void MainFrame::widgetsSetup()
     wxBoxSizer* listsSizer;
     listsSizer = new wxBoxSizer( wxHORIZONTAL );
 
-    playlistListBox = new PlaylistsListBox( this, wxID_ANY);
+    playlistListBox = new PlaylistsListBox( this, ID_PlayLstBox);
     playlistListBox->SetMinSize( wxSize( 200,-1 ) );
 
     listsSizer->Add( playlistListBox, 0, wxALL|wxEXPAND, 4 );
@@ -203,27 +204,38 @@ void MainFrame::OnMediaLoaded(wxCommandEvent &event)
 void MainFrame::OnNewPlayList(wxCommandEvent &event)
 {
     wxTextEntryDialog *textEntryDialog=new wxTextEntryDialog(this,"Name of new playlist","New Playlist");
-    int result=textEntryDialog->ShowModal();
 
-    if(result==wxID_OK)
+    bool exit=false;
+    while(!exit)
     {
-        string name(textEntryDialog->GetValue().c_str());
-
-        //TODO properly check if in the "name" string there aren't any bad characters such as "/ | \"
-        /*wxString wxname(textEntryDialog->GetValue());
-        wxTextValidator validator(wxFILTER_NONE,&wxname);*/
-
-        if(PlayList::isValidName(name))
+        int result=textEntryDialog->ShowModal();
+        if(result==wxID_OK)
         {
-            PlaylistFactory factory;
-            PlayList * list=factory.createPlaylist(name);
-            list->save();
-            //TODO append playlist to listBox (can be done in PlayList constructor? or in the factory?)
-            //playlistListBox->update();//crash
+            string name(textEntryDialog->GetValue().c_str());
+
+            //TODO properly check if in the "name" string there aren't any bad characters such as "/ | \"
+
+            if(PlayList::isValidName(name))
+            {
+                PlaylistFactory factory;
+                PlayList * list=factory.createPlaylist(name);
+                list->save();
+                playlistListBox->update();
+                exit=true;
+            }
+            else
+                wxMessageBox("Error: Invalid name");
         }
+        else if(result==wxID_CANCEL)
+            exit=true;
     }
 
     delete textEntryDialog;
+}
+
+void MainFrame::OnPlaylistSelected(wxCommandEvent &event)
+{
+    //TODO show playlist in tracks box
 }
 
 wxIMPLEMENT_APP(MainApp);
