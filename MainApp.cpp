@@ -20,7 +20,7 @@ bool MainApp::OnInit()
 
 
     //SetAppDisplayName("iPoorTunez");
-    MainFrame * mainFrame=new MainFrame("iPoorTunes",wxPoint(50,50),wxSize(1024,728));
+    MainFrame * mainFrame=new MainFrame("UTunes",wxPoint(50,50),wxSize(1024,728));
 
     //if(mainFrame!= nullptr) //è sempre vera??
     wxBitmap bitmap("resources/splash_screen.png",wxBITMAP_TYPE_PNG);
