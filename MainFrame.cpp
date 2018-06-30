@@ -42,10 +42,10 @@ void MainFrame::bindingsSetup()
 
 void MainFrame::widgetsSetup()
 {
+    wxBoxSizer * mainBoxSizer;
 #ifdef USE_NEW_GUI
-    //TODO rename thos bSizer1-2-3... in something more appropriate
-    wxBoxSizer* bSizer1;
-    bSizer1 = new wxBoxSizer( wxVERTICAL );
+    //TODO rename those bSizer1-2-3... in something more appropriate
+    mainBoxSizer = new wxBoxSizer( wxVERTICAL );
 
     wxBoxSizer* bSizer2;
     bSizer2 = new wxBoxSizer( wxHORIZONTAL );
@@ -83,13 +83,13 @@ void MainFrame::widgetsSetup()
     bSizer2->Add( bSizer3, 0, wxEXPAND|wxTOP|wxBOTTOM|wxRIGHT, 5 );
 
 
-    bSizer1->Add( bSizer2, 1, wxEXPAND, 5 );
+    mainBoxSizer->Add( bSizer2, 1, wxEXPAND, 5 );
 
     wxStaticLine * staticLine = new wxStaticLine( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL );
-    bSizer1->Add( staticLine, 0, wxEXPAND | wxALL, 5 );
+    mainBoxSizer->Add( staticLine, 0, wxEXPAND | wxALL, 5 );
 
     trackSlider = new TrackSlider(Mp3Player::getInstancePtr(), this, ID_TrackSlider, 50, 0, 100, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL );
-    bSizer1->Add( trackSlider, 0, wxALIGN_CENTER_HORIZONTAL|wxEXPAND|wxBOTTOM|wxRIGHT, 5 );
+    mainBoxSizer->Add( trackSlider, 0, wxALIGN_CENTER_HORIZONTAL|wxEXPAND|wxBOTTOM|wxRIGHT, 5 );
 
     wxBoxSizer* bSizer4;
     bSizer4 = new wxBoxSizer( wxHORIZONTAL );
@@ -110,14 +110,14 @@ void MainFrame::widgetsSetup()
     bSizer4->Add( volumeSlider, 0, wxTOP|wxLEFT|wxALIGN_RIGHT, 5 );
 
 
-    bSizer1->Add( bSizer4, 0, wxEXPAND, 5 );
+    mainBoxSizer->Add( bSizer4, 0, wxEXPAND, 5 );
 
 
-    this->SetSizer( bSizer1 );
+    this->SetSizer( mainBoxSizer );
     //this->Layout();
 #else
 
-    wxBoxSizer * mainBoxSizer=new wxBoxSizer(wxVERTICAL);
+    mainBoxSizer=new wxBoxSizer(wxVERTICAL);
 
     //Slider * newSlider=new Slider(Mp3Player::getInstancePtr(),Mp3Player::getMp3PlayerIstance().getVolume());
     trackSlider =new TrackSlider(Mp3Player::getInstancePtr(), this, ID_TrackSlider, 80, 0, 100, wxDefaultPosition, wxSize(600, 25), wxSL_HORIZONTAL, wxDefaultValidator, "VolumeSlider");
