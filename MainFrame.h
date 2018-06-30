@@ -37,7 +37,6 @@ public:
     wxButton * nextTrackButton;
     wxButton * prevTrackButton;
     wxMediaCtrl * mediaCtrl;
-    wxListBox * playListsBox;
     PlaylistsListBox * playlistListBox;
 
     void OnOpenFile(wxCommandEvent& event);
@@ -53,8 +52,6 @@ public:
 private:
     void menuSetup();
     void widgetsSetup();
-
-    void playlistBoxSetup();
 
     void bindingsSetup();
 };
