@@ -6,15 +6,16 @@
 #define MP3PLAYER_PLAYLISTSLISTBOX_H
 
 #include <wx/wx.h>
-#include "Observer.h"
 
-class PlaylistsListBox :public wxListBox, public Observer
+class PlaylistsListBox :public wxListBox
 {
 public:
     PlaylistsListBox(wxWindow *parent, wxWindowID id, const wxPoint &pos=wxDefaultPosition, const wxSize &size=wxDefaultSize);
 
-    virtual void update();
+    void update();
 
+private:
+    void printLists();
 };
 
 
