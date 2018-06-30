@@ -41,17 +41,17 @@ void MainFrame::widgetsSetup()
 {
     wxBoxSizer * mainBoxSizer=new wxBoxSizer( wxVERTICAL );
     //TODO rename those bSizer1-2-3... in something more appropriate
-    wxBoxSizer* bSizer2;
-    bSizer2 = new wxBoxSizer( wxHORIZONTAL );
+    wxBoxSizer* listsSizer;
+    listsSizer = new wxBoxSizer( wxHORIZONTAL );
 
     playlistListBox = new PlaylistsListBox( this, wxID_ANY);
     playlistListBox->SetMinSize( wxSize( 200,-1 ) );
 
-    bSizer2->Add( playlistListBox, 0, wxALL|wxEXPAND, 4 );
+    listsSizer->Add( playlistListBox, 0, wxALL|wxEXPAND, 4 );
 
     wxListCtrl * tracksListCtrl = new wxListCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_REPORT );
     tracksListCtrl->AppendColumn("Name");
-    bSizer2->Add( tracksListCtrl, 1, wxALL|wxEXPAND, 5 );
+    listsSizer->Add( tracksListCtrl, 1, wxALL|wxEXPAND, 5 );
 
     //just for test
     for(int i=0;i<15;i++)
@@ -59,25 +59,25 @@ void MainFrame::widgetsSetup()
         tracksListCtrl->InsertItem(i,"track.mp3");
     }
 
-    wxBoxSizer* bSizer3;
-    bSizer3 = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer* albumSizer;
+    albumSizer = new wxBoxSizer( wxVERTICAL );
 
     wxBitmap bitmap(200,200);
     bitmap.LoadFile("resources/default_album.png");
     wxStaticBitmap * staticBitmap = new wxStaticBitmap( this, wxID_ANY, bitmap, wxDefaultPosition, wxDefaultSize, 0 );
     staticBitmap->SetMinSize( wxSize( 200,200 ) );
 
-    bSizer3->Add( staticBitmap, 1, wxEXPAND|wxALIGN_RIGHT|wxALL, 4 );
+    albumSizer->Add( staticBitmap, 1, wxEXPAND|wxALIGN_RIGHT|wxALL, 4 );
 
     wxListBox * albumsListBox = new wxListBox( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, NULL, 0 );
     albumsListBox->SetMinSize(wxSize(200,-1));
-    bSizer3->Add( albumsListBox, 1, wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxRIGHT|wxLEFT, 4 );
+    albumSizer->Add( albumsListBox, 1, wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxRIGHT|wxLEFT, 4 );
 
 
-    bSizer2->Add( bSizer3, 0, wxEXPAND|wxTOP|wxBOTTOM|wxRIGHT, 5 );
+    listsSizer->Add( albumSizer, 0, wxEXPAND|wxTOP|wxBOTTOM|wxRIGHT, 5 );
 
 
-    mainBoxSizer->Add( bSizer2, 1, wxEXPAND, 5 );
+    mainBoxSizer->Add( listsSizer, 1, wxEXPAND, 5 );
 
     wxStaticLine * staticLine = new wxStaticLine( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL );
     mainBoxSizer->Add( staticLine, 0, wxEXPAND | wxALL, 5 );
@@ -85,26 +85,26 @@ void MainFrame::widgetsSetup()
     trackSlider = new TrackSlider(Mp3Player::getInstancePtr(), this, ID_TrackSlider, 50, 0, 100, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL );
     mainBoxSizer->Add( trackSlider, 0, wxALIGN_CENTER_HORIZONTAL|wxEXPAND|wxBOTTOM|wxRIGHT, 5 );
 
-    wxBoxSizer* bSizer4;
-    bSizer4 = new wxBoxSizer( wxHORIZONTAL );
+    wxBoxSizer* buttonSizer;
+    buttonSizer = new wxBoxSizer( wxHORIZONTAL );
 
-    previousTrackButton = new wxButton( this, ID_PrevTrackButton, wxT("Prev"), wxDefaultPosition, wxDefaultSize, 0 );
-    bSizer4->Add( previousTrackButton, 0, wxALL, 5 );
+    prevTrackButton = new wxButton( this, ID_PrevTrackButton, wxT("Prev"), wxDefaultPosition, wxDefaultSize, 0 );
+    buttonSizer->Add( prevTrackButton, 0, wxALL, 5 );
 
     playButton = new wxButton( this, ID_PlayButton, wxT("PlayPause"), wxDefaultPosition, wxDefaultSize, 0 );
-    bSizer4->Add( playButton, 0, wxALL, 5 );
+    buttonSizer->Add( playButton, 0, wxALL, 5 );
 
     nextTrackButton = new wxButton( this, ID_NextTrackButton, wxT("Next"), wxDefaultPosition, wxDefaultSize, 0 );
-    bSizer4->Add( nextTrackButton, 0, wxALL, 5 );
+    buttonSizer->Add( nextTrackButton, 0, wxALL, 5 );
 
 
-    bSizer4->Add( 0, 0, 1, wxEXPAND, 5 );
+    buttonSizer->Add( 0, 0, 1, wxEXPAND, 5 );
 
     volumeSlider = new VolumeSlider(Mp3Player::getInstancePtr(), this, ID_VolumeSlider, 50, 0, 100, wxDefaultPosition, wxSize( 150,25 ), wxSL_HORIZONTAL );
-    bSizer4->Add( volumeSlider, 0, wxTOP|wxLEFT|wxALIGN_RIGHT, 5 );
+    buttonSizer->Add( volumeSlider, 0, wxTOP|wxLEFT|wxALIGN_RIGHT, 5 );
 
 
-    mainBoxSizer->Add( bSizer4, 0, wxEXPAND, 5 );
+    mainBoxSizer->Add( buttonSizer, 0, wxEXPAND, 5 );
 
     SetSizer(mainBoxSizer);
 }

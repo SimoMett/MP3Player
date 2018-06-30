@@ -35,7 +35,7 @@ public:
     VolumeSlider * volumeSlider;
     wxButton * playButton;
     wxButton * nextTrackButton;
-    wxButton * previousTrackButton;
+    wxButton * prevTrackButton;
     wxMediaCtrl * mediaCtrl;
     wxListBox * playListsBox;
     PlaylistsListBox * playlistListBox;
