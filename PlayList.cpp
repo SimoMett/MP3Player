@@ -168,5 +168,8 @@ bool PlayList::isValidName(string name)
     if(!wxFileExists(finalPath))
         valid=true;
 
+    if(!name.length())
+        valid=false;
+
     return valid;
 }
