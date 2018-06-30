@@ -43,6 +43,7 @@ void MainFrame::bindingsSetup()
 void MainFrame::widgetsSetup()
 {
 #ifdef USE_NEW_GUI
+    //TODO rename thos bSizer1-2-3... in something more appropriate
     wxBoxSizer* bSizer1;
     bSizer1 = new wxBoxSizer( wxVERTICAL );
 
