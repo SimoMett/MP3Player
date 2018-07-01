@@ -15,6 +15,9 @@ public:
     TracksListBox(wxWindow * parent,wxWindowID winid=wxID_ANY);
 
     virtual void update(Subject * subject);
+
+private:
+    void printTracks();
 };
 
 
