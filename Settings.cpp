@@ -55,8 +55,8 @@ void Settings::LoadSettings(string file)
                 {
                     if(attributes->GetName()=="value")
                     {
-                        float val;
-                        val=stof(attributes->GetValue().ToStdString());
+                        unsigned int val;
+                        val=stoi(attributes->GetValue().ToStdString());
                         setSavedVolume(val);
                     }
                     attributes=attributes->GetNext();
@@ -107,9 +107,9 @@ void Settings::SaveSettings()
     }
 }
 
-void Settings::setSavedVolume(float val)
+void Settings::setSavedVolume(unsigned int val)
 {
-    if(val>100 || val <0)
+    if(val>100)
         val=100;
     savedVolume=val;
 }

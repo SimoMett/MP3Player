@@ -57,7 +57,7 @@ void MainFrame::widgetsSetup()
     //just for test
     for(int i=0;i<15;i++)
     {
-        tracksListCtrl->InsertItem(i,"track.mp3");
+        tracksListCtrl->InsertItem(i,"track.mp3\tggg");
     }
 
     wxBoxSizer* albumSizer;
@@ -101,7 +101,7 @@ void MainFrame::widgetsSetup()
 
     buttonSizer->Add( 0, 0, 1, wxEXPAND, 5 );
 
-    volumeSlider = new VolumeSlider(Mp3Player::getInstancePtr(), this, ID_VolumeSlider, 50, 0, 100, wxDefaultPosition, wxSize( 150,25 ), wxSL_HORIZONTAL );
+    volumeSlider = new VolumeSlider(Mp3Player::getInstancePtr(), this, ID_VolumeSlider, Settings::getIstance()->getSavedVolume(), 0, 100, wxDefaultPosition, wxSize( 150,25 ), wxSL_HORIZONTAL );
     buttonSizer->Add( volumeSlider, 0, wxTOP|wxLEFT|wxALIGN_RIGHT, 5 );
 
 
@@ -132,7 +132,7 @@ void MainFrame::OnTrackSlider(wxCommandEvent &event)
 
 void MainFrame::OnVolumeSlider(wxCommandEvent &event)
 {
-    mediaCtrl->SetVolume(volumeSlider->GetValue()/100.0);
+    mediaCtrl->SetVolume(volumeSlider->GetValue()/ static_cast<float>(volumeSlider->GetMax()));
 }
 
 void MainFrame::PlayButton(wxCommandEvent &event)

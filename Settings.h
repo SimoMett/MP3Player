@@ -23,8 +23,8 @@ public:
     static Settings * Istantiate(string settingsfile="resources/settings.xml");
 
     void SaveSettings();
-    void setSavedVolume(float val);
-    float getSavedVolume() const{
+    void setSavedVolume(unsigned int val);
+    unsigned int getSavedVolume() const{
         return savedVolume;
     }
 
@@ -37,7 +37,7 @@ protected:
 
 private:
     static Settings * singleIstance;
-    float savedVolume;
+    unsigned int savedVolume;
     string settingsPath;
     void LoadSettings(string file);
 
