@@ -163,7 +163,7 @@ void MainFrame::PrevTrackButton(wxCommandEvent &event)
 
 void MainFrame::OnCreditsButton(wxCommandEvent &event)
 {
-    wxMessageBox("Mp3Player written by:\nMatteo Simonetti\nFilippo Amidei\n\nThis application uses wxWidgets library","Credits");
+    wxMessageBox("UTunes written by:\nMatteo Simonetti\nFilippo Amidei\n\nThis application uses wxWidgets library","Credits");
 }
 
 void MainFrame::menuSetup()
