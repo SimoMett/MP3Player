@@ -13,6 +13,7 @@
 #include "VolumeSlider.h"
 #include "PlaylistsListBox.h"
 #include "TracksListBox.h"
+#include "Subject.h"
 
 enum
 {
@@ -28,7 +29,7 @@ enum
     ID_PlayLstBox=wxID_HIGHEST+10
 };
 
-class MainFrame : public wxFrame {
+class MainFrame : public wxFrame , public Subject{
 
 public:
     MainFrame(const wxString& title, const wxPoint& pos, const wxSize& size);

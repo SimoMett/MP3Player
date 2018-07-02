@@ -76,7 +76,7 @@ void MainFrame::widgetsSetup()
     wxStaticLine * staticLine = new wxStaticLine( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL );
     mainBoxSizer->Add( staticLine, 0, wxEXPAND | wxALL, 5 );
 
-    trackSlider = new TrackSlider(Mp3Player::getInstancePtr(), this, ID_TrackSlider);
+    trackSlider = new TrackSlider(this, this, ID_TrackSlider);
     mainBoxSizer->Add( trackSlider, 0, wxALIGN_CENTER_HORIZONTAL|wxEXPAND|wxBOTTOM|wxRIGHT, 5 );
 
     wxBoxSizer* buttonSizer;

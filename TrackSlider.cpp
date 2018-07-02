@@ -3,12 +3,13 @@
 //
 
 #include "TrackSlider.h"
+#include "MainFrame.h"
 
 TrackSlider::TrackSlider(Subject *_subject, wxWindow *parent, wxWindowID id) :
-        Slider(_subject,parent,id,0, 0, 100), timer(this)
+        Slider(_subject,parent,id,0, 0, 1000), timer(this), subject(_subject)
 {
     Bind(wxEVT_TIMER,&TrackSlider::OnTimer,this);
-    timer.Start(500);
+    timer.Start(1000);
 }
 
 TrackSlider::~TrackSlider()
@@ -18,18 +19,19 @@ TrackSlider::~TrackSlider()
 
 void TrackSlider::update(Subject * subject)
 {
-    int currentTrackDuration=playerInstance->currentTrack->getDuration();
-    float val=(playerInstance->getCurrentTrackTiming()/currentTrackDuration)*wxSlider::GetMax();
+    //actually this is pretty nosense. I messed up something
+    if(subject==this->subject)
+    {
+        if(MainFrame* ptr=dynamic_cast<MainFrame*>(subject))
+        {
+            int val= static_cast<int>(ptr->mediaCtrl->Tell()*1.0/ptr->mediaCtrl->Length() * GetMax());
 
-    wxSlider::SetValue(val);
-}
-
-void TrackSlider::OnValueChanged()
-{
-    cout<<wxSlider::GetValue()<<endl;
+            wxSlider::SetValue(val);
+        }
+    }
 }
 
 void TrackSlider::OnTimer(wxTimerEvent &event)
 {
-    //update();
+    update(subject);
 }

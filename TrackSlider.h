@@ -15,10 +15,11 @@ public:
 
     void update(Subject * subject) final ;
 
-    virtual void OnValueChanged() override ;
+    virtual void OnValueChanged() =delete ;
 
 private:
 
+    Subject * subject;
     wxTimer timer;
     void OnTimer(wxTimerEvent & event);
 };
