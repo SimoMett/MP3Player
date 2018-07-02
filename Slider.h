@@ -14,7 +14,7 @@
 class Slider : public Observer , public wxSlider
 {
 public:
-    Slider(Mp3Player *_subject, wxWindow *parent, wxWindowID id, int value, int minValue, int maxValue,
+    Slider(Subject *_subject, wxWindow *parent, wxWindowID id, int value, int minValue, int maxValue,
            const wxPoint &pos = wxDefaultPosition, const wxSize &size = wxDefaultSize, long style = wxSL_HORIZONTAL,
            const wxValidator &validator = wxDefaultValidator, const wxString &name = wxSliderNameStr);
 
