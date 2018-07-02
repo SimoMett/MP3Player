@@ -4,9 +4,17 @@
 
 #include "TrackSlider.h"
 
-TrackSlider::TrackSlider(Mp3Player *_subject, wxWindow *parent, wxWindowID id, int value, int minValue, int maxValue,
-                           const wxPoint &pos, const wxSize &size, long style, const wxValidator &validator, const wxString &name) :
-        Slider(_subject,parent,id,value,minValue,maxValue,pos,size,style,validator,name){}
+TrackSlider::TrackSlider(Subject *_subject, wxWindow *parent, wxWindowID id) :
+        Slider(_subject,parent,id,0, 0, 100), timer(this)
+{
+    Bind(wxEVT_TIMER,&TrackSlider::OnTimer,this);
+    timer.Start(500);
+}
+
+TrackSlider::~TrackSlider()
+{
+    timer.Stop();
+}
 
 void TrackSlider::update(Subject * subject)
 {
@@ -19,4 +27,9 @@ void TrackSlider::update(Subject * subject)
 void TrackSlider::OnValueChanged()
 {
     cout<<wxSlider::GetValue()<<endl;
+}
+
+void TrackSlider::OnTimer(wxTimerEvent &event)
+{
+    //update();
 }
