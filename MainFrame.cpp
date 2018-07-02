@@ -41,7 +41,7 @@ void MainFrame::bindingsSetup()
 void MainFrame::widgetsSetup()
 {
     wxBoxSizer * mainBoxSizer=new wxBoxSizer( wxVERTICAL );
-    //TODO rename those bSizer1-2-3... in something more appropriate
+
     wxBoxSizer* listsSizer;
     listsSizer = new wxBoxSizer( wxHORIZONTAL );
 
@@ -76,7 +76,7 @@ void MainFrame::widgetsSetup()
     wxStaticLine * staticLine = new wxStaticLine( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL );
     mainBoxSizer->Add( staticLine, 0, wxEXPAND | wxALL, 5 );
 
-    trackSlider = new TrackSlider(Mp3Player::getInstancePtr(), this, ID_TrackSlider, 50, 0, 100, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL );
+    trackSlider = new TrackSlider(Mp3Player::getInstancePtr(), this, ID_TrackSlider);
     mainBoxSizer->Add( trackSlider, 0, wxALIGN_CENTER_HORIZONTAL|wxEXPAND|wxBOTTOM|wxRIGHT, 5 );
 
     wxBoxSizer* buttonSizer;
@@ -191,9 +191,6 @@ void MainFrame::menuSetup()
 
 void MainFrame::OnMediaLoaded(wxCommandEvent &event)
 {
-    //cout << "Loaded "<<mediaCtrl->GetName()<<endl;
-    //cout << "Duration : "<<mediaCtrl->Length()/1000<<" Seconds"<<endl;
-    //mediaCtrl->Play();
     mediaCtrl->SetVolume(volumeSlider->GetValue()/100.0);
 }
 
