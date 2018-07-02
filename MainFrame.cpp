@@ -85,7 +85,7 @@ void MainFrame::widgetsSetup()
     prevTrackButton = new wxButton( this, ID_PrevTrackButton, wxT("Prev"), wxDefaultPosition, wxDefaultSize, 0 );
     buttonSizer->Add( prevTrackButton, 0, wxALL, 5 );
 
-    playButton = new wxButton( this, ID_PlayButton, wxT("PlayPause"), wxDefaultPosition, wxDefaultSize, 0 );
+    playButton = new wxButton( this, ID_PlayButton, wxT("Play"), wxDefaultPosition, wxDefaultSize, 0 );
     buttonSizer->Add( playButton, 0, wxALL, 5 );
 
     nextTrackButton = new wxButton( this, ID_NextTrackButton, wxT("Next"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -136,16 +136,19 @@ void MainFrame::PlayButton(wxCommandEvent &event)
         {
             //TODO select a track (first track on mainLibrary)
             mediaCtrl->Play();
+            playButton->SetLabel("Pause");
             break;
         }
         case wxMEDIASTATE_PAUSED:
         {
             mediaCtrl->Play();
+            playButton->SetLabel("Pause");
             break;
         }
         case wxMEDIASTATE_PLAYING:
         {
             mediaCtrl->Pause();
+            playButton->SetLabel("Play");
             break;
         }
     }
