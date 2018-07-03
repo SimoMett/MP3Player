@@ -84,6 +84,8 @@ TEST(PlayList,rename)
     list->rename("lista2");
 
     ASSERT_TRUE(wxFileExists("resources/playlists/lista2.xml"));
+
+    remove("resources/playlists/lista2.xml");
 }
 
 TEST(PlayList, addTrackTwice)

@@ -31,18 +31,3 @@ TEST(Mp3Player,setVolume)
     p.setVolume(normalVal);
     ASSERT_FLOAT_EQ(normalVal,p.getVolume());
 }
-
-TEST(Mp3Player,setTrackPlaypoint)
-{
-    Mp3Player::Create();
-    Mp3Player &p=*(Mp3Player::getInstancePtr());
-    p.setTrackPlayPoint(20);
-    ASSERT_EQ(20,p.getCurrentTrackTiming());
-    p.setTrackPlayPoint(-5);
-    ASSERT_EQ(0,p.getCurrentTrackTiming());
-    //currentTrack not initialised yet
-    /*
-    p.setTrackPlayPoint(p.currentTrack->getDuration()+6);
-    ASSERT_EQ(0,p.getCurrentTrackTiming());
-     */
-}
