@@ -94,7 +94,7 @@ void MainFrame::widgetsSetup()
 
     buttonSizer->Add( 0, 0, 1, wxEXPAND, 5 );
 
-    currentTrackTitle = new wxStaticText( this, ID_CurrentTrackTitle, "lastPlayedSong", wxDefaultPosition, wxDefaultSize, 0);
+    currentTrackTitle = new wxStaticText( this, ID_CurrentTrackTitle, "currentTrack", wxDefaultPosition, wxDefaultSize, 0);
     //TODO change currentTrackTitle label with current playing track title or last played song title
     buttonSizer->Add( currentTrackTitle, 0, wxEXPAND|wxALIGN_CENTER_VERTICAL|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
 
