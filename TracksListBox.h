@@ -22,6 +22,8 @@ public:
 
     std::string getSelectedItem();
 
+
+
 private:
     void insertItem(long index, Track & track);
     void display();

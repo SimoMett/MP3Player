@@ -44,7 +44,6 @@ void TracksListBox::display()
         for (int i = 0; i < list.getTracksCount(); i++)
         {
             insertItem(i, list.getTrack(i));
-            //cout << i << " | "<<list.getTrack(i).title<<endl;
         }
     }
 }
