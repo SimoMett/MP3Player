@@ -15,14 +15,15 @@ TracksListBox::TracksListBox(wxWindow * parent,wxWindowID winid) : wxListCtrl(pa
     //AppendColumn("Duration");
 
     //Test
-    for(int i=0;i<10;i++)
+    /*for(int i=0;i<10;i++)
     {
         string name("track"+to_string(i));
         long item = InsertItem(i,name );
         SetItem(item, 1, "artista");
         SetItem(item, 2, "album");
         //insertItem()
-    }
+    }*/
+    display();
 }
 
 void TracksListBox::update(Subject *subject)
@@ -36,19 +37,26 @@ void TracksListBox::update(Subject *subject)
 
 void TracksListBox::display()
 {
-    const PlayList & list=*(Mp3Player::getInstancePtr()->getSelectedList());
-
-    for(int i=0;i<list.getTracksCount();i++)
+    if(Mp3Player::getInstancePtr() && Mp3Player::getInstancePtr()->getSelectedList())
     {
-        insertItem(i,list.getTrack(i));
+        const PlayList &list = *(Mp3Player::getInstancePtr()->getSelectedList());
+
+        for (int i = 0; i < list.getTracksCount(); i++)
+        {
+            insertItem(i, list.getTrack(i));
+            //cout << i << " | "<<list.getTrack(i).title<<endl;
+        }
     }
 }
 
 void TracksListBox::insertItem(long index, Track & track)
 {
-    long item=InsertItem(index,track.title);
+    string name=track.title;
+    name.erase(name.find_last_of("."),name.length());
+    long item=InsertItem(index,name);
     SetItem(item,1,track.artist);
-    SetItem(item,2,track.album->getName());
+    //SetItem(item,2,track.album->getName());//later
+    SetItem(item,2,"TODO SETUP ALBUM");
     //SetItem(item,3,track.getDurationStr());
 }
 
