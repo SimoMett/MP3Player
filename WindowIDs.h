@@ -20,7 +20,8 @@ enum
     ID_NewPlayLst=wxID_HIGHEST+9,
     ID_PlayLstBox=wxID_HIGHEST+10,
     ID_CurrentTrackTitle=wxID_HIGHEST+11,
-    ID_TracksListBox=wxID_HIGHEST+12
+    ID_TracksListBox=wxID_HIGHEST+12,
+    ID_LoopButton=wxID_HIGHEST+13
 };
 
 #endif //MP3PLAYER_WINDOWIDS_H
