@@ -113,10 +113,10 @@ void MainFrame::OnOpenFile(wxCommandEvent& event)
     wxFileDialog openFileDialog(this, _("Open MP3 file"), "", "", "MP3 files (*.mp3)|*.mp3", wxFD_OPEN|wxFD_FILE_MUST_EXIST);
     if(openFileDialog.ShowModal()==wxID_OK)
     {
+        //TODO check if mp3 is already in mainLibrary
         //TODO file must be added to playlist
         TrackFactory factory;
         Track * track=factory.importTrack(openFileDialog.GetPath().ToStdString());
-
 
 
 
@@ -200,6 +200,8 @@ void MainFrame::menuSetup()
 void MainFrame::OnMediaLoaded(wxCommandEvent &event)
 {
     mediaCtrl->SetVolume(volumeSlider->GetValue()/100.0);
+    mediaCtrl->Play();
+    playButton->SetLabel("Pause");
 }
 
 void MainFrame::OnNewPlayList(wxCommandEvent &event)
@@ -241,10 +243,17 @@ void MainFrame::OnPlaylistSelected(wxCommandEvent &event)
 
 void MainFrame::OnTracksBoxDoubleClick(wxCommandEvent &event)
 {
-    //TODO
-    //Retrieve track from the name, then
-    //media control should load the selected track
-    cout << tracksListCtrl->getSelectedItem()<<endl;
+    string item=tracksListCtrl->getSelectedItem();
+    cout << item<<endl;
+    Track * track=Mp3Player::getInstancePtr()->getSelectedList()->findTrack(item);
+
+    if(track)
+    {
+        cout << track->title<<endl;
+        mediaCtrl->Load(track->getDirectory());
+    }
+    else
+        cout << "none"<<endl;
 }
 
 wxIMPLEMENT_APP(MainApp);
