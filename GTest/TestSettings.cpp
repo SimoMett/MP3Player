@@ -38,8 +38,6 @@ TEST(Settings,TestLoadSettings)
     delete s;
 }
 
-
-
 TEST(Settings, SaveSettings)
 {
     Settings * s=Settings::Istantiate();

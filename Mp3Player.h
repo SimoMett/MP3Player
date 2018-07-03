@@ -39,7 +39,6 @@ public:
     void savePlayLists();//maybe this is not necessary
     int find(string text);
     Track & getRandomTrackFromPlaylist(PlayList & list);
-    void setTrackPlayPoint(int seconds);
 
     static Mp3Player * getInstancePtr(){
         return currentPlayer;

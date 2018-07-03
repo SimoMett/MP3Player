@@ -61,15 +61,6 @@ Track& Mp3Player::getRandomTrackFromPlaylist(PlayList &list)
     return list.getTrack(rand());
 }
 
-void Mp3Player::setTrackPlayPoint(int seconds)
-{
-    if(seconds <0 /*|| seconds>currentTrack->getDuration()*/)//currentTrack not initialised yet
-        seconds=0;
-
-    currentTrackTiming=seconds;
-    requestUpdate();
-}
-
 void Mp3Player::loadPlayLists()
 {
     //This method should check every .xml file and load (if possible) every playlist
