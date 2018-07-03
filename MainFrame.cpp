@@ -37,6 +37,7 @@ void MainFrame::bindingsSetup()
     Bind(wxEVT_MENU,&MainFrame::OnNewPlayList,this,ID_NewPlayLst);
     Bind(wxEVT_LISTBOX_DCLICK,&MainFrame::OnPlaylistSelected,this,ID_PlayLstBox);
     Bind(wxEVT_LIST_ITEM_ACTIVATED,&MainFrame::OnTracksBoxDoubleClick,this,ID_TracksListBox);
+    Bind(wxEVT_TOGGLEBUTTON,&MainFrame::OnLoopButton,this,ID_LoopButton);
 }
 
 void MainFrame::widgetsSetup()
@@ -51,7 +52,7 @@ void MainFrame::widgetsSetup()
 
     listsSizer->Add( playlistListBox, 0, wxALL|wxEXPAND, 4 );
 
-    tracksListCtrl = new TracksListBox( this, ID_TracksListBox);
+    tracksListCtrl = new TracksListBox(Mp3Player::getInstancePtr()->getSelectedList(),this, ID_TracksListBox);
     listsSizer->Add( tracksListCtrl, 1, wxALL|wxEXPAND, 5 );
 
     wxBoxSizer* albumSizer;
@@ -91,6 +92,9 @@ void MainFrame::widgetsSetup()
 
     nextTrackButton = new wxButton( this, ID_NextTrackButton, wxT("Next"), wxDefaultPosition, wxDefaultSize, 0 );
     buttonSizer->Add( nextTrackButton, 0, wxALL, 5 );
+
+    loopButton = new wxToggleButton( this, ID_LoopButton, wxT("Loop"), wxDefaultPosition, wxDefaultSize, 0 );
+    buttonSizer->Add( loopButton, 0, wxALL, 5 );
 
     buttonSizer->Add( 0, 0, 1, wxEXPAND, 5 );
 
@@ -245,16 +249,19 @@ void MainFrame::OnPlaylistSelected(wxCommandEvent &event)
 void MainFrame::OnTracksBoxDoubleClick(wxCommandEvent &event)
 {
     string item=tracksListCtrl->getSelectedItem();
-    cout << item<<endl;
     Track * track=Mp3Player::getInstancePtr()->getSelectedList()->findTrack(item);
 
     if(track)
     {
-        cout << track->title<<endl;
         mediaCtrl->Load(track->getDirectory());
     }
     else
         cout << "none"<<endl;
+}
+
+void MainFrame::OnLoopButton(wxCommandEvent &event)
+{
+    Mp3Player::getInstancePtr()->mp3Looping=loopButton->GetValue();
 }
 
 wxIMPLEMENT_APP(MainApp);

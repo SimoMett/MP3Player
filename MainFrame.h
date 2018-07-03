@@ -6,6 +6,7 @@
 #define MP3PLAYER_MAINFRAME_H
 
 #include <wx/wx.h>
+#include <wx/tglbtn.h>
 #include <wx/listctrl.h>
 #include <wx/mediactrl.h>
 #include "MainApp.h"
@@ -30,6 +31,7 @@ public:
     wxStaticText * currentTrackTitle;
     PlaylistsListBox * playlistListBox;
     TracksListBox * tracksListCtrl;
+    wxToggleButton * loopButton;
 
     void OnOpenFile(wxCommandEvent& event);
     void OnTrackSlider(wxCommandEvent &event);
@@ -42,6 +44,7 @@ public:
     void OnNewPlayList(wxCommandEvent & event);
     void OnPlaylistSelected(wxCommandEvent & event);
     void OnTracksBoxDoubleClick(wxCommandEvent & event);
+    void OnLoopButton(wxCommandEvent & event);
 
 private:
     void menuSetup();
