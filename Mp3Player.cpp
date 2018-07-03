@@ -81,3 +81,9 @@ void Mp3Player::loadPlayLists()
         cont = dir.GetNext(&filename);
     }
 }
+
+void Mp3Player::changePlaylist(PlayList *list)
+{
+    selectedList=list;
+    requestUpdate();
+}

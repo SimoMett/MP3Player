@@ -40,6 +40,8 @@ public:
     int find(string text);
     Track & getRandomTrackFromPlaylist(PlayList & list);
 
+    void changePlaylist(PlayList * list);
+
     static Mp3Player * getInstancePtr(){
         return currentPlayer;
     }
@@ -51,6 +53,7 @@ public:
 private:
     Mp3Player();
     static Mp3Player * currentPlayer;
+    PlayList * selectedList;
     static const float defaultVolume;
     int currentTrackTiming;
     float volume;
