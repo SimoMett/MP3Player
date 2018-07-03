@@ -15,7 +15,7 @@ public:
 
     void update(Subject * subject) final ;
 
-    virtual void OnValueChanged() =delete ;
+    virtual void OnValueChanged(){} ;
 
 private:
 

@@ -17,7 +17,6 @@ bool MainApp::OnInit()
     if(argc > 1)
         cout << argv[1]<<endl;
 
-    //SetAppDisplayName("iPoorTunez");
     MainFrame * mainFrame=new MainFrame("UTunes",wxPoint(50,50),wxSize(1024,728));
 
     //if(mainFrame!= nullptr) //è sempre vera??
