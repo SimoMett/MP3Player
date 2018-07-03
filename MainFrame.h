@@ -27,6 +27,7 @@ public:
     wxButton * nextTrackButton;
     wxButton * prevTrackButton;
     wxMediaCtrl * mediaCtrl;
+    wxStaticText * currentTrackTitle;
     PlaylistsListBox * playlistListBox;
     TracksListBox * tracksListCtrl;
 
