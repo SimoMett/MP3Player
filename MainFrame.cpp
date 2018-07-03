@@ -21,7 +21,6 @@ MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &si
 
     bindingsSetup();
 
-    mediaCtrl->Load("resources/test.mp3");//Just for testing wxMediaCtrl
 }
 
 void MainFrame::bindingsSetup()
@@ -105,15 +104,12 @@ void MainFrame::widgetsSetup()
 
 void MainFrame::OnOpenFile(wxCommandEvent& event)
 {
-    //TODO Import track and play it
-    //FIXME all
-    wxFileCtrl * fileCtrl=new wxFileCtrl(this,wxID_ANY);
-    fileCtrl->SetWildcard("MP3 files (*.mp3)|*.mp3");
-
-    //cout << fileCtrl->GetPath()<<endl;
-    fileCtrl->Show(true);
-
-    delete fileCtrl;
+    wxFileDialog openFileDialog(this, _("Open MP3 file"), "", "", "MP3 files (*.mp3)|*.mp3", wxFD_OPEN|wxFD_FILE_MUST_EXIST);
+    if(openFileDialog.ShowModal()==wxID_OK)
+    {
+        mediaCtrl->Load(openFileDialog.GetPath());
+        //TODO file must be added to playlist
+    }
 }
 
 void MainFrame::OnTrackSlider(wxCommandEvent &event)
