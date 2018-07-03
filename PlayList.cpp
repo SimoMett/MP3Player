@@ -40,12 +40,16 @@ bool PlayList::addTrack(Track* track)
         tracks.push_back(track);
         ok=true;
     }
+    requestUpdate();
+    if(Mp3Player::getInstancePtr())
+        Mp3Player::getInstancePtr()->requestUpdate();
     return ok;
 }
 
 bool PlayList::removeTrack(Track* track)
 {
     tracks.erase(std::remove(tracks.begin(),tracks.end(),track));
+    requestUpdate();
 }
 
 bool PlayList::removeTrack(int index)
