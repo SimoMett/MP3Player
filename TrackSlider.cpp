@@ -6,7 +6,7 @@
 #include "MainFrame.h"
 
 TrackSlider::TrackSlider(Subject *_subject, wxWindow *parent, wxWindowID id) :
-        Slider(_subject,parent,id,0, 0, 1000), timer(this), subject(_subject)
+        Slider(_subject,parent,id,0, 0, 2000), timer(this), subject(_subject)
 {
     Bind(wxEVT_TIMER,&TrackSlider::OnTimer,this);
     timer.Start(1000);
