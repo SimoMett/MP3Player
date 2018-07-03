@@ -5,6 +5,7 @@
 #ifndef MP3PLAYER_TRACKSLISTBOX_H
 #define MP3PLAYER_TRACKSLISTBOX_H
 
+#include <string>
 #include <wx/wx.h>
 #include <wx/listctrl.h>
 #include "Observer.h"
@@ -12,9 +13,12 @@
 class TracksListBox : public wxListCtrl, public Observer
 {
 public:
-    TracksListBox(wxWindow * parent,wxWindowID winid=wxID_ANY);
+    TracksListBox(wxWindow * parent,wxWindowID winid);
 
     virtual void update(Subject * subject);
+
+    void OnDoubleClick(wxCommandEvent &event);
+    std::string getSelectedItem();
 
 private:
     void printTracks();
