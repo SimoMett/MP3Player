@@ -92,15 +92,16 @@ void MainFrame::widgetsSetup()
     nextTrackButton = new wxButton( this, ID_NextTrackButton, wxT("Next"), wxDefaultPosition, wxDefaultSize, 0 );
     buttonSizer->Add( nextTrackButton, 0, wxALL, 5 );
 
+    buttonSizer->Add( 0, 0, 1, wxEXPAND, 5 );
+
+    currentTrackTitle = new wxStaticText( this, ID_CurrentTrackTitle, "lastPlayedSong", wxDefaultPosition, wxDefaultSize, 0);
+    //TODO change currentTrackTitle label with current playing track title or last played song title
+    buttonSizer->Add( currentTrackTitle, 0, wxEXPAND|wxALIGN_CENTER_VERTICAL|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
 
     buttonSizer->Add( 0, 0, 1, wxEXPAND, 5 );
 
     volumeSlider = new VolumeSlider(Mp3Player::getInstancePtr(), this, ID_VolumeSlider, Settings::getIstance()->getSavedVolume(), 0, 100, wxDefaultPosition, wxSize( 150,25 ), wxSL_HORIZONTAL );
     buttonSizer->Add( volumeSlider, 0, wxTOP|wxLEFT|wxALIGN_RIGHT, 5 );
-
-    currentTrackTitle = new wxStaticText( this, ID_CurrentTrackTitle, "lastPlayedSong", wxDefaultPosition, wxDefaultSize, 0);
-    //TODO change currentTrackTitle label with current playing track title or last played song title
-    mainBoxSizer->Add( currentTrackTitle, 0, wxALIGN_CENTER, 5 );
 
 
     mainBoxSizer->Add( buttonSizer, 0, wxEXPAND, 5 );
