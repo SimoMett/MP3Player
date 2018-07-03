@@ -24,16 +24,18 @@ public:
     string genre;
     //bool like;
 
-    int getDuration() const{
+    /*int getDuration() const{
         return duration;
     }
+
+    string getDurationStr() const;*/
     const string & getDirectory() const{
         return directory;
     }
 
 private:
 
-    int duration;
+    //int duration;
     string directory;
 };
 
