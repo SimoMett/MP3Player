@@ -3,6 +3,7 @@
 //
 
 #include "TracksListBox.h"
+#include "Mp3Player.h"
 
 using namespace std;
 
@@ -26,13 +27,21 @@ TracksListBox::TracksListBox(wxWindow * parent,wxWindowID winid) : wxListCtrl(pa
 
 void TracksListBox::update(Subject *subject)
 {
-    DeleteAllItems();
-    display();
+    if(subject==Mp3Player::getInstancePtr())
+    {
+        DeleteAllItems();
+        display();
+    }
 }
 
 void TracksListBox::display()
 {
-    //TODO Implement
+    const PlayList & list=*(Mp3Player::getInstancePtr()->getSelectedList());
+
+    for(int i=0;i<list.getTracksCount();i++)
+    {
+        insertItem(i,list.getTrack(i));
+    }
 }
 
 void TracksListBox::insertItem(long index, Track & track)

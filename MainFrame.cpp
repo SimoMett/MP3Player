@@ -21,6 +21,7 @@ MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &si
 
     bindingsSetup();
 
+    Mp3Player::getInstancePtr()->attachObserver(tracksListCtrl);
 }
 
 void MainFrame::bindingsSetup()

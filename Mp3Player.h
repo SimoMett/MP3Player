@@ -46,6 +46,11 @@ public:
         return currentPlayer;
     }
 
+    PlayList * getSelectedList() const
+    {
+        return selectedList;
+    }
+
     int getCurrentTrackTiming() const {
         return currentTrackTiming;
     }
