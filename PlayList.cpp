@@ -65,7 +65,7 @@ Track* PlayList::findTrack(string name) const
 
     for(auto item : tracks)
     {
-        if(name==item->title)
+        if(item->title.find(name)!=string::npos)
         {
             ptr=item;
             break;
