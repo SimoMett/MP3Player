@@ -35,6 +35,7 @@ void MainFrame::bindingsSetup()
     Bind(wxEVT_MEDIA_LOADED, &MainFrame::OnMediaLoaded,this,ID_MediaCtrl);
     Bind(wxEVT_MENU,&MainFrame::OnNewPlayList,this,ID_NewPlayLst);
     Bind(wxEVT_LISTBOX_DCLICK,&MainFrame::OnPlaylistSelected,this,ID_PlayLstBox);
+    Bind(wxEVT_LIST_ITEM_ACTIVATED,&MainFrame::OnTracksBoxDoubleClick,this,ID_TracksListBox);
 }
 
 void MainFrame::widgetsSetup()
@@ -49,7 +50,7 @@ void MainFrame::widgetsSetup()
 
     listsSizer->Add( playlistListBox, 0, wxALL|wxEXPAND, 4 );
 
-    tracksListCtrl = new TracksListBox( this, wxID_ANY);
+    tracksListCtrl = new TracksListBox( this, ID_TracksListBox);
     listsSizer->Add( tracksListCtrl, 1, wxALL|wxEXPAND, 5 );
 
     wxBoxSizer* albumSizer;
@@ -111,8 +112,14 @@ void MainFrame::OnOpenFile(wxCommandEvent& event)
     wxFileDialog openFileDialog(this, _("Open MP3 file"), "", "", "MP3 files (*.mp3)|*.mp3", wxFD_OPEN|wxFD_FILE_MUST_EXIST);
     if(openFileDialog.ShowModal()==wxID_OK)
     {
-        mediaCtrl->Load(openFileDialog.GetPath());
         //TODO file must be added to playlist
+        TrackFactory factory;
+        Track * track=factory.importTrack(openFileDialog.GetPath().ToStdString());
+
+
+
+
+        mediaCtrl->Load(track->getDirectory());
     }
 }
 
@@ -229,6 +236,14 @@ void MainFrame::OnNewPlayList(wxCommandEvent &event)
 void MainFrame::OnPlaylistSelected(wxCommandEvent &event)
 {
     //TODO show playlist in tracks box
+}
+
+void MainFrame::OnTracksBoxDoubleClick(wxCommandEvent &event)
+{
+    //TODO
+    //Retrieve track from the name, then
+    //media control should load the selected track
+    cout << tracksListCtrl->getSelectedItem()<<endl;
 }
 
 wxIMPLEMENT_APP(MainApp);

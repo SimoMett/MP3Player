@@ -19,7 +19,8 @@ enum
     ID_MediaCtrl=wxID_HIGHEST+8,
     ID_NewPlayLst=wxID_HIGHEST+9,
     ID_PlayLstBox=wxID_HIGHEST+10,
-    ID_CurrentTrackTitle=wxID_HIGHEST+11
+    ID_CurrentTrackTitle=wxID_HIGHEST+11,
+    ID_TracksListBox=wxID_HIGHEST+12
 };
 
 #endif //MP3PLAYER_WINDOWIDS_H

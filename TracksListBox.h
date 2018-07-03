@@ -17,7 +17,6 @@ public:
 
     virtual void update(Subject * subject);
 
-    void OnDoubleClick(wxCommandEvent &event);
     std::string getSelectedItem();
 
 private:

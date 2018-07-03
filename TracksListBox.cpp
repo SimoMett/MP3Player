@@ -22,8 +22,6 @@ TracksListBox::TracksListBox(wxWindow * parent,wxWindowID winid) : wxListCtrl(pa
         SetItem(item, 2, "album");
         SetItem(item,3,"12:34");
     }
-
-    Bind(wxEVT_LIST_ITEM_ACTIVATED, &TracksListBox::OnDoubleClick,this);
 }
 
 void TracksListBox::update(Subject *subject)
@@ -35,13 +33,6 @@ void TracksListBox::update(Subject *subject)
 void TracksListBox::printTracks()
 {
     //TODO Implement
-}
-
-void TracksListBox::OnDoubleClick(wxCommandEvent &event)
-{
-    //TODO
-    //Retrieve track from the name, then
-    //media control should load the selected track
 }
 
 string TracksListBox::getSelectedItem()
