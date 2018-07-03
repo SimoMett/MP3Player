@@ -37,3 +37,19 @@ TEST(Settings,TestLoadSettings)
 
     delete s;
 }
+
+
+
+TEST(Settings, SaveSettings)
+{
+    Settings * s=Settings::Istantiate();
+
+    s->setSavedVolume(20);
+
+    delete s;
+
+    s=Settings::Istantiate();
+    ASSERT_EQ(20,s->getSavedVolume());
+
+    delete s;
+}
