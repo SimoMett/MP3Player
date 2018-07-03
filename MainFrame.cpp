@@ -52,7 +52,7 @@ void MainFrame::widgetsSetup()
 
     listsSizer->Add( playlistListBox, 0, wxALL|wxEXPAND, 4 );
 
-    tracksListCtrl = new TracksListBox(Mp3Player::getInstancePtr()->getSelectedList(),this, ID_TracksListBox);
+    tracksListCtrl = new TracksListBox(this, ID_TracksListBox);
     listsSizer->Add( tracksListCtrl, 1, wxALL|wxEXPAND, 5 );
 
     wxBoxSizer* albumSizer;
