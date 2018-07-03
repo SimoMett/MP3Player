@@ -9,6 +9,9 @@
 #include <wx/wx.h>
 #include <wx/listctrl.h>
 #include "Observer.h"
+#include "PlayList.h"
+#include "Track.h"
+#include "Album.h"
 
 class TracksListBox : public wxListCtrl, public Observer
 {
@@ -20,7 +23,8 @@ public:
     std::string getSelectedItem();
 
 private:
-    void printTracks();
+    void insertItem(long index, Track & track);
+    void display();
 };
 
 

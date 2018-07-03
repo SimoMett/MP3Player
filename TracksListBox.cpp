@@ -11,28 +11,36 @@ TracksListBox::TracksListBox(wxWindow * parent,wxWindowID winid) : wxListCtrl(pa
     AppendColumn("Name");
     AppendColumn("Artists");
     AppendColumn("Album");
-    AppendColumn("Duration");
+    //AppendColumn("Duration");
 
     //Test
     for(int i=0;i<10;i++)
     {
         string name("track"+to_string(i));
-        long item = InsertItem(0,name );
+        long item = InsertItem(i,name );
         SetItem(item, 1, "artista");
         SetItem(item, 2, "album");
-        SetItem(item,3,"12:34");
+        //insertItem()
     }
 }
 
 void TracksListBox::update(Subject *subject)
 {
     DeleteAllItems();
-    printTracks();
+    display();
 }
 
-void TracksListBox::printTracks()
+void TracksListBox::display()
 {
     //TODO Implement
+}
+
+void TracksListBox::insertItem(long index, Track & track)
+{
+    long item=InsertItem(index,track.title);
+    SetItem(item,1,track.artist);
+    SetItem(item,2,track.album->getName());
+    //SetItem(item,3,track.getDurationStr());
 }
 
 string TracksListBox::getSelectedItem()
