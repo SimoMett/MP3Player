@@ -43,6 +43,8 @@ bool PlayList::addTrack(Track* track)
     requestUpdate();
     if(Mp3Player::getInstancePtr())
         Mp3Player::getInstancePtr()->requestUpdate();
+
+    save();
     return ok;
 }
 
