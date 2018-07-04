@@ -122,15 +122,20 @@ void MainFrame::OnOpenFile(wxCommandEvent& event)
         //TODO check if mp3 is already in mainLibrary
         //TODO file must be added to playlist
         TrackFactory factory;
-        Track * track=factory.importTrack(openFileDialog.GetPath().ToStdString());
+        string path=openFileDialog.GetPath().ToStdString();//Somehow GetPath() can fail and return null string. TODO investigate
+        if(path.length())
+        {
+            Track *track = factory.importTrack(path);
 
-        wxXmlDocument doc;
-        doc.Load("resources/playlists/#mainLibrary.xml","UTF-8");
-        wxXmlNode* song=new wxXmlNode(doc.GetRoot(),wxXML_ELEMENT_NODE,"Track");  //maybe use smart pointer here?
-        song->AddChild(new wxXmlNode(wxXML_TEXT_NODE," ",openFileDialog.GetPath()));
+            /*wxXmlDocument doc;
+            doc.Load("resources/playlists/#mainLibrary.xml","UTF-8");
+            wxXmlNode* song=new wxXmlNode(doc.GetRoot(),wxXML_ELEMENT_NODE,"Track");  //maybe use smart pointer here?
+            song->AddChild(new wxXmlNode(wxXML_TEXT_NODE," ",openFileDialog.GetPath()));*/
 
-
-        mediaCtrl->Load(track->getDirectory());
+            mediaCtrl->Load(track->getDirectory());
+        }
+        else
+            wxMessageBox("Cannot open this track","Error");
     }
 }
 

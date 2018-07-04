@@ -43,8 +43,6 @@ bool PlayList::addTrack(Track* track)
     requestUpdate();
     if(Mp3Player::getInstancePtr())
         Mp3Player::getInstancePtr()->requestUpdate();
-
-    save();
     return ok;
 }
 
@@ -117,7 +115,11 @@ void PlayList::load()
             TrackFactory factory;
             while (child)
             {
-                addTrack( factory.importTrack( string( child->GetNodeContent().c_str() ) ) );
+                string track(child->GetNodeContent().c_str());
+                if(track.length())
+                {
+                    addTrack(factory.importTrack(string(child->GetNodeContent().c_str())));
+                }
                 child=child->GetNext();
             }
         }
