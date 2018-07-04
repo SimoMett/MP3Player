@@ -6,7 +6,7 @@
 #define MP3PLAYER_PLAYLIST_H
 
 #include <string>
-#include <vector>
+#include <deque>
 #include <memory>
 
 #include "Subject.h"
@@ -48,7 +48,7 @@ public:
 protected:
 
     string name;
-    vector<Track*> tracks;
+    deque<Track*> tracks;
 
 private:
     void load();
