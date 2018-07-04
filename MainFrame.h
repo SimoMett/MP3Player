@@ -10,6 +10,7 @@
 #include <wx/tglbtn.h>
 #include <wx/listctrl.h>
 #include <wx/mediactrl.h>
+#include <wx/srchctrl.h>
 #include "MainApp.h"
 #include "TrackSlider.h"
 #include "VolumeSlider.h"
@@ -34,6 +35,7 @@ public:
     unique_ptr<TracksListBox> tracksListCtrl;
     unique_ptr<wxToggleButton> loopButton;
     unique_ptr<wxStaticBitmap> albumBitmap;
+    unique_ptr<wxSearchCtrl> trackFinder;
 
 private:
 

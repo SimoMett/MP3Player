@@ -13,7 +13,7 @@
 
 MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &size) : wxFrame(nullptr,wxID_ANY,title,pos,size), mediaCtrl(new wxMediaCtrl(this,ID_MediaCtrl))
 {
-    SetMinSize(wxSize(430,320));
+    SetMinSize(wxSize(430,430));
 
     menuSetup();
 
@@ -61,6 +61,13 @@ void MainFrame::widgetsSetup()
 
     wxBoxSizer* albumSizer;
     albumSizer = new wxBoxSizer( wxVERTICAL );
+
+    trackFinder = unique_ptr<wxSearchCtrl>(new wxSearchCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 ));
+#ifndef __WXMAC__
+    trackFinder->ShowSearchButton( true );
+#endif
+    trackFinder->ShowCancelButton( false );
+    albumSizer->Add( trackFinder.get(), 0, wxALL|wxEXPAND, 5 );
 
     wxBitmap bitmap(200,200);
     bitmap.LoadFile("resources/default_album.png");
