@@ -39,12 +39,13 @@ void Mp3Player::Destroy()
                 delete item;*/
         }
         currentPlayer->observers.clear();
+        currentPlayer= unique_ptr<Mp3Player>(nullptr);
     }
 }
 
 Mp3Player::~Mp3Player()
 {
-    currentPlayer= unique_ptr<Mp3Player>(nullptr);
+
 }
 
 void Mp3Player::setVolume(float val)
