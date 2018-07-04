@@ -31,8 +31,9 @@ public:
     shared_ptr<Track> currentTrack;
     bool mp3Looping;
 
-    void setVolume(float val);
-    float getVolume() const {
+    void setVolume(unsigned int val);
+
+    unsigned int getVolume() const {
         return volume;
     }
     void loadPlayLists();
@@ -59,9 +60,9 @@ private:
     Mp3Player();
     static unique_ptr<Mp3Player> currentPlayer;
     PlayList * selectedList;
-    static const float defaultVolume;
+    static const unsigned int defaultVolume;
     int currentTrackTiming;
-    float volume;
+    unsigned int volume;
 };
 
 

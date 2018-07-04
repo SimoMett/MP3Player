@@ -7,7 +7,7 @@
 
 //unique_ptr<Mp3Player> Mp3Player::currentPlayer(nullptr);
 unique_ptr<Mp3Player> Mp3Player::currentPlayer= unique_ptr<Mp3Player>(nullptr);
-const float Mp3Player::defaultVolume=1;
+const unsigned int Mp3Player::defaultVolume=1;
 
 void Mp3Player::Create()
 {
@@ -48,9 +48,9 @@ Mp3Player::~Mp3Player()
 
 }
 
-void Mp3Player::setVolume(float val)
+void Mp3Player::setVolume(unsigned int val)
 {
-    if(val<0 || val >100)
+    if(val >100)
         val =100;
     volume=val;
     requestUpdate();
