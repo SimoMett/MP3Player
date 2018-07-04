@@ -145,15 +145,18 @@ void PlayList::save()
     wxXmlNode * root=new wxXmlNode(nullptr,wxXML_ELEMENT_NODE,"Playlist");
     doc.SetRoot(root);
 
-    vector<wxXmlNode*> trackNodes;
-    trackNodes.reserve(tracks.size());
+    //deque<wxXmlNode*> trackNodes;
+    //trackNodes.reserve(tracks.size());
 
-    for(auto item : tracks)
+    for(deque<Track*>::iterator item=tracks.end(); item!=tracks.begin()-1; item--)
     {
-        wxXmlNode * trackNode=new wxXmlNode(root,wxXML_ELEMENT_NODE,"Track");
-        wxXmlNode * tmp=new wxXmlNode(wxXML_TEXT_NODE, "", item->getDirectory());
-        trackNode->AddChild(tmp);
-        trackNodes.push_back(tmp);
+        if(*item!= nullptr)
+        {
+            wxXmlNode *trackNode = new wxXmlNode(root, wxXML_ELEMENT_NODE, "Track");
+            wxXmlNode *tmp = new wxXmlNode(wxXML_TEXT_NODE, "", (*item)->getDirectory());
+            trackNode->AddChild(tmp);
+            //trackNodes.push_front(tmp);//maybe not needed. wxXmlNode pointes are managed by wxXmlDocument class
+        }
     }
 
     wxStringOutputStream stream;
