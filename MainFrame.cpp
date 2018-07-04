@@ -243,7 +243,30 @@ void MainFrame::OnNewPlayList(wxCommandEvent &event)
 
 void MainFrame::OnPlaylistSelected(wxCommandEvent &event)
 {
-    //TODO show playlist in tracks box
+    int selectedItem=playlistListBox->GetSelection();
+
+    if(selectedItem!=wxNOT_FOUND)
+    {
+        PlayList *lista;
+
+        if(playlistListBox->GetString(selectedItem)=="Main Library")
+        {
+            lista=&(Mp3Player::getInstancePtr()->mainLibrary);
+        }
+        else
+        {
+            for(auto item : PlayList::existingLists)
+            {
+                if(playlistListBox->GetString(selectedItem).ToStdString()==item->getName())
+                {
+                    lista=item;
+                    break;
+                }
+            }
+        }
+
+        Mp3Player::getInstancePtr()->changePlaylist(lista);
+    }
 }
 
 void MainFrame::OnTracksBoxDoubleClick(wxCommandEvent &event)
