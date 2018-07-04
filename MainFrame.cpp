@@ -123,7 +123,10 @@ void MainFrame::OnOpenFile(wxCommandEvent& event)
         //TODO file must be added to playlist
         TrackFactory factory;
         Track * track=factory.importTrack(openFileDialog.GetPath().ToStdString());
-
+        wxXmlDocument doc;
+        doc.Load("resources/playlists/#mainLibrary.xml","UTF-8");
+        wxXmlNode* song=new wxXmlNode(doc.GetRoot(),wxXML_ELEMENT_NODE,"Track");  //maybe use smart pointer here?
+        song->AddChild(new wxXmlNode(wxXML_TEXT_NODE," ",openFileDialog.GetPath()));
 
 
         mediaCtrl->Load(track->getDirectory());
