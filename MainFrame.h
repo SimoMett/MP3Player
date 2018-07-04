@@ -35,6 +35,8 @@ public:
     unique_ptr<wxToggleButton> loopButton;
     unique_ptr<wxStaticBitmap> albumBitmap;
 
+private:
+
     void OnOpenFile(wxCommandEvent& event);
     void OnTrackSlider(wxCommandEvent &event);
     void OnVolumeSlider(wxCommandEvent & event);
@@ -51,7 +53,6 @@ public:
     void OnBitmapRightClick(wxCommandEvent & event);
     void OnChangeAlbumBitmap(wxCommandEvent & event);
 
-private:
     void menuSetup();
     void widgetsSetup();
 
