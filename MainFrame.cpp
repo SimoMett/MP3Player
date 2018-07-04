@@ -222,6 +222,7 @@ void MainFrame::menuSetup()
 
 void MainFrame::OnMediaLoaded(wxCommandEvent &event)
 {
+    trackSlider->update(this);
     mediaCtrl->SetVolume(volumeSlider->GetValue()/100.0);
     mediaCtrl->Play();
     playButton->SetLabel("Pause");
