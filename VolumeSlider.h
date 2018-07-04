@@ -14,8 +14,8 @@ public:
     const wxValidator &validator = wxDefaultValidator, const wxString &name = wxSliderNameStr);
 
     ~VolumeSlider(){
-        if(playerInstance!= nullptr)
-            playerInstance->detachObserver(this);
+        if(Mp3Player::getInstancePtr()!= nullptr)
+            Mp3Player::getInstancePtr()->detachObserver(this);
     }
 
     virtual void OnValueChanged() override{};

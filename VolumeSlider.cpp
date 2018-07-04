@@ -10,5 +10,5 @@ VolumeSlider::VolumeSlider(Mp3Player *_subject, wxWindow *parent, wxWindowID id,
 
 void VolumeSlider::update(Subject * subject)
 {
-    wxSlider::SetValue(static_cast<int>(playerInstance->getVolume()));
+    wxSlider::SetValue(Mp3Player::getInstancePtr()->getVolume());
 }

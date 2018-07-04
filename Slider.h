@@ -20,8 +20,6 @@ public:
 
     virtual ~Slider();
 
-    Mp3Player *playerInstance;
-
     virtual void OnValueChanged()=0;
 };
 
