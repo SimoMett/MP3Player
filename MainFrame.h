@@ -32,6 +32,7 @@ public:
     PlaylistsListBox * playlistListBox;
     TracksListBox * tracksListCtrl;
     wxToggleButton * loopButton;
+    wxStaticBitmap * albumBitmap;
 
     void OnOpenFile(wxCommandEvent& event);
     void OnTrackSlider(wxCommandEvent &event);
@@ -46,6 +47,7 @@ public:
     void OnTracksBoxDoubleClick(wxCommandEvent & event);
     void OnLoopButton(wxCommandEvent & event);
     void OnMediaFinished(wxCommandEvent &event);
+    void OnBitmapRightClick(wxCommandEvent & event);
 
 private:
     void menuSetup();

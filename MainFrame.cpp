@@ -39,6 +39,8 @@ void MainFrame::bindingsSetup()
     Bind(wxEVT_LIST_ITEM_ACTIVATED,&MainFrame::OnTracksBoxDoubleClick,this,ID_TracksListBox);
     Bind(wxEVT_TOGGLEBUTTON,&MainFrame::OnLoopButton,this,ID_LoopButton);
     Bind(wxEVT_MEDIA_FINISHED, &MainFrame::OnMediaFinished,this,ID_MediaCtrl);
+
+    albumBitmap->Connect(ID_Bitmap,wxEVT_RIGHT_UP,wxCommandEventHandler(MainFrame::OnBitmapRightClick));
 }
 
 void MainFrame::widgetsSetup()
@@ -61,10 +63,10 @@ void MainFrame::widgetsSetup()
 
     wxBitmap bitmap(200,200);
     bitmap.LoadFile("resources/default_album.png");
-    wxStaticBitmap * staticBitmap = new wxStaticBitmap( this, wxID_ANY, bitmap, wxDefaultPosition, wxDefaultSize, 0 );
-    staticBitmap->SetMinSize( wxSize( 200,200 ) );
+    albumBitmap = new wxStaticBitmap( this, ID_Bitmap, bitmap, wxDefaultPosition, wxDefaultSize, 0 );
+    albumBitmap->SetMinSize( wxSize( 200,200 ) );
 
-    albumSizer->Add( staticBitmap, 1, wxEXPAND|wxALIGN_RIGHT|wxALL, 4 );
+    albumSizer->Add( albumBitmap, 1, wxEXPAND|wxALIGN_RIGHT|wxALL, 4 );
 
     wxListBox * albumsListBox = new wxListBox( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, NULL, 0 );
     albumsListBox->SetMinSize(wxSize(200,-1));
@@ -304,6 +306,13 @@ void MainFrame::OnMediaFinished(wxCommandEvent &event)
         mediaCtrl->Seek(0);
         mediaCtrl->Play();
     }
+}
+
+void MainFrame::OnBitmapRightClick(wxCommandEvent &event)
+{
+    wxMenu menu;
+    menu.Append(wxID_ANY,"Change...");
+    PopupMenu(&menu,wxGetMousePosition()-GetScreenPosition());
 }
 
 wxIMPLEMENT_APP(MainApp);
