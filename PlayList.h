@@ -14,7 +14,7 @@
 
 using namespace std;
 
-class PlayList : public Subject{//The observer(s) will be the list-boxes
+class PlayList : public Subject{
 
 public:
     explicit PlayList(string _name);
