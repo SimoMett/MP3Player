@@ -38,6 +38,7 @@ void MainFrame::bindingsSetup()
     Bind(wxEVT_LISTBOX_DCLICK,&MainFrame::OnPlaylistSelected,this,ID_PlayLstBox);
     Bind(wxEVT_LIST_ITEM_ACTIVATED,&MainFrame::OnTracksBoxDoubleClick,this,ID_TracksListBox);
     Bind(wxEVT_TOGGLEBUTTON,&MainFrame::OnLoopButton,this,ID_LoopButton);
+    Bind(wxEVT_MEDIA_FINISHED, &MainFrame::OnMediaFinished,this,ID_MediaCtrl);
 }
 
 void MainFrame::widgetsSetup()
@@ -285,6 +286,15 @@ void MainFrame::OnTracksBoxDoubleClick(wxCommandEvent &event)
 void MainFrame::OnLoopButton(wxCommandEvent &event)
 {
     Mp3Player::getInstancePtr()->mp3Looping=loopButton->GetValue();
+}
+
+void MainFrame::OnMediaFinished(wxCommandEvent &event)
+{
+    if(Mp3Player::getInstancePtr()->mp3Looping)
+    {
+        mediaCtrl->Seek(0);
+        mediaCtrl->Play();
+    }
 }
 
 wxIMPLEMENT_APP(MainApp);

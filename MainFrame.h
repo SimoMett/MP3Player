@@ -45,6 +45,7 @@ public:
     void OnPlaylistSelected(wxCommandEvent & event);
     void OnTracksBoxDoubleClick(wxCommandEvent & event);
     void OnLoopButton(wxCommandEvent & event);
+    void OnMediaFinished(wxCommandEvent &event);
 
 private:
     void menuSetup();
