@@ -22,7 +22,8 @@ enum
     ID_CurrentTrackTitle=wxID_HIGHEST+11,
     ID_TracksListBox=wxID_HIGHEST+12,
     ID_LoopButton=wxID_HIGHEST+13,
-    ID_Bitmap=wxID_HIGHEST+14
+    ID_Bitmap=wxID_HIGHEST+14,
+    ID_ChangeBitmap=wxID_HIGHEST+15
 };
 
 #endif //MP3PLAYER_WINDOWIDS_H

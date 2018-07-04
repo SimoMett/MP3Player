@@ -39,6 +39,7 @@ void MainFrame::bindingsSetup()
     Bind(wxEVT_LIST_ITEM_ACTIVATED,&MainFrame::OnTracksBoxDoubleClick,this,ID_TracksListBox);
     Bind(wxEVT_TOGGLEBUTTON,&MainFrame::OnLoopButton,this,ID_LoopButton);
     Bind(wxEVT_MEDIA_FINISHED, &MainFrame::OnMediaFinished,this,ID_MediaCtrl);
+    Bind(wxEVT_MENU,&MainFrame::OnChangeAlbumBitmap,this,ID_ChangeBitmap);
 
     albumBitmap->Connect(ID_Bitmap,wxEVT_RIGHT_UP,wxCommandEventHandler(MainFrame::OnBitmapRightClick));
 }
@@ -121,18 +122,16 @@ void MainFrame::OnOpenFile(wxCommandEvent& event)
     wxFileDialog openFileDialog(this, _("Open MP3 file"), "", "", "MP3 files (*.mp3)|*.mp3", wxFD_OPEN|wxFD_FILE_MUST_EXIST);
     if(openFileDialog.ShowModal()==wxID_OK)
     {
-        //TODO check if mp3 is already in mainLibrary
-        //TODO file must be added to playlist
         TrackFactory factory;
         string path=openFileDialog.GetPath().ToStdString();//Somehow GetPath() can fail and return null string. TODO investigate
         if(path.length())
         {
             Track *track = factory.importTrack(path);
 
-            /*wxXmlDocument doc;
+            wxXmlDocument doc;
             doc.Load("resources/playlists/#mainLibrary.xml","UTF-8");
             wxXmlNode* song=new wxXmlNode(doc.GetRoot(),wxXML_ELEMENT_NODE,"Track");  //maybe use smart pointer here?
-            song->AddChild(new wxXmlNode(wxXML_TEXT_NODE," ",openFileDialog.GetPath()));*/
+            song->AddChild(new wxXmlNode(wxXML_TEXT_NODE," ",openFileDialog.GetPath()));
 
             mediaCtrl->Load(track->getDirectory());
         }
@@ -310,9 +309,15 @@ void MainFrame::OnMediaFinished(wxCommandEvent &event)
 
 void MainFrame::OnBitmapRightClick(wxCommandEvent &event)
 {
-    wxMenu menu;
-    menu.Append(wxID_ANY,"Change...");
-    PopupMenu(&menu,wxGetMousePosition()-GetScreenPosition());
+    wxMenu * menu=new wxMenu();
+    menu->Append(ID_ChangeBitmap,"Change...");
+    PopupMenu(menu,wxGetMousePosition()-GetScreenPosition());
+}
+
+void MainFrame::OnChangeAlbumBitmap(wxCommandEvent &event)
+{
+    //TODO
+    wxMessageBox("TODO open filedialog and choose bitmap");
 }
 
 wxIMPLEMENT_APP(MainApp);

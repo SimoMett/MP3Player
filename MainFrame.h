@@ -48,6 +48,7 @@ public:
     void OnLoopButton(wxCommandEvent & event);
     void OnMediaFinished(wxCommandEvent &event);
     void OnBitmapRightClick(wxCommandEvent & event);
+    void OnChangeAlbumBitmap(wxCommandEvent & event);
 
 private:
     void menuSetup();
