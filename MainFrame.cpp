@@ -21,7 +21,7 @@ MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &si
 
     bindingsSetup();
 
-    Mp3Player::getInstancePtr()->attachObserver(tracksListCtrl);
+    Mp3Player::getInstancePtr()->attachObserver(tracksListCtrl.get());
 }
 
 void MainFrame::bindingsSetup()
@@ -51,23 +51,23 @@ void MainFrame::widgetsSetup()
     wxBoxSizer* listsSizer;
     listsSizer = new wxBoxSizer( wxHORIZONTAL );
 
-    playlistListBox = new PlaylistsListBox( this, ID_PlayLstBox);
+    playlistListBox = unique_ptr<PlaylistsListBox>(new PlaylistsListBox( this, ID_PlayLstBox));
     playlistListBox->SetMinSize( wxSize( 200,-1 ) );
 
-    listsSizer->Add( playlistListBox, 0, wxALL|wxEXPAND, 4 );
+    listsSizer->Add( playlistListBox.get(), 0, wxALL|wxEXPAND, 4 );
 
-    tracksListCtrl = new TracksListBox(this, ID_TracksListBox);
-    listsSizer->Add( tracksListCtrl, 1, wxALL|wxEXPAND, 5 );
+    tracksListCtrl = unique_ptr<TracksListBox>(new TracksListBox(this, ID_TracksListBox));
+    listsSizer->Add( tracksListCtrl.get(), 1, wxALL|wxEXPAND, 5 );
 
     wxBoxSizer* albumSizer;
     albumSizer = new wxBoxSizer( wxVERTICAL );
 
     wxBitmap bitmap(200,200);
     bitmap.LoadFile("resources/default_album.png");
-    albumBitmap = new wxStaticBitmap( this, ID_Bitmap, bitmap, wxDefaultPosition, wxDefaultSize, 0 );
+    albumBitmap =unique_ptr<wxStaticBitmap>(new wxStaticBitmap( this, ID_Bitmap, bitmap, wxDefaultPosition, wxDefaultSize, 0 ));
     albumBitmap->SetMinSize( wxSize( 200,200 ) );
 
-    albumSizer->Add( albumBitmap, 1, wxEXPAND|wxALIGN_RIGHT|wxALL, 4 );
+    albumSizer->Add( albumBitmap.get(), 1, wxEXPAND|wxALIGN_RIGHT|wxALL, 4 );
 
     wxListBox * albumsListBox = new wxListBox( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, NULL, 0 );
     albumsListBox->SetMinSize(wxSize(200,-1));
@@ -82,34 +82,34 @@ void MainFrame::widgetsSetup()
     wxStaticLine * staticLine = new wxStaticLine( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL );
     mainBoxSizer->Add( staticLine, 0, wxEXPAND | wxALL, 5 );
 
-    trackSlider = new TrackSlider(this, this, ID_TrackSlider);
-    mainBoxSizer->Add( trackSlider, 0, wxALIGN_CENTER_HORIZONTAL|wxEXPAND|wxBOTTOM|wxRIGHT, 5 );
+    trackSlider = unique_ptr<TrackSlider>(new TrackSlider(this, this, ID_TrackSlider));
+    mainBoxSizer->Add( trackSlider.get(), 0, wxALIGN_CENTER_HORIZONTAL|wxEXPAND|wxBOTTOM|wxRIGHT, 5 );
 
     wxBoxSizer* buttonSizer;
     buttonSizer = new wxBoxSizer( wxHORIZONTAL );
 
-    prevTrackButton = new wxButton( this, ID_PrevTrackButton, wxT("Prev"), wxDefaultPosition, wxDefaultSize, 0 );
-    buttonSizer->Add( prevTrackButton, 0, wxALL, 5 );
+    prevTrackButton = unique_ptr<wxButton>(new wxButton( this, ID_PrevTrackButton, wxT("Prev"), wxDefaultPosition, wxDefaultSize, 0 ));
+    buttonSizer->Add( prevTrackButton.get(), 0, wxALL, 5 );
 
-    playButton = new wxButton( this, ID_PlayButton, wxT("Play"), wxDefaultPosition, wxDefaultSize, 0 );
-    buttonSizer->Add( playButton, 0, wxALL, 5 );
+    playButton = unique_ptr<wxButton>(new wxButton( this, ID_PlayButton, wxT("Play"), wxDefaultPosition, wxDefaultSize, 0 ));
+    buttonSizer->Add( playButton.get(), 0, wxALL, 5 );
 
-    nextTrackButton = new wxButton( this, ID_NextTrackButton, wxT("Next"), wxDefaultPosition, wxDefaultSize, 0 );
-    buttonSizer->Add( nextTrackButton, 0, wxALL, 5 );
+    nextTrackButton = unique_ptr<wxButton>(new wxButton( this, ID_NextTrackButton, wxT("Next"), wxDefaultPosition, wxDefaultSize, 0 ));
+    buttonSizer->Add( nextTrackButton.get(), 0, wxALL, 5 );
 
-    loopButton = new wxToggleButton( this, ID_LoopButton, wxT("Loop"), wxDefaultPosition, wxDefaultSize, 0 );
-    buttonSizer->Add( loopButton, 0, wxALL, 5 );
+    loopButton = unique_ptr<wxToggleButton>(new wxToggleButton( this, ID_LoopButton, wxT("Loop"), wxDefaultPosition, wxDefaultSize, 0 ));
+    buttonSizer->Add( loopButton.get(), 0, wxALL, 5 );
 
     buttonSizer->Add( 0, 0, 1, wxEXPAND, 5 );
 
-    currentTrackTitle = new wxStaticText( this, ID_CurrentTrackTitle, "", wxDefaultPosition, wxDefaultSize, 0);
+    currentTrackTitle = unique_ptr<wxStaticText>(new wxStaticText( this, ID_CurrentTrackTitle, "", wxDefaultPosition, wxDefaultSize, 0));
     //TODO change currentTrackTitle label with current playing track title or last played song title
-    buttonSizer->Add( currentTrackTitle, 0, wxEXPAND|wxALIGN_CENTER_VERTICAL|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
+    buttonSizer->Add( currentTrackTitle.get(), 0, wxEXPAND|wxALIGN_CENTER_VERTICAL|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
 
     buttonSizer->Add( 0, 0, 1, wxEXPAND, 5 );
 
-    volumeSlider = new VolumeSlider(Mp3Player::getInstancePtr().get(), this, ID_VolumeSlider, Settings::getIstance()->getSavedVolume(), 0, 100, wxDefaultPosition, wxSize( 150,25 ), wxSL_HORIZONTAL );
-    buttonSizer->Add( volumeSlider, 0, wxTOP|wxLEFT|wxALIGN_RIGHT, 5 );
+    volumeSlider = unique_ptr<VolumeSlider>(new VolumeSlider(Mp3Player::getInstancePtr().get(), this, ID_VolumeSlider, Settings::getIstance()->getSavedVolume(), 0, 100, wxDefaultPosition, wxSize( 150,25 ), wxSL_HORIZONTAL ));
+    buttonSizer->Add( volumeSlider.get(), 0, wxTOP|wxLEFT|wxALIGN_RIGHT, 5 );
 
 
     mainBoxSizer->Add( buttonSizer, 0, wxEXPAND, 5 );

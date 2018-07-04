@@ -5,6 +5,7 @@
 #ifndef MP3PLAYER_MAINFRAME_H
 #define MP3PLAYER_MAINFRAME_H
 
+#include <memory>
 #include <wx/wx.h>
 #include <wx/tglbtn.h>
 #include <wx/listctrl.h>
@@ -22,17 +23,17 @@ class MainFrame : public wxFrame , public Subject{
 public:
     MainFrame(const wxString& title, const wxPoint& pos, const wxSize& size);
 
-    TrackSlider * trackSlider;
-    VolumeSlider * volumeSlider;
-    wxButton * playButton;
-    wxButton * nextTrackButton;
-    wxButton * prevTrackButton;
-    wxMediaCtrl * mediaCtrl;
-    wxStaticText * currentTrackTitle;
-    PlaylistsListBox * playlistListBox;
-    TracksListBox * tracksListCtrl;
-    wxToggleButton * loopButton;
-    wxStaticBitmap * albumBitmap;
+    unique_ptr<TrackSlider> trackSlider;
+    unique_ptr<VolumeSlider> volumeSlider;
+    unique_ptr<wxButton> playButton;
+    unique_ptr<wxButton> nextTrackButton;
+    unique_ptr<wxButton> prevTrackButton;
+    unique_ptr<wxMediaCtrl> mediaCtrl;
+    unique_ptr<wxStaticText> currentTrackTitle;
+    unique_ptr<PlaylistsListBox> playlistListBox;
+    unique_ptr<TracksListBox> tracksListCtrl;
+    unique_ptr<wxToggleButton> loopButton;
+    unique_ptr<wxStaticBitmap> albumBitmap;
 
     void OnOpenFile(wxCommandEvent& event);
     void OnTrackSlider(wxCommandEvent &event);
