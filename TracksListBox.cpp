@@ -28,7 +28,7 @@ TracksListBox::TracksListBox(wxWindow * parent,wxWindowID winid) : wxListCtrl(pa
 
 void TracksListBox::update(Subject *subject)
 {
-    if(subject==Mp3Player::getInstancePtr())
+    if(subject==Mp3Player::getInstancePtr().get())
     {
         DeleteAllItems();
         display();

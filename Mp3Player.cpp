@@ -6,14 +6,14 @@
 #include "PlaylistFactory.h"
 
 //unique_ptr<Mp3Player> Mp3Player::currentPlayer(nullptr);
-Mp3Player * Mp3Player::currentPlayer= nullptr;
+unique_ptr<Mp3Player> Mp3Player::currentPlayer= unique_ptr<Mp3Player>(nullptr);
 const float Mp3Player::defaultVolume=1;
 
 void Mp3Player::Create()
 {
     if(currentPlayer== nullptr)
     {
-        currentPlayer=new Mp3Player();
+        currentPlayer=unique_ptr<Mp3Player>(new Mp3Player());
     }
 }
 
@@ -39,13 +39,12 @@ void Mp3Player::Destroy()
                 delete item;*/
         }
         currentPlayer->observers.clear();
-        delete currentPlayer;
     }
 }
 
 Mp3Player::~Mp3Player()
 {
-    currentPlayer= nullptr;
+    currentPlayer= unique_ptr<Mp3Player>(nullptr);
 }
 
 void Mp3Player::setVolume(float val)

@@ -42,7 +42,7 @@ public:
 
     void changePlaylist(PlayList * list);
 
-    static Mp3Player * getInstancePtr(){
+    static unique_ptr<Mp3Player> & getInstancePtr(){
         return currentPlayer;
     }
 
@@ -57,7 +57,7 @@ public:
 
 private:
     Mp3Player();
-    static Mp3Player * currentPlayer;
+    static unique_ptr<Mp3Player> currentPlayer;
     PlayList * selectedList;
     static const float defaultVolume;
     int currentTrackTiming;
