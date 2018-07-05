@@ -95,8 +95,5 @@ void Mp3Player::changePlaylist(PlayList *list)
 
 int Mp3Player::find(string text)
 {
-    int found =-1;
-
-
-    return found;
+    return selectedList->findTrackIndex(text);
 }
