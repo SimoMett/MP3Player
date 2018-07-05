@@ -9,8 +9,9 @@
 TEST(Mp3Player,Contructor)
 {
     Mp3Player::Create();
-    unique_ptr<Mp3Player> & p = Mp3Player::getInstancePtr();
-    ASSERT_EQ("#mainLibrary",p->mainLibrary.getName());
+    Mp3Player & p=*(Mp3Player::getInstancePtr());
+    ASSERT_EQ("#mainLibrary",p.mainLibrary.getName());
+    Mp3Player::Destroy();
 }
 
 TEST(Mp3Player,Destructor)
@@ -31,4 +32,5 @@ TEST(Mp3Player,setVolume)
     float normalVal=57;
     p.setVolume(normalVal);
     ASSERT_FLOAT_EQ(normalVal,p.getVolume());
+    Mp3Player::Destroy();
 }
