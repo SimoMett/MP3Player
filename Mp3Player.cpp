@@ -30,8 +30,6 @@ void Mp3Player::Destroy()
 {
     if(currentPlayer!= nullptr)
     {
-        //TODO save volume value
-
         Settings::getInstance().setSavedVolume(currentPlayer->volume);
 
         Settings::Destroy();
