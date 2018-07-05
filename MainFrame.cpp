@@ -3,13 +3,6 @@
 //
 
 #include "MainFrame.h"
-#include <wx/grid.h>
-#include <wx/splitter.h>
-#include <wx/slider.h>
-#include <wx/statline.h>
-#include "Mp3Player.h"
-#include "Slider.h"
-#include "PlaylistFactory.h"
 
 MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &size) : wxFrame(nullptr,wxID_ANY,title,pos,size), mediaCtrl(new wxMediaCtrl(this,ID_MediaCtrl))
 {
@@ -40,6 +33,7 @@ void MainFrame::bindingsSetup()
     Bind(wxEVT_TOGGLEBUTTON,&MainFrame::OnLoopButton,this,ID_LoopButton);
     Bind(wxEVT_MEDIA_FINISHED, &MainFrame::OnMediaFinished,this,ID_MediaCtrl);
     Bind(wxEVT_MENU,&MainFrame::OnChangeAlbumBitmap,this,ID_ChangeBitmap);
+    Bind(wxEVT_TEXT_ENTER,&MainFrame::OnSearch,this,ID_TrackFinder);
 
     albumBitmap->Connect(ID_Bitmap,wxEVT_RIGHT_UP,wxCommandEventHandler(MainFrame::OnBitmapRightClick));
 }
@@ -62,7 +56,7 @@ void MainFrame::widgetsSetup()
     wxBoxSizer* albumSizer;
     albumSizer = new wxBoxSizer( wxVERTICAL );
 
-    trackFinder = unique_ptr<wxSearchCtrl>(new wxSearchCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 ));
+    trackFinder = unique_ptr<wxSearchCtrl>(new wxSearchCtrl( this, ID_TrackFinder, wxEmptyString, wxDefaultPosition, wxDefaultSize,wxTE_PROCESS_ENTER));
 #ifndef __WXMAC__
     trackFinder->ShowSearchButton( true );
 #endif
@@ -330,6 +324,21 @@ void MainFrame::OnChangeAlbumBitmap(wxCommandEvent &event)
 {
     //TODO
     wxMessageBox("TODO open filedialog and choose bitmap");
+}
+
+void MainFrame::OnSearch(wxCommandEvent &event)
+{
+    int found=Mp3Player::getInstancePtr()->find(event.GetString().ToStdString());
+    if(found!=-1)
+    {
+        for(int i=0;i<tracksListCtrl->GetItemCount();i++)
+            tracksListCtrl->SetItemState(i,0,wxLIST_STATE_SELECTED);
+
+        tracksListCtrl->SetItemState(found,wxLIST_STATE_SELECTED,wxLIST_STATE_SELECTED);
+        mediaCtrl->Load(Mp3Player::getInstancePtr()->getSelectedList()->getTrack(found).getDirectory());
+    }
+    else
+        wxMessageBox("Track not found","TrackFinder",wxICON_ERROR);
 }
 
 wxIMPLEMENT_APP(MainApp);

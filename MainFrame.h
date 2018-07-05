@@ -11,6 +11,10 @@
 #include <wx/listctrl.h>
 #include <wx/mediactrl.h>
 #include <wx/srchctrl.h>
+#include <wx/grid.h>
+#include <wx/splitter.h>
+#include <wx/slider.h>
+#include <wx/statline.h>
 #include "MainApp.h"
 #include "TrackSlider.h"
 #include "VolumeSlider.h"
@@ -18,6 +22,9 @@
 #include "TracksListBox.h"
 #include "Subject.h"
 #include "WindowIDs.h"
+#include "Mp3Player.h"
+#include "Slider.h"
+#include "PlaylistFactory.h"
 
 class MainFrame : public wxFrame , public Subject{
 
@@ -54,6 +61,7 @@ private:
     void OnMediaFinished(wxCommandEvent &event);
     void OnBitmapRightClick(wxCommandEvent & event);
     void OnChangeAlbumBitmap(wxCommandEvent & event);
+    void OnSearch(wxCommandEvent & event);
 
     void menuSetup();
     void widgetsSetup();
