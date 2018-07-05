@@ -6,7 +6,7 @@
 
 MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &size) : wxFrame(nullptr,wxID_ANY,title,pos,size), mediaCtrl(new wxMediaCtrl(this,ID_MediaCtrl))
 {
-    SetMinSize(wxSize(430,430));
+    SetMinSize(wxSize(500,500));
 
     menuSetup();
 
