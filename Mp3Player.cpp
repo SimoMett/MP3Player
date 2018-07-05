@@ -30,6 +30,12 @@ void Mp3Player::Destroy()
 {
     if(currentPlayer!= nullptr)
     {
+        //TODO save volume value
+
+        Settings::getInstance().setSavedVolume(currentPlayer->volume);
+
+        Settings::Destroy();
+
         currentPlayer->mainLibrary.save();
 
         for(auto item : currentPlayer->observers)
@@ -40,6 +46,7 @@ void Mp3Player::Destroy()
         }
         currentPlayer->observers.clear();
         currentPlayer= unique_ptr<Mp3Player>(nullptr);
+
     }
 }
 

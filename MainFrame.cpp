@@ -158,6 +158,9 @@ void MainFrame::OnTrackSlider(wxCommandEvent &event)
 void MainFrame::OnVolumeSlider(wxCommandEvent &event)
 {
     mediaCtrl->SetVolume(volumeSlider->GetValue()/ static_cast<float>(volumeSlider->GetMax()));
+
+    if(Mp3Player::getInstancePtr())
+        Mp3Player::getInstancePtr()->setVolume(volumeSlider->GetValue());
 }
 
 void MainFrame::PlayButton(wxCommandEvent &event)

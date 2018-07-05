@@ -17,7 +17,6 @@ void Settings::Instantiate(string settingsfile)
 
 Settings::Settings(string cfg) : settingsPath(cfg)
 {
-
     if (!wxFileExists(cfg))
     {
         //Creates xml file and fills it with default values
@@ -27,16 +26,11 @@ Settings::Settings(string cfg) : settingsPath(cfg)
         LoadSettings(cfg);
 }
 
-Settings::~Settings()
-{
-    SaveSettings();
-    singleIstance= nullptr;
-}
-
 void Settings::Destroy()
 {
     if(singleIstance!= nullptr)
     {
+        singleIstance->SaveSettings();
         singleIstance.reset(nullptr);
     }
 }

@@ -16,16 +16,29 @@ TEST(Settings,DefaultConstructor)
 
     if(file.is_open())
         file.close();
+
+    Settings::Destroy();
 }
 
 TEST(Settings, SaveSettings)
 {
-    Settings::Instantiate();
+    srand(time(nullptr));
 
-    Settings::getInstance().setSavedVolume(20);
+    for(int i=0;i< 4 ; i++)
+    {
+        int val=rand()%100;
+        Settings::Instantiate();
 
-    Settings::Instantiate();
-    ASSERT_EQ(20, Settings::getInstance().getSavedVolume());
+        Settings::getInstance().setSavedVolume(val);
+
+        Settings::Destroy();
+
+        Settings::Instantiate();
+
+        ASSERT_EQ(val, Settings::getInstance().getSavedVolume());
+
+        Settings::Destroy();
+    }
 }
 
 TEST(Settings,TestNewLoadSettings)
@@ -35,6 +48,8 @@ TEST(Settings,TestNewLoadSettings)
     Settings::Instantiate();
 
     ASSERT_FLOAT_EQ(100, Settings::getInstance().getSavedVolume());
+
+    Settings::Destroy();
 }
 
 TEST(Settings,TestLoadSettings)
@@ -43,4 +58,5 @@ TEST(Settings,TestLoadSettings)
 
     ASSERT_FLOAT_EQ(100, Settings::getInstance().getSavedVolume());
 
+    Settings::Destroy();
 }

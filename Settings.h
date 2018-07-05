@@ -22,8 +22,6 @@ public:
     static void Instantiate(string settingsfile = "resources/settings.xml");
     static void Destroy();
 
-    ~Settings();
-
     void SaveSettings();
     void setSavedVolume(unsigned int val);
     unsigned int getSavedVolume() const{
@@ -42,7 +40,6 @@ private:
     unsigned int savedVolume;
     string settingsPath;
     void LoadSettings(string file);
-
 };
 
 
