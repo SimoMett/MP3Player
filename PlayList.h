@@ -40,6 +40,7 @@ public:
     }
 
     Track * findTrack(string name) const;
+    int findTrackIndex(string name);
 
     virtual void save();
 

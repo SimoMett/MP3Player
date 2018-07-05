@@ -78,6 +78,25 @@ Track* PlayList::findTrack(string name) const
     return ptr;
 }
 
+int PlayList::findTrackIndex(string name)
+{
+    int index=-1;
+
+    std::transform(name.begin(), name.end(), name.begin(), ::tolower);
+
+    for(int i=0;i<tracks.size() && index==-1;i++)
+    {
+        string trackName=tracks[i]->title;
+        std::transform(trackName.begin(), trackName.end(), trackName.begin(), ::tolower);
+        if(trackName.find(name)!=string::npos)
+        {
+            index=i;
+        }
+    }
+
+    return index;
+}
+
 bool PlayList::rename(string newName)
 {
     bool existingName=false;
