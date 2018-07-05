@@ -92,3 +92,8 @@ void Mp3Player::changePlaylist(PlayList *list)
     selectedList=list;
     requestUpdate();
 }
+
+int Mp3Player::find(string text)
+{
+
+}
