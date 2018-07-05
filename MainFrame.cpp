@@ -187,7 +187,9 @@ void MainFrame::NextTrackButton(wxCommandEvent &event)
 {
     if(tracksListCtrl->playingTrackIndex!=-1)
     {
-        string name=tracksListCtrl->GetItemText(tracksListCtrl->playingTrackIndex + 1).ToStdString();
+        if(tracksListCtrl->playingTrackIndex==tracksListCtrl->GetItemCount()-1)
+            tracksListCtrl->playingTrackIndex=0;
+        string name=tracksListCtrl->GetItemText(tracksListCtrl->playingTrackIndex).ToStdString();
         Track * track=Mp3Player::getInstancePtr()->getSelectedList()->findTrack(name);
         if(track!= nullptr)
         {
