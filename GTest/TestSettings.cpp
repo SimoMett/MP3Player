@@ -8,7 +8,7 @@
 
 TEST(Settings,DefaultConstructor)
 {
-    Settings * s=Settings::Istantiate();
+    Settings::Instantiate();
 
     ifstream file ("resources/settings.xml");
 
@@ -18,36 +18,29 @@ TEST(Settings,DefaultConstructor)
         file.close();
 }
 
+TEST(Settings, SaveSettings)
+{
+    Settings::Instantiate();
+
+    Settings::getIstance().setSavedVolume(20);
+
+    Settings::Instantiate();
+    ASSERT_EQ(20,Settings::getIstance().getSavedVolume());
+}
+
 TEST(Settings,TestNewLoadSettings)
 {
     remove("resources/settings.xml");
 
-    Settings * s=Settings::Istantiate();
+    Settings::Instantiate();
 
-    ASSERT_FLOAT_EQ(100,s->getSavedVolume());
-
-    delete s;
+    ASSERT_FLOAT_EQ(100,Settings::getIstance().getSavedVolume());
 }
 
 TEST(Settings,TestLoadSettings)
 {
-    Settings * s=Settings::Istantiate();
+    Settings::Instantiate();
 
-    ASSERT_FLOAT_EQ(100,s->getSavedVolume());
+    ASSERT_FLOAT_EQ(100,Settings::getIstance().getSavedVolume());
 
-    delete s;
-}
-
-TEST(Settings, SaveSettings)
-{
-    Settings * s=Settings::Istantiate();
-
-    s->setSavedVolume(20);
-
-    delete s;
-
-    s=Settings::Istantiate();
-    ASSERT_EQ(20,s->getSavedVolume());
-
-    delete s;
 }
