@@ -22,7 +22,7 @@ public:
 
     std::string getSelectedItem();
 
-
+    int playingTrackIndex=-1;
 
 private:
     void insertItem(long index, Track & track);

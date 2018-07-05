@@ -185,12 +185,23 @@ void MainFrame::PlayButton(wxCommandEvent &event)
 
 void MainFrame::NextTrackButton(wxCommandEvent &event)
 {
-    //TODO
+    if(tracksListCtrl->playingTrackIndex!=-1)
+    {
+        string name=tracksListCtrl->GetItemText(tracksListCtrl->playingTrackIndex + 1).ToStdString();
+        Track * track=Mp3Player::getInstancePtr()->getSelectedList()->findTrack(name);
+        if(track!= nullptr)
+        {
+            mediaCtrl->Stop();
+            mediaCtrl->Load(track->getDirectory());
+            tracksListCtrl->playingTrackIndex=(tracksListCtrl->playingTrackIndex+1)%tracksListCtrl->GetItemCount();
+        }
+    }
 }
 
 void MainFrame::PrevTrackButton(wxCommandEvent &event)
 {
     //TODO
+    cout << "prev"<<endl;
 }
 
 void MainFrame::OnCreditsButton(wxCommandEvent &event)
@@ -293,6 +304,7 @@ void MainFrame::OnTracksBoxDoubleClick(wxCommandEvent &event)
 
     if(track)
     {
+        tracksListCtrl->playingTrackIndex=Mp3Player::getInstancePtr()->getSelectedList()->findTrackIndex(item);
         mediaCtrl->Load(track->getDirectory());
     }
     else
