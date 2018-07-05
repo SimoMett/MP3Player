@@ -22,10 +22,10 @@ TEST(Settings, SaveSettings)
 {
     Settings::Instantiate();
 
-    Settings::getIstance().setSavedVolume(20);
+    Settings::getInstance().setSavedVolume(20);
 
     Settings::Instantiate();
-    ASSERT_EQ(20,Settings::getIstance().getSavedVolume());
+    ASSERT_EQ(20, Settings::getInstance().getSavedVolume());
 }
 
 TEST(Settings,TestNewLoadSettings)
@@ -34,13 +34,13 @@ TEST(Settings,TestNewLoadSettings)
 
     Settings::Instantiate();
 
-    ASSERT_FLOAT_EQ(100,Settings::getIstance().getSavedVolume());
+    ASSERT_FLOAT_EQ(100, Settings::getInstance().getSavedVolume());
 }
 
 TEST(Settings,TestLoadSettings)
 {
     Settings::Instantiate();
 
-    ASSERT_FLOAT_EQ(100,Settings::getIstance().getSavedVolume());
+    ASSERT_FLOAT_EQ(100, Settings::getInstance().getSavedVolume());
 
 }

@@ -21,7 +21,7 @@ Mp3Player::Mp3Player() : mainLibrary("#mainLibrary"), playlists(PlayList::existi
 {
     srand(time(nullptr));
     Settings::Instantiate();
-    setVolume(Settings::getIstance().getSavedVolume());
+    setVolume(Settings::getInstance().getSavedVolume());
     loadPlayLists();
     requestUpdate();
 }

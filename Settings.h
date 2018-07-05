@@ -30,7 +30,7 @@ public:
         return savedVolume;
     }
 
-    static Settings & getIstance() {
+    static Settings & getInstance() {
         return *(singleIstance.get());
     }
 
