@@ -161,13 +161,6 @@ void MainFrame::PlayButton(wxCommandEvent &event)
 {
     switch(mediaCtrl->GetState())
     {
-        case wxMEDIASTATE_STOPPED:
-        {
-            //TODO select a track (first track on mainLibrary)
-            mediaCtrl->Play();
-            playButton->SetLabel("Pause");
-            break;
-        }
         case wxMEDIASTATE_PAUSED:
         {
             mediaCtrl->Play();
@@ -202,8 +195,19 @@ void MainFrame::NextTrackButton(wxCommandEvent &event)
 
 void MainFrame::PrevTrackButton(wxCommandEvent &event)
 {
-    //TODO
-    cout << "prev"<<endl;
+    if(tracksListCtrl->playingTrackIndex!=-1)
+    {
+        if(tracksListCtrl->playingTrackIndex==0)
+            tracksListCtrl->playingTrackIndex=tracksListCtrl->GetItemCount()-1;
+        string name=tracksListCtrl->GetItemText(tracksListCtrl->playingTrackIndex).ToStdString();
+        Track * track=Mp3Player::getInstancePtr()->getSelectedList()->findTrack(name);
+        if(track!= nullptr)
+        {
+            mediaCtrl->Stop();
+            mediaCtrl->Load(track->getDirectory());
+            tracksListCtrl->playingTrackIndex=(tracksListCtrl->playingTrackIndex-1)%tracksListCtrl->GetItemCount();
+        }
+    }
 }
 
 void MainFrame::OnCreditsButton(wxCommandEvent &event)
