@@ -6,14 +6,13 @@
 #include <exception>
 #include <algorithm>
 
-Settings * Settings::singleIstance= nullptr;
+unique_ptr<Settings> Settings::singleIstance(nullptr);
 
-Settings * Settings::Istantiate(string settingsfile)
+void Settings::Instantiate(string settingsfile)
 {
     if(singleIstance== nullptr) {
-        singleIstance=new Settings(settingsfile);
+        singleIstance=unique_ptr<Settings>(new Settings(settingsfile));
     }
-    return singleIstance;
 }
 
 Settings::Settings(string cfg) : settingsPath(cfg)
@@ -32,6 +31,14 @@ Settings::~Settings()
 {
     SaveSettings();
     singleIstance= nullptr;
+}
+
+void Settings::Destroy()
+{
+    if(singleIstance!= nullptr)
+    {
+        singleIstance.reset(nullptr);
+    }
 }
 
 void Settings::LoadSettings(string file)

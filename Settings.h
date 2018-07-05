@@ -18,9 +18,11 @@ using namespace std;
 class Settings {
 
 public:
-    ~Settings();
 
-    static Settings * Istantiate(string settingsfile="resources/settings.xml");
+    static void Instantiate(string settingsfile = "resources/settings.xml");
+    static void Destroy();
+
+    ~Settings();
 
     void SaveSettings();
     void setSavedVolume(unsigned int val);
@@ -28,15 +30,15 @@ public:
         return savedVolume;
     }
 
-    static Settings * getIstance() {
-        return singleIstance;
+    static Settings & getIstance() {
+        return *(singleIstance.get());
     }
 
 protected:
     explicit Settings(string settingsfile);
 
 private:
-    static Settings * singleIstance;
+    static unique_ptr<Settings> singleIstance;
     unsigned int savedVolume;
     string settingsPath;
     void LoadSettings(string file);
