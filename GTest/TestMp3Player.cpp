@@ -34,3 +34,20 @@ TEST(Mp3Player,setVolume)
     ASSERT_FLOAT_EQ(normalVal,p.getVolume());
     Mp3Player::Destroy();
 }
+
+TEST(Mp3Player, findTrack)
+{
+    Mp3Player::Create();
+
+    Mp3Player & p=*Mp3Player::getInstancePtr();
+
+    p.mainLibrary.addTrack(new Track("directory/Traccia1.mp3"));
+    p.mainLibrary.addTrack(new Track("directory/Traccia2.mp3"));
+    p.mainLibrary.addTrack(new Track("directory/Traccia3.mp3"));
+
+    bool found=p.find("Traccia2");
+
+    ASSERT_TRUE(found);
+
+    Mp3Player::Destroy();
+}
