@@ -6,7 +6,7 @@
 #include "PlaylistFactory.h"
 
 //unique_ptr<Mp3Player> Mp3Player::currentPlayer(nullptr);
-unique_ptr<Mp3Player> Mp3Player::currentPlayer= unique_ptr<Mp3Player>(nullptr);
+unique_ptr<Mp3Player> Mp3Player::currentPlayer(nullptr);
 const unsigned int Mp3Player::defaultVolume=1;
 
 void Mp3Player::Create()
@@ -20,8 +20,8 @@ void Mp3Player::Create()
 Mp3Player::Mp3Player() : mainLibrary("#mainLibrary"), playlists(PlayList::existingLists), selectedList(&mainLibrary)
 {
     srand(time(nullptr));
-    Settings::Istantiate();
-    setVolume(Settings::getIstance()->getSavedVolume());
+    Settings::Instantiate();
+    setVolume(Settings::getIstance().getSavedVolume());
     loadPlayLists();
     requestUpdate();
 }
