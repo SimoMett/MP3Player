@@ -5,7 +5,6 @@
 #include "Mp3Player.h"
 #include "PlaylistFactory.h"
 
-//unique_ptr<Mp3Player> Mp3Player::currentPlayer(nullptr);
 unique_ptr<Mp3Player> Mp3Player::currentPlayer(nullptr);
 const unsigned int Mp3Player::defaultVolume=1;
 
