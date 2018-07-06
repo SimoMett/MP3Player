@@ -138,7 +138,7 @@ void MainFrame::OnOpenFile(wxCommandEvent& event)
             mediaCtrl->Load(track->getDirectory());
         }
         else
-            wxMessageBox("Cannot open this track","Error");
+            wxMessageBox("Cannot open this track","Error",wxICON_ERROR);
     }
 }
 
@@ -203,7 +203,6 @@ void MainFrame::OnTracksBoxDoubleClick(wxCommandEvent &event)
     if(track)
     {
         tracksListCtrl->playingTrackIndex=Mp3Player::getInstancePtr()->getSelectedList()->findTrackIndex(item);
-        cout << tracksListCtrl->playingTrackIndex <<endl;
         mediaCtrl->Load(track->getDirectory());
     }
 }
@@ -283,7 +282,7 @@ void MainFrame::OnNewPlayList(wxCommandEvent &event)
                 exit=true;
             }
             else
-                wxMessageBox("Error: Invalid name");
+                wxMessageBox("Error: Invalid name","Error",wxICON_ERROR);
         }
         else if(result==wxID_CANCEL)
             exit=true;
