@@ -178,34 +178,51 @@ void MainFrame::PlayButton(wxCommandEvent &event)
 
 void MainFrame::NextTrackButton(wxCommandEvent &event)
 {
+    cout << tracksListCtrl->playingTrackIndex <<endl;
     if(tracksListCtrl->playingTrackIndex!=-1)
     {
-        if(tracksListCtrl->playingTrackIndex==tracksListCtrl->GetItemCount()-1)
+        tracksListCtrl->playingTrackIndex=(tracksListCtrl->playingTrackIndex+1)%tracksListCtrl->GetItemCount();
+        if(tracksListCtrl->playingTrackIndex>=tracksListCtrl->GetItemCount())
             tracksListCtrl->playingTrackIndex=0;
+
         string name=tracksListCtrl->GetItemText(tracksListCtrl->playingTrackIndex).ToStdString();
         Track * track=Mp3Player::getInstancePtr()->getSelectedList()->findTrack(name);
         if(track!= nullptr)
         {
             mediaCtrl->Stop();
             mediaCtrl->Load(track->getDirectory());
-            tracksListCtrl->playingTrackIndex=(tracksListCtrl->playingTrackIndex+1)%tracksListCtrl->GetItemCount();
         }
+    }
+}
+
+void MainFrame::OnTracksBoxDoubleClick(wxCommandEvent &event)
+{
+    string item=tracksListCtrl->getSelectedItem();
+    Track * track=Mp3Player::getInstancePtr()->getSelectedList()->findTrack(item);
+
+    if(track)
+    {
+        tracksListCtrl->playingTrackIndex=Mp3Player::getInstancePtr()->getSelectedList()->findTrackIndex(item);
+        cout << tracksListCtrl->playingTrackIndex <<endl;
+        mediaCtrl->Load(track->getDirectory());
     }
 }
 
 void MainFrame::PrevTrackButton(wxCommandEvent &event)
 {
+    cout << tracksListCtrl->playingTrackIndex <<endl;
     if(tracksListCtrl->playingTrackIndex!=-1)
     {
-        if(tracksListCtrl->playingTrackIndex==0)
+        tracksListCtrl->playingTrackIndex=(tracksListCtrl->playingTrackIndex-1)%tracksListCtrl->GetItemCount();
+        if(tracksListCtrl->playingTrackIndex<0)
             tracksListCtrl->playingTrackIndex=tracksListCtrl->GetItemCount()-1;
+
         string name=tracksListCtrl->GetItemText(tracksListCtrl->playingTrackIndex).ToStdString();
         Track * track=Mp3Player::getInstancePtr()->getSelectedList()->findTrack(name);
         if(track!= nullptr)
         {
             mediaCtrl->Stop();
             mediaCtrl->Load(track->getDirectory());
-            tracksListCtrl->playingTrackIndex=(tracksListCtrl->playingTrackIndex-1)%tracksListCtrl->GetItemCount();
         }
     }
 }
@@ -301,20 +318,6 @@ void MainFrame::OnPlaylistSelected(wxCommandEvent &event)
 
         Mp3Player::getInstancePtr()->changePlaylist(lista);
     }
-}
-
-void MainFrame::OnTracksBoxDoubleClick(wxCommandEvent &event)
-{
-    string item=tracksListCtrl->getSelectedItem();
-    Track * track=Mp3Player::getInstancePtr()->getSelectedList()->findTrack(item);
-
-    if(track)
-    {
-        tracksListCtrl->playingTrackIndex=Mp3Player::getInstancePtr()->getSelectedList()->findTrackIndex(item);
-        mediaCtrl->Load(track->getDirectory());
-    }
-    else
-        cout << "none"<<endl;
 }
 
 void MainFrame::OnLoopButton(wxCommandEvent &event)
