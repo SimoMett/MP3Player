@@ -128,7 +128,7 @@ void PlayList::load()
         string path="resources/playlists/"+name+".xml";
         wxXmlDocument doc;
         doc.Load(path);
-        if(doc.GetRoot()->GetName()=="Playlist")
+        if(doc.GetRoot() && doc.GetRoot()->GetName()=="Playlist")
         {
             wxXmlNode * child=doc.GetRoot()->GetChildren();
             TrackFactory factory;

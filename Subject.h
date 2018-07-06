@@ -6,7 +6,6 @@
 #define MP3PLAYER_SUBJECT_H
 
 #include <vector>
-#include <memory>
 #include "Observer.h"
 
 using namespace std;
