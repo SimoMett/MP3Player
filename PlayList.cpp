@@ -167,15 +167,12 @@ void PlayList::save()
     //deque<wxXmlNode*> trackNodes;
     //trackNodes.reserve(tracks.size());
 
-    for(deque<Track*>::iterator item=tracks.end(); item!=tracks.begin()-1; item--)
+    for(int i=tracks.size()-1;i>=0;i--)
     {
-        if(*item!= nullptr)
-        {
-            wxXmlNode *trackNode = new wxXmlNode(root, wxXML_ELEMENT_NODE, "Track");
-            wxXmlNode *tmp = new wxXmlNode(wxXML_TEXT_NODE, "", (*item)->getDirectory());
-            trackNode->AddChild(tmp);
-            //trackNodes.push_front(tmp);//maybe not needed. wxXmlNode pointes are managed by wxXmlDocument class
-        }
+        wxXmlNode *trackNode = new wxXmlNode(root, wxXML_ELEMENT_NODE, "Track");
+        string dir=tracks[i]->getDirectory();
+        wxXmlNode *tmp = new wxXmlNode(wxXML_TEXT_NODE, "", dir);
+        trackNode->AddChild(tmp);
     }
 
     wxStringOutputStream stream;
