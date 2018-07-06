@@ -105,7 +105,7 @@ void MainFrame::widgetsSetup()
 
     wxBoxSizer* bSizer5=new wxBoxSizer( wxVERTICAL );
 
-    currentTrackTitle = unique_ptr<wxStaticText>(new wxStaticText( this, wxID_ANY, wxT("plaingTrack"), wxDefaultPosition, wxDefaultSize, wxALIGN_LEFT));
+    currentTrackTitle = unique_ptr<wxStaticText>(new wxStaticText( this, wxID_ANY, wxT(""), wxDefaultPosition, wxDefaultSize, wxALIGN_LEFT));
     currentTrackTitle->Wrap( -1 );
     bSizer5->Add( currentTrackTitle.get(), 1, wxEXPAND|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
     buttonSizer->Add( bSizer5, 1, wxEXPAND, 5 );
@@ -260,7 +260,10 @@ void MainFrame::OnMediaLoaded(wxCommandEvent &event)
     mediaCtrl->SetVolume(volumeSlider->GetValue()/100.0);
     mediaCtrl->Play();
     playButton->SetLabel("Pause");
-    currentTrackTitle->SetLabel(Mp3Player::getInstancePtr()->getSelectedList()->getTrack(tracksListCtrl->playingTrackIndex).title);
+
+    string label=Mp3Player::getInstancePtr()->getSelectedList()->getTrack(tracksListCtrl->playingTrackIndex).title;
+    label.erase(label.find_last_of("."),label.length());
+    currentTrackTitle->SetLabel(label);
 }
 
 void MainFrame::OnNewPlayList(wxCommandEvent &event)
