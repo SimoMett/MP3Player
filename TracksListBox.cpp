@@ -71,3 +71,16 @@ string TracksListBox::getSelectedItem()
 
     return result;
 }
+
+string TracksListBox::getItemPath(long index)
+{
+    wxXmlDocument doc;
+    doc.Load("resources/playlists/#mainLibrary.xml","UTF-8");
+    wxXmlNode* child = doc.GetRoot()->GetChildren();
+    for(int i=1; i<index; i++)
+    {
+        child = child->GetNext();
+    }
+
+    return child->GetNodeContent().ToStdString();
+}

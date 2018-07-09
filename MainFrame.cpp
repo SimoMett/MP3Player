@@ -214,12 +214,14 @@ void MainFrame::OnTracksBoxDoubleClick(wxCommandEvent &event)
 
 void MainFrame::OnTracksBoxRightClick(wxListEvent &event)
 {
+
     long index = event.GetIndex();
     if(index>=0)
     {
         wxMenu* addMenu=new wxMenu;
         addMenu->Append(ID_AddToPlaylist,"Add to playlist...");
-        addMenu->Connect(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrame::OnAddToPlaylistClick), NULL, this);
+        addMenu->Connect(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrame::OnAddToPlaylistClick), &event, this);
+        //should replace with Bind(), didn't work for some reason
         PopupMenu(addMenu);
     }
 
@@ -227,7 +229,24 @@ void MainFrame::OnTracksBoxRightClick(wxListEvent &event)
 
 void MainFrame::OnAddToPlaylistClick(wxCommandEvent &event)
 {
-    //TODO
+    wxArrayString b;
+    long pos=0;
+    for(auto item : PlayList::existingLists)
+    {
+        if(item->getName()=="#mainLibrary")
+            continue;
+        else
+        {
+            b.Insert(item->getName(),pos);
+            pos++;
+        }
+    }
+    wxMultiChoiceDialog test(this,"Please choose a playlist where to add the chosen song.","Playlist List",b);
+    if(test.ShowModal()==wxID_OK)
+    {
+        //TODO
+
+    }
 }
 void MainFrame::PrevTrackButton(wxCommandEvent &event)
 {

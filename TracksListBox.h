@@ -21,6 +21,7 @@ public:
     virtual void update(Subject * subject);
 
     std::string getSelectedItem();
+    std::string getItemPath(long index);
 
     int playingTrackIndex=-1;
 
