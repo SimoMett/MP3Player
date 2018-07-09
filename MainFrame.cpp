@@ -215,8 +215,8 @@ void MainFrame::OnTracksBoxDoubleClick(wxCommandEvent &event)
 void MainFrame::OnTracksBoxRightClick(wxListEvent &event)
 {
 
-    tracksListCtrl->rightclickedTrackIndex=event.GetIndex();
-    if(tracksListCtrl->rightclickedTrackIndex>=0)
+    tracksListCtrl->rightclickedTrackIndex=event.GetIndex(); //save index for OnAddToPlaylistClick
+    if(event.GetIndex()>=0)
     {
         wxMenu* addMenu=new wxMenu;
         addMenu->Append(ID_AddToPlaylist,"Add to playlist...");
@@ -229,7 +229,7 @@ void MainFrame::OnTracksBoxRightClick(wxListEvent &event)
 
 void MainFrame::OnAddToPlaylistClick(wxCommandEvent &event)
 {
-    wxArrayString choicesArray;
+    wxArrayString choicesArray; //creates array of Playlists to display in wxSingleChoiceDialog
     long pos=0;
     for(auto item : PlayList::existingLists)
     {
@@ -244,14 +244,17 @@ void MainFrame::OnAddToPlaylistClick(wxCommandEvent &event)
     wxSingleChoiceDialog playlistDialog(this,"Please choose a playlist where to add the chosen song.","Playlist List",choicesArray);
     if(playlistDialog.ShowModal()==wxID_OK)
     {
-        string path;
-        path=tracksListCtrl->getItemPath(tracksListCtrl->rightclickedTrackIndex);
-        wxXmlDocument doc;
-        doc.Load("resources/playlists/"+playlistDialog.GetStringSelection()+".xml","UTF-8");
-        wxXmlNode* trackNode=new wxXmlNode(wxXML_ELEMENT_NODE, wxT("Track"));
-        wxXmlNode* tracknValue=new wxXmlNode(wxXML_TEXT_NODE,path);
-        trackNode->AddChild(tracknValue);
-        doc.GetRoot()->AddChild(trackNode);    //must fix
+        Track selectedTrack(tracksListCtrl->getItemPath(tracksListCtrl->rightclickedTrackIndex));
+
+        for(auto item : PlayList::existingLists)
+        {
+            if(item->getName()==playlistDialog.GetStringSelection().ToStdString())
+            {
+                item->addTrack(&selectedTrack);
+                item->save();
+            }
+        }
+
     }
 }
 void MainFrame::PrevTrackButton(wxCommandEvent &event)
