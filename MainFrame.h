@@ -57,6 +57,8 @@ private:
     void OnNewPlayList(wxCommandEvent & event);
     void OnPlaylistSelected(wxCommandEvent & event);
     void OnTracksBoxDoubleClick(wxCommandEvent & event);
+    void OnTracksBoxRightClick(wxListEvent & event);
+    void OnAddToPlaylistClick(wxCommandEvent & event);
     void OnLoopButton(wxCommandEvent & event);
     void OnMediaFinished(wxCommandEvent &event);
     void OnBitmapRightClick(wxCommandEvent & event);

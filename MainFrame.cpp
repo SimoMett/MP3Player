@@ -30,12 +30,14 @@ void MainFrame::bindingsSetup()
     Bind(wxEVT_MENU,&MainFrame::OnNewPlayList,this,ID_NewPlayLst);
     Bind(wxEVT_LISTBOX_DCLICK,&MainFrame::OnPlaylistSelected,this,ID_PlayLstBox);
     Bind(wxEVT_LIST_ITEM_ACTIVATED,&MainFrame::OnTracksBoxDoubleClick,this,ID_TracksListBox);
+    Bind(wxEVT_LIST_ITEM_RIGHT_CLICK,&MainFrame::OnTracksBoxRightClick,this,ID_TracksListBox);
     Bind(wxEVT_TOGGLEBUTTON,&MainFrame::OnLoopButton,this,ID_LoopButton);
     Bind(wxEVT_MEDIA_FINISHED, &MainFrame::OnMediaFinished,this,ID_MediaCtrl);
     Bind(wxEVT_MENU,&MainFrame::OnChangeAlbumBitmap,this,ID_ChangeBitmap);
     Bind(wxEVT_TEXT_ENTER,&MainFrame::OnSearch,this,ID_TrackFinder);
 
     albumBitmap->Connect(ID_Bitmap,wxEVT_RIGHT_UP,wxCommandEventHandler(MainFrame::OnBitmapRightClick));
+
 }
 
 void MainFrame::widgetsSetup()
@@ -135,7 +137,7 @@ void MainFrame::OnOpenFile(wxCommandEvent& event)
 
             wxXmlDocument doc;
             doc.Load("resources/playlists/#mainLibrary.xml","UTF-8");
-            wxXmlNode* song=new wxXmlNode(doc.GetRoot(),wxXML_ELEMENT_NODE,"Track");  //maybe use smart pointer here?
+            wxXmlNode* song=new wxXmlNode(doc.GetRoot(),wxXML_ELEMENT_NODE,"Track");
             song->AddChild(new wxXmlNode(wxXML_TEXT_NODE," ",openFileDialog.GetPath()));
 
             mediaCtrl->Load(track->getDirectory());
@@ -210,6 +212,23 @@ void MainFrame::OnTracksBoxDoubleClick(wxCommandEvent &event)
     }
 }
 
+void MainFrame::OnTracksBoxRightClick(wxListEvent &event)
+{
+    long index = event.GetIndex();
+    if(index>=0)
+    {
+        wxMenu* addMenu=new wxMenu;
+        addMenu->Append(ID_AddToPlaylist,"Add to playlist...");
+        addMenu->Connect(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrame::OnAddToPlaylistClick), NULL, this);
+        PopupMenu(addMenu);
+    }
+
+}
+
+void MainFrame::OnAddToPlaylistClick(wxCommandEvent &event)
+{
+    //TODO
+}
 void MainFrame::PrevTrackButton(wxCommandEvent &event)
 {
     cout << tracksListCtrl->playingTrackIndex <<endl;
