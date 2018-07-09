@@ -24,6 +24,8 @@ public:
     std::string getItemPath(long index);
 
     int playingTrackIndex=-1;
+    int rightclickedTrackIndex=0;
+
 
 private:
     void insertItem(long index, Track & track);
