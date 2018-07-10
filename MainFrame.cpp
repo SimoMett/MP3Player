@@ -130,7 +130,7 @@ void MainFrame::OnOpenFile(wxCommandEvent& event)
     if(openFileDialog.ShowModal()==wxID_OK)
     {
         TrackFactory factory;
-        string path=openFileDialog.GetPath().ToStdString();//Somehow GetPath() can fail and return null string. TODO investigate
+        string path=openFileDialog.GetPath().ToStdString();//Somehow GetPath() can fail and return null string. To investigate
         if(path.length())
         {
             shared_ptr<Track> track = shared_ptr<Track>(factory.importTrack(path));
