@@ -133,9 +133,9 @@ void MainFrame::OnOpenFile(wxCommandEvent& event)
         string path=openFileDialog.GetPath().ToStdString();//Somehow GetPath() can fail and return null string. TODO investigate
         if(path.length())
         {
-            Track *track = factory.importTrack(path);
+            shared_ptr<Track> track = shared_ptr<Track>(factory.importTrack(path));
 
-            //mediaCtrl->Load(track->getDirectory());
+            mediaCtrl->Load(track->getDirectory());
         }
         else
             wxMessageBox("Cannot open this track","Error",wxICON_ERROR);
@@ -186,7 +186,7 @@ void MainFrame::NextTrackButton(wxCommandEvent &event)
             tracksListCtrl->playingTrackIndex=0;
 
         string name=tracksListCtrl->GetItemText(tracksListCtrl->playingTrackIndex).ToStdString();
-        Track * track=Mp3Player::getInstancePtr()->getSelectedList()->findTrack(name);
+        shared_ptr<Track> track=Mp3Player::getInstancePtr()->getSelectedList()->findTrack(name);
         if(track!= nullptr)
         {
             mediaCtrl->Stop();
@@ -198,7 +198,7 @@ void MainFrame::NextTrackButton(wxCommandEvent &event)
 void MainFrame::OnTracksBoxDoubleClick(wxCommandEvent &event)
 {
     string item=tracksListCtrl->getSelectedItem();
-    Track * track=Mp3Player::getInstancePtr()->getSelectedList()->findTrack(item);
+    shared_ptr<Track> track=Mp3Player::getInstancePtr()->getSelectedList()->findTrack(item);
 
     if(track)
     {
@@ -209,7 +209,6 @@ void MainFrame::OnTracksBoxDoubleClick(wxCommandEvent &event)
 
 void MainFrame::OnTracksBoxRightClick(wxListEvent &event)
 {
-
     tracksListCtrl->rightclickedTrackIndex=event.GetIndex(); //save index for OnAddToPlaylistClick
     if(event.GetIndex()>=0)
     {
@@ -239,13 +238,12 @@ void MainFrame::OnAddToPlaylistClick(wxCommandEvent &event)
     wxSingleChoiceDialog playlistDialog(this,"Please choose a playlist where to add the chosen song.","Playlist List",choicesArray);
     if(playlistDialog.ShowModal()==wxID_OK)
     {
-        Track * selectedTrack= new Track(tracksListCtrl->getItemPath(tracksListCtrl->rightclickedTrackIndex));
 
         for(auto item : PlayList::existingLists)
         {
             if(item->getName()==playlistDialog.GetStringSelection().ToStdString())
             {
-                item->addTrack(selectedTrack);
+                item->addTrack(unique_ptr<Track>(new Track(tracksListCtrl->getItemPath(tracksListCtrl->rightclickedTrackIndex))));
                 item->save();
             }
         }
@@ -262,7 +260,7 @@ void MainFrame::PrevTrackButton(wxCommandEvent &event)
             tracksListCtrl->playingTrackIndex=tracksListCtrl->GetItemCount()-1;
 
         string name=tracksListCtrl->GetItemText(tracksListCtrl->playingTrackIndex).ToStdString();
-        Track * track=Mp3Player::getInstancePtr()->getSelectedList()->findTrack(name);
+        shared_ptr<Track> track=Mp3Player::getInstancePtr()->getSelectedList()->findTrack(name);
         if(track!= nullptr)
         {
             mediaCtrl->Stop();

@@ -23,7 +23,7 @@ PlayList::~PlayList()
     save();
 }
 
-bool PlayList::addTrack(Track* track)
+bool PlayList::addTrack(shared_ptr<Track> track)
 {
     bool found=false;
     for(auto item: tracks)
@@ -34,10 +34,11 @@ bool PlayList::addTrack(Track* track)
             break;
         }
     }
+
     bool ok=false;
     if(!found)
     {
-        tracks.push_back(track);
+        tracks.push_back(move(track));
         ok=true;
     }
     requestUpdate();
@@ -46,7 +47,7 @@ bool PlayList::addTrack(Track* track)
     return ok;
 }
 
-bool PlayList::removeTrack(Track* track)
+bool PlayList::removeTrack(shared_ptr<Track> track)
 {
     tracks.erase(std::remove(tracks.begin(),tracks.end(),track));
     requestUpdate();
@@ -63,10 +64,9 @@ bool PlayList::removeTrack(int index)
     return success;
 }
 
-Track* PlayList::findTrack(string name) const
+shared_ptr<Track> PlayList::findTrack(string name) const
 {
-    Track * ptr=nullptr;
-
+    shared_ptr<Track> ptr;
     for(auto item : tracks)
     {
         if(item->title.find(name)!=string::npos)

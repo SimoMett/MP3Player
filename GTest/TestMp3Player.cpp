@@ -41,11 +41,11 @@ TEST(Mp3Player, findTrack)
 
     Mp3Player & p=*Mp3Player::getInstancePtr();
 
-    p.mainLibrary.addTrack(new Track("directory/Traccia1.mp3"));
-    p.mainLibrary.addTrack(new Track("directory/Traccia2.mp3"));
-    p.mainLibrary.addTrack(new Track("directory/Traccia3.mp3"));
+    p.mainLibrary.addTrack(shared_ptr<Track>(new Track("directory/Traccia1.mp3")));
+    p.mainLibrary.addTrack(shared_ptr<Track>(new Track("directory/Traccia2.mp3")));
+    p.mainLibrary.addTrack(shared_ptr<Track>(new Track("directory/Traccia3.mp3")));
 
-    bool found=p.find("Traccia2");
+    bool found=p.find("Traccia2")!= -1;
 
     ASSERT_TRUE(found);
 

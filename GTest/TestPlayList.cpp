@@ -35,7 +35,7 @@ TEST(PlayList, loadMainLibrary)
 
     Mp3Player::Create();
 
-    ASSERT_TRUE(Mp3Player::getInstancePtr()->mainLibrary.findTrack("file.mp3"));
+    ASSERT_TRUE(Mp3Player::getInstancePtr()->mainLibrary.findTrack("file.mp3")!= nullptr);
     
     Mp3Player::Destroy();
 }

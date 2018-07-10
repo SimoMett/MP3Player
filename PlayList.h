@@ -22,8 +22,8 @@ public:
 
     static vector<PlayList*> existingLists;
 
-    bool addTrack(Track* track);
-    bool removeTrack(Track* track);
+    bool addTrack(shared_ptr<Track> track);
+    bool removeTrack(shared_ptr<Track> track);
     bool removeTrack(int index);
     bool rename(string newName);
 
@@ -39,7 +39,7 @@ public:
         return name;
     }
 
-    Track * findTrack(string name) const;
+    shared_ptr<Track> findTrack(string name) const;
     int findTrackIndex(string name);
 
     virtual void save();
@@ -49,7 +49,7 @@ public:
 protected:
 
     string name;
-    deque<Track*> tracks;
+    vector<shared_ptr<Track>> tracks;
 
 private:
     void load();

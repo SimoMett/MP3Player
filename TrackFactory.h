@@ -16,7 +16,7 @@ class TrackFactory {
 
 public:
 
-    Track* importTrack(string path);
+    shared_ptr<Track> importTrack(string path);
 
 };
 
