@@ -244,13 +244,13 @@ void MainFrame::OnAddToPlaylistClick(wxCommandEvent &event)
     wxSingleChoiceDialog playlistDialog(this,"Please choose a playlist where to add the chosen song.","Playlist List",choicesArray);
     if(playlistDialog.ShowModal()==wxID_OK)
     {
-        Track selectedTrack(tracksListCtrl->getItemPath(tracksListCtrl->rightclickedTrackIndex));
+        Track * selectedTrack= new Track(tracksListCtrl->getItemPath(tracksListCtrl->rightclickedTrackIndex));
 
         for(auto item : PlayList::existingLists)
         {
             if(item->getName()==playlistDialog.GetStringSelection().ToStdString())
             {
-                item->addTrack(&selectedTrack);
+                item->addTrack(selectedTrack);
                 item->save();
             }
         }
