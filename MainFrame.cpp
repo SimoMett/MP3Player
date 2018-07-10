@@ -135,12 +135,7 @@ void MainFrame::OnOpenFile(wxCommandEvent& event)
         {
             Track *track = factory.importTrack(path);
 
-            wxXmlDocument doc;
-            doc.Load("resources/playlists/#mainLibrary.xml","UTF-8");
-            wxXmlNode* song=new wxXmlNode(doc.GetRoot(),wxXML_ELEMENT_NODE,"Track");
-            song->AddChild(new wxXmlNode(wxXML_TEXT_NODE," ",openFileDialog.GetPath()));
-
-            mediaCtrl->Load(track->getDirectory());
+            //mediaCtrl->Load(track->getDirectory());
         }
         else
             wxMessageBox("Cannot open this track","Error",wxICON_ERROR);
