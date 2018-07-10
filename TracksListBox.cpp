@@ -78,7 +78,6 @@ string TracksListBox::getItemPath(long index)
     wxXmlDocument doc;
     doc.Load("resources/playlists/#mainLibrary.xml","UTF-8");
     wxXmlNode* child = doc.GetRoot()->GetChildren();
-    cout<<child->GetNodeContent()<<endl;
     for(int i=0; i<index; i++)
     {
         child = child->GetNext();
