@@ -8,6 +8,7 @@
 class Album;
 
 #include <string>
+#include <fstream>
 #include <memory>
 
 using namespace std;
@@ -37,6 +38,9 @@ private:
 
     //int duration;
     string directory;
+    string getAlbumString();
+    string getArtistString();
+    string getFrameContent(string tag);
 };
 
 
