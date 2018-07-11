@@ -12,16 +12,16 @@ using namespace std;
 
 bool MainApp::OnInit()
 {
-    Mp3Player::Create();
-
     if(argc > 1)
         cout << argv[1]<<endl;
-
-    MainFrame * mainFrame=new MainFrame("UTunes",wxPoint(50,50),wxSize(1024,728));
 
     //if(mainFrame!= nullptr) //è sempre vera??
     wxBitmap bitmap("resources/splash_screen.png",wxBITMAP_TYPE_PNG);
     wxSplashScreen splash(bitmap,wxSPLASH_CENTRE_ON_SCREEN|wxSPLASH_TIMEOUT,2000,nullptr,-1);
+
+    Mp3Player::Create();
+    MainFrame * mainFrame=new MainFrame("UTunes",wxPoint(50,50),wxSize(1024,728));
+
     wxYield();
     wxSleep(2);
     mainFrame->Show(true);
