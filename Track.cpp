@@ -9,15 +9,11 @@ Track::Track(string path) : directory(path)
     title=path;
     title.erase(0,title.find_last_of("/")+1);
     //TODO Retrieve other infos (album name, artists, duration ...)
+    artist=getArtistString();
 }
 
-/*string Track::getDurationStr() const
-{
-    string duration(to_string(this->duration/60)+":"+to_string(this->duration%60));
 
-    return duration;
-}*/
-
+//FIXME
 string Track::getFrameContent(string tag)
 {
     string album;
