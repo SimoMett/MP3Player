@@ -288,7 +288,7 @@ void MainFrame::menuSetup()
     wxMenuBar *menuBar = new wxMenuBar;
     menuBar->Append( fileMenu, "&File");
     menuBar->Append(editMenu,"&Edit");
-    menuBar->Append(infoMenu,"&About");
+    menuBar->Append(infoMenu,"&Info");
 
     SetMenuBar(menuBar );
     CreateStatusBar();
