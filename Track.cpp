@@ -2,6 +2,7 @@
 // Created by matteo on 16/06/18.
 //
 
+#include <iostream>
 #include "Track.h"
 
 Track::Track(string path) : directory(path)
@@ -17,56 +18,46 @@ Track::Track(string path) : directory(path)
 string Track::getFrameContent(string tag)
 {
     string content;
-
-    ifstream mainFile;
-    mainFile.open(directory);
-
-    if(mainFile)
+    try
     {
-        size_t posCounter=0;
+        ifstream mainFile;
+        mainFile.open(directory, ios::out | ios::binary | ios::app);
 
-        while(mainFile.good())
-        {
-            string line;
-            getline(mainFile,line);
-            size_t pos=line.find(tag);
+        if (mainFile) {
+            size_t posCounter = 0;
 
-            if(pos!=string::npos)
-            {
-                //size is ok
-                char * sizePtr=new char[4];
-                size_t currentPos=pos+posCounter+1;
-                currentPos+=4;//skip 4 bytes, now points to char after the tag
-                mainFile.seekg(currentPos);
-                mainFile.read(sizePtr,4);
+            while (mainFile.good()) {
+                string line;
+                getline(mainFile, line);
+                size_t tagPos = line.find(tag);
 
-                unsigned long int siz=0;
+                if (tagPos != string::npos) {
+                    unsigned int siz = getFrameContentSize(mainFile, tag);
+                    tagPos++;//Points to 'T'
+                    string allTag;
+                    size_t seekPos = tagPos + posCounter;
 
-                for (int i = 0; i <4; ++i)
-                    siz += sizePtr[i] << (24 - i * 8);
+                    //Retrieve string
+                    mainFile.seekg(seekPos + 4 + 4 + 2);
 
-                siz--;
+                    char *string1 = new char[siz];
+                    mainFile.read(string1, siz);
 
-                delete [] sizePtr;
+                    content = string(string1);
+                    delete[] string1;
+                    content.erase(siz, content.length());
 
-                currentPos+=4;//Skip size integer bytes
-                currentPos+=2;//Skip flags short integer
-                //currentPos++;//Skip null char
-
-                mainFile.seekg(currentPos);
-
-                //Retrieve string
-
-                char * string1=new char[siz];
-                mainFile.read(string1,siz);
-                content=string(string1);
-
-                delete [] string1;
-                break;
+                    break;
+                } else {
+                    posCounter += line.length() + 1;
+                }
             }
-            else
-                posCounter+=line.length();
         }
+    }
+    catch (std::exception &e)
+    {
+        cerr<<"Exception occurred with \""<<directory<<"\""<<endl;
+        cerr<<e.what()<<endl;
     }
     return content;
 }
@@ -79,4 +70,36 @@ string Track::getAlbumString()
 string Track::getArtistString()
 {
     return getFrameContent("TPE1");
+}
+
+unsigned int Track::getFrameContentSize(ifstream & file, string tag)
+{
+    unsigned int result=0;
+    size_t posCounter=0;
+    file.seekg(0);
+    while (file.good())
+    {
+        string line;
+        getline(file,line);
+        size_t tagPos=line.find(tag);
+
+        if(tagPos!=string::npos)
+        {
+            size_t seekPos=tagPos+posCounter;
+            seekPos+=4;
+            file.seekg(seekPos);
+
+            char sizePtr[4];
+            file.read(sizePtr, sizeof(sizePtr));
+
+            for (int i = 0; i <4; ++i)
+                result += sizePtr[i] << (24 - i * 8);
+        }
+        else
+        {
+            posCounter+=line.length()+1;
+        }
+    }
+    file.seekg(0);
+    return --result;
 }

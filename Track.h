@@ -41,6 +41,7 @@ private:
     string getAlbumString();
     string getArtistString();
     string getFrameContent(string tag);
+    unsigned int getFrameContentSize(ifstream & file, string tag);
 };
 
 
