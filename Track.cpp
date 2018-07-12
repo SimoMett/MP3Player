@@ -16,7 +16,7 @@ Track::Track(string path) : directory(path)
 //FIXME
 string Track::getFrameContent(string tag)
 {
-    string album;
+    string content;
 
     ifstream mainFile;
     mainFile.open(directory);
@@ -33,36 +33,42 @@ string Track::getFrameContent(string tag)
 
             if(pos!=string::npos)
             {
-                char * tmp=new char[4];
+                //size is ok
+                char * sizePtr=new char[4];
                 size_t currentPos=pos+posCounter+1;
-                currentPos+=4;//skip 4 chars
+                currentPos+=4;//skip 4 bytes, now points to char after the tag
                 mainFile.seekg(currentPos);
-                mainFile.read(tmp,4);
+                mainFile.read(sizePtr,4);
 
                 unsigned long int siz=0;
 
                 for (int i = 0; i <4; ++i)
-                    siz += tmp[i] << (24 - i * 8);
+                    siz += sizePtr[i] << (24 - i * 8);
 
                 siz--;
 
-                delete tmp;
+                delete [] sizePtr;
 
-                mainFile.seekg(currentPos+7);//7 = 4 (size integer) + 2 (flags short integer) + 1 (null char)
+                currentPos+=4;//Skip size integer bytes
+                currentPos+=2;//Skip flags short integer
+                //currentPos++;//Skip null char
 
-                char * name=new char[siz];
-                mainFile.read(name,siz);
+                mainFile.seekg(currentPos);
 
-                album= string(name);
+                //Retrieve string
 
-                delete [] name;
+                char * string1=new char[siz];
+                mainFile.read(string1,siz);
+                content=string(string1);
+
+                delete [] string1;
                 break;
             }
             else
                 posCounter+=line.length();
         }
     }
-    return album;
+    return content;
 }
 
 string Track::getAlbumString()
