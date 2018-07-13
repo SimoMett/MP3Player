@@ -403,6 +403,7 @@ void MainFrame::OnSearch(wxCommandEvent &event)
             tracksListCtrl->SetItemState(i,0,wxLIST_STATE_SELECTED);
 
         tracksListCtrl->SetItemState(found,wxLIST_STATE_SELECTED,wxLIST_STATE_SELECTED);
+        tracksListCtrl->playingTrackIndex=found;
         mediaCtrl->Load(Mp3Player::getInstancePtr()->getSelectedList()->getTrack(found).getDirectory());
     }
     else

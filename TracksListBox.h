@@ -25,7 +25,7 @@ public:
 
     int playingTrackIndex=-1;
     int rightclickedTrackIndex=0;
-    
+
 
 
 private:
