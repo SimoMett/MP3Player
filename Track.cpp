@@ -34,7 +34,6 @@ string Track::getFrameContent(string tag)
                 if (tagPos != string::npos) {
                     unsigned int siz = getFrameContentSize(mainFile, tag);
                     tagPos++;//Points to 'T'
-                    string allTag;
                     size_t seekPos = tagPos + posCounter;
 
                     //Retrieve string
