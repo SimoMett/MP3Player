@@ -34,6 +34,8 @@ public:
         return directory;
     }
 
+    bool operator==(Track& other);
+
 private:
 
     //int duration;
