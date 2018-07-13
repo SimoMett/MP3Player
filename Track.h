@@ -34,7 +34,7 @@ public:
         return directory;
     }
 
-    bool operator==(Track& other);
+    bool operator==(shared_ptr<Track> other);
 
 private:
 

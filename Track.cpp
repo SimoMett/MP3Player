@@ -103,10 +103,10 @@ unsigned int Track::getFrameContentSize(ifstream & file, string tag)
     file.seekg(0);
     return --result;
 }
-bool Track::operator==(Track& other)
+bool Track::operator==(shared_ptr<Track> other)
 {
     bool isequal = true;
-    if((title!=other.title) || (artist!=other.artist))
+    if((title!=other->title) || (artist!=other->artist))
         isequal = false;
     return isequal;
 }
