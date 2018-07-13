@@ -134,7 +134,7 @@ void MainFrame::OnOpenFile(wxCommandEvent& event)
         if(path.length())
         {
             shared_ptr<Track> track = shared_ptr<Track>(factory.importTrack(path));
-
+            tracksListCtrl->openedFileName=openFileDialog.GetFilename().ToStdString();
             mediaCtrl->Load(track->getDirectory());
         }
         else
@@ -301,7 +301,8 @@ void MainFrame::OnMediaLoaded(wxCommandEvent &event)
     mediaCtrl->Play();
     playButton->SetLabel("Pause");
 
-    string label=Mp3Player::getInstancePtr()->getSelectedList()->getTrack(tracksListCtrl->playingTrackIndex).title;
+    int index=Mp3Player::getInstancePtr()->getSelectedList()->findTrackIndex(tracksListCtrl->openedFileName);
+    string label=Mp3Player::getInstancePtr()->getSelectedList()->getTrack(index).title;
     label.erase(label.find_last_of("."),label.length());
     currentTrackTitle->SetLabel(label);
 }
