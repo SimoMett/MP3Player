@@ -197,3 +197,11 @@ bool PlayList::isValidName(string name)
 
     return valid;
 }
+bool PlayList::trackAlreadyExists(shared_ptr<Track> track)
+{
+    bool exists = false;
+    for(auto item : tracks)
+        if(track==item)
+            exists = true;
+    return exists;
+}

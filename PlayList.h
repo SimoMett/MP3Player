@@ -26,6 +26,7 @@ public:
     bool removeTrack(shared_ptr<Track> track);
     bool removeTrack(int index);
     bool rename(string newName);
+    bool trackAlreadyExists(shared_ptr<Track> track);
 
     Track & getTrack(int index) const{
         return *(tracks[index]);
