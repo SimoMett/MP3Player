@@ -74,14 +74,5 @@ string TracksListBox::getSelectedItem()
 
 string TracksListBox::getItemPath(long index)
 {
-    //gets index from wxListEvent and scrolls mainLibrary.xml to find path
-    wxXmlDocument doc;
-    doc.Load("resources/playlists/#mainLibrary.xml","UTF-8");
-    wxXmlNode* child = doc.GetRoot()->GetChildren();
-    for(int i=0; i<index; i++)
-    {
-        child = child->GetNext();
-    }
-
-    return child->GetNodeContent().ToStdString();
+    return Mp3Player::getInstancePtr()->mainLibrary.getTrack(index).getDirectory();
 }
