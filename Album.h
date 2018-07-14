@@ -37,6 +37,7 @@ private:
     unique_ptr<Bitmap> coverBitmap;
     virtual void load() override ;
     bool isCoverValid(string dir);
+    void setDate();
 
 };
 

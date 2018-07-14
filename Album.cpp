@@ -1,7 +1,9 @@
 //
 // Created by matteo on 16/06/18.
 //
-
+#include <ctime>
+#include <iomanip>
+#include <sstream>
 #include "Album.h"
 
 Album::Album(string _name, string cover) : PlayList::PlayList(_name)
@@ -22,7 +24,6 @@ Album::~Album()
 {
     Album::save();
 }
-
 
 void Album::save()
 {
@@ -121,4 +122,13 @@ bool Album::isCoverValid(string dir)
         ok=false;
 
     return ok;
+}
+
+void Album::setDate()
+{
+    auto t = time(nullptr);
+    auto tm = *std::localtime(&t);
+    std::ostringstream oss;
+    oss << std::put_time(&tm, "%d-%m-%Y");
+    date=oss.str();
 }
