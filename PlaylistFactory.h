@@ -7,7 +7,6 @@
 
 #include "PlayList.h"
 
-
 class PlaylistFactory {
 
 public:
