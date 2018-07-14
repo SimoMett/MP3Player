@@ -134,9 +134,13 @@ void MainFrame::OnOpenFile(wxCommandEvent& event)
         if(path.length())
         {
             shared_ptr<Track> track = shared_ptr<Track>(factory.importTrack(path));
-            tracksListCtrl->playingTrackIndex=tracksListCtrl->GetItemCount()-1;
-            mediaCtrl->Load(track->getDirectory());
-
+            if(Mp3Player::getInstancePtr()->mainLibrary.trackAlreadyExists(track))
+            {
+                tracksListCtrl->playingTrackIndex=tracksListCtrl->GetItemCount()-1;
+                mediaCtrl->Load(track->getDirectory());
+            }
+            else
+                wxMessageBox("Track already exists","Error",wxICON_ERROR);
         }
         else
             wxMessageBox("Cannot open this track","Error",wxICON_ERROR);
@@ -403,6 +407,7 @@ void MainFrame::OnSearch(wxCommandEvent &event)
             tracksListCtrl->SetItemState(i,0,wxLIST_STATE_SELECTED);
 
         tracksListCtrl->SetItemState(found,wxLIST_STATE_SELECTED,wxLIST_STATE_SELECTED);
+        tracksListCtrl->playingTrackIndex=found;
         mediaCtrl->Load(Mp3Player::getInstancePtr()->getSelectedList()->getTrack(found).getDirectory());
     }
     else
