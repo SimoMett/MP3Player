@@ -47,14 +47,12 @@ public:
 
     static bool isValidName(string name);
 
+    virtual void load();
+
 protected:
 
     string name;
     vector<shared_ptr<Track>> tracks;
-
-private:
-    void load();
-
 };
 
 #endif //MP3PLAYER_PLAYLIST_H

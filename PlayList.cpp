@@ -9,7 +9,6 @@ vector<PlayList*> PlayList::existingLists;
 
 PlayList::PlayList(string _name) : name(_name)
 {
-    load();
     existingLists.push_back(this);
 }
 
