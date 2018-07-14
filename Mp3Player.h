@@ -47,8 +47,7 @@ public:
         return currentPlayer;
     }
 
-    PlayList * getSelectedList() const
-    {
+    PlayList * getSelectedList() const {
         return selectedList;
     }
 

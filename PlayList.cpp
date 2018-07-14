@@ -14,7 +14,6 @@ PlayList::PlayList(string _name) : name(_name)
 
 PlayList::~PlayList()
 {
-    //auto & playlistalias= Mp3Player::getInstancePtr()->playlists;
     existingLists.erase(std::remove(existingLists.begin(),existingLists.end(),this));
     save();
 }
@@ -34,7 +33,7 @@ bool PlayList::addTrack(shared_ptr<Track> track)
     bool ok=false;
     if(!found)
     {
-        tracks.push_back(move(track));
+        tracks.push_back(track);
         ok=true;
     }
     requestUpdate();
@@ -62,7 +61,7 @@ bool PlayList::removeTrack(int index)
 
 shared_ptr<Track> PlayList::findTrack(string name) const
 {
-    shared_ptr<Track> ptr;
+    shared_ptr<Track> ptr(nullptr);
     for(auto item : tracks)
     {
         if(item->title.find(name)!=string::npos)

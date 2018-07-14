@@ -18,6 +18,7 @@ void Mp3Player::Create()
 
 Mp3Player::Mp3Player() : mainLibrary("#mainLibrary"), playlists(PlayList::existingLists), selectedList(&mainLibrary)
 {
+    mainLibrary.load();
     srand(time(nullptr));
     Settings::Instantiate();
     setVolume(Settings::getInstance().getSavedVolume());
@@ -42,7 +43,7 @@ void Mp3Player::Destroy()
                 delete item;*/
         }
         currentPlayer->observers.clear();
-        currentPlayer= unique_ptr<Mp3Player>(nullptr);
+        currentPlayer.reset();
 
     }
 }

@@ -25,6 +25,7 @@ TEST(PlayList,construction)
 
 TEST(PlayList, loadMainLibrary)
 {
+    wxRemoveFile("resources/playlists/#mainLibrary.xml");
     Mp3Player::Create();
     PlayList & lib=Mp3Player::getInstancePtr()->mainLibrary;
     TrackFactory t;

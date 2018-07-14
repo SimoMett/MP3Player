@@ -6,27 +6,37 @@
 #define MP3PLAYER_ALBUM_H
 
 #include <wx/wx.h>
+#include <wx/xml/xml.h>
+#include <wx/sstream.h>
+#include <wx/file.h>
 #include "PlayList.h"
+#include "TrackFactory.h"
+#include "Bitmap.h"
 
 using namespace std;
 
-class Album : public PlayList{
-
+class Album : public PlayList
+{
 
 public:
 
-    Album(string _name, wxBitmap & cover);
+    Album(string _name, string cover);
+    virtual ~Album() override ;
 
     string artists;
     string date;
 
-    const wxBitmap & getCoverBitmap() const{
-        return coverBitmap;
+    const Bitmap & getCoverBitmap() const{
+        return *coverBitmap;
     }
+
+    virtual void save() override ;
 
 private:
 
-    wxBitmap & coverBitmap;
+    unique_ptr<Bitmap> coverBitmap;
+    virtual void load() override ;
+    bool isCoverValid(string dir);
 
 };
 
