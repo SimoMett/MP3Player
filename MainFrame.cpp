@@ -72,13 +72,10 @@ void MainFrame::widgetsSetup()
 
     albumSizer->Add( albumBitmap.get(), 1, wxEXPAND|wxALIGN_RIGHT|wxALL, 4 );
 
-    wxListBox * albumsListBox = new wxListBox( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, NULL, 0 );
-    albumsListBox->SetMinSize(wxSize(200,-1));
-    albumSizer->Add( albumsListBox, 1, wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxRIGHT|wxLEFT, 4 );
-
+    albumsListBox = unique_ptr<AlbumListBox>(new AlbumListBox( this, wxID_ANY));
+    albumSizer->Add( albumsListBox.get(), 1, wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxRIGHT|wxLEFT, 4 );
 
     listsSizer->Add( albumSizer, 0, wxEXPAND|wxTOP|wxBOTTOM|wxRIGHT, 5 );
-
 
     mainBoxSizer->Add( listsSizer, 1, wxEXPAND, 5 );
 

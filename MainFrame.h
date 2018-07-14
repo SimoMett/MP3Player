@@ -25,6 +25,7 @@
 #include "Mp3Player.h"
 #include "Slider.h"
 #include "PlaylistFactory.h"
+#include "AlbumListBox.h"
 
 class MainFrame : public wxFrame , public Subject{
 
@@ -43,6 +44,7 @@ public:
     unique_ptr<wxToggleButton> loopButton;
     unique_ptr<wxStaticBitmap> albumBitmap;
     unique_ptr<wxSearchCtrl> trackFinder;
+    unique_ptr<AlbumListBox> albumsListBox;
 
 private:
 
