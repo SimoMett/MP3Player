@@ -200,13 +200,6 @@ void MainFrame::NextTrackButton(wxCommandEvent &event)
 
 void MainFrame::OnTracksBoxClick(wxCommandEvent &event)
 {
-    //getSelectedItemIndex is bugged
-    /* long index=tracksListCtrl->getSelectedItemIndex(wxLIST_STATE_FOCUSED|wxLIST_STATE_SELECTED|wxLIST_STATE_INUSE|wxLIST_STATE_PICKED);
-    cout << "selected "<<index<<endl;
-    if(index!=-1)
-        albumBitmap->SetBitmap(Mp3Player::getInstancePtr()->getSelectedList()->getTrack(index).album->getCoverBitmap());*/
-
-
     //FIXME lines below should be uncommented when Album class is fully functional
     const Track & track=*(Mp3Player::getInstancePtr()->getSelectedList()->findTrack(tracksListCtrl->getSelectedItem()));
 
