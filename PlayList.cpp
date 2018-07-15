@@ -20,25 +20,28 @@ PlayList::~PlayList()
 
 bool PlayList::addTrack(shared_ptr<Track> track)
 {
-    bool found=false;
-    for(auto item: tracks)
+    bool ok = false;
+    if(track)
     {
-        if(item->getDirectory()==track->getDirectory())
+        bool found = false;
+        for (auto item: tracks)
         {
-            found=true;
-            break;
+            if (item->getDirectory() == track->getDirectory())
+            {
+                found = true;
+                break;
+            }
         }
-    }
 
-    bool ok=false;
-    if(!found)
-    {
-        tracks.push_back(track);
-        ok=true;
+        if (!found)
+        {
+            tracks.push_back(track);
+            ok = true;
+        }
+        requestUpdate();
+        if (Mp3Player::getInstancePtr())
+            Mp3Player::getInstancePtr()->requestUpdate();
     }
-    requestUpdate();
-    if(Mp3Player::getInstancePtr())
-        Mp3Player::getInstancePtr()->requestUpdate();
     return ok;
 }
 

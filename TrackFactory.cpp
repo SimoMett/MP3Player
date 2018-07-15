@@ -6,11 +6,14 @@
 
 shared_ptr<Track> TrackFactory::importTrack(string path)
 {
-    shared_ptr<Track> finalPtr(new Track(path));
-    if(Mp3Player::getInstancePtr()!= nullptr)//Append track to mainLibrary
+    shared_ptr<Track> finalPtr=nullptr;
+    if(wxFileExists(path))
     {
-        Mp3Player::getInstancePtr()->mainLibrary.addTrack(finalPtr);
+        finalPtr=shared_ptr<Track> (new Track(path));
+        if (Mp3Player::getInstancePtr() != nullptr)//Append track to mainLibrary
+        {
+            Mp3Player::getInstancePtr()->mainLibrary.addTrack(finalPtr);
+        }
     }
-
     return finalPtr;
 }
