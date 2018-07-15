@@ -18,9 +18,7 @@ public:
         return directory;
     }
 
-    void setDirectory(string dir) {
-        directory=dir;
-    }
+    void setDirectory(string dir);
 
 private:
     string directory;

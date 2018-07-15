@@ -5,7 +5,13 @@
 #include "Bitmap.h"
 
 
-Bitmap::Bitmap(string path) : directory(path), wxBitmap()
+Bitmap::Bitmap(string path) : wxBitmap()
 {
-    LoadFile(path,wxBITMAP_TYPE_ANY);
+    setDirectory(path);
+}
+
+void Bitmap::setDirectory(string dir)
+{
+    directory=dir;
+    LoadFile(directory,wxBITMAP_TYPE_ANY);
 }
