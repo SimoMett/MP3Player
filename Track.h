@@ -21,7 +21,7 @@ public:
 
     string title;
     string artist;
-    shared_ptr<Album> album;
+    Album * album;
     string genre;
     //bool like;
 
