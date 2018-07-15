@@ -30,13 +30,13 @@ TEST(PlayList, loadMainLibrary)
     PlayList & lib=Mp3Player::getInstancePtr()->mainLibrary;
     TrackFactory t;
 
-    lib.addTrack(t.importTrack("direc/file.mp3"));
+    lib.addTrack(t.importTrack("nome.mp3"));
 
     Mp3Player::Destroy();
 
     Mp3Player::Create();
 
-    ASSERT_TRUE(Mp3Player::getInstancePtr()->mainLibrary.findTrack("file.mp3")!= nullptr);
+    ASSERT_TRUE(Mp3Player::getInstancePtr()->mainLibrary.findTrack("nome.mp3")!= nullptr);
     
     Mp3Player::Destroy();
 }
@@ -94,13 +94,13 @@ TEST(PlayList, addTrackTwice)
     PlaylistFactory f;
     PlayList * list=f.createPlaylist("lista");
     TrackFactory t;
-    list->addTrack(t.importTrack("directory/file.mp3"));
-    list->addTrack(t.importTrack("directory/file.mp3"));
+    list->addTrack(t.importTrack("nome.mp3"));
+    list->addTrack(t.importTrack("nome.mp3"));
 
     int count=0;
     for(int i=0;i<list->getTracksCount();i++)
     {
-        if(list->getTrack(i).title=="file");
+        if(list->getTrack(i).title=="nome");
             count++;
     }
 
