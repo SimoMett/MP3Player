@@ -23,6 +23,8 @@ public:
     std::string getSelectedItem();
     std::string getItemPath(long index);
 
+    long getSelectedItemIndex(int mode=wxLIST_STATE_SELECTED);
+
     int playingTrackIndex=-1;
     int rightclickedTrackIndex=0;
 
