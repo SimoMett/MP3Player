@@ -132,3 +132,9 @@ void Album::setDate()
     oss << std::put_time(&tm, "%d-%m-%Y");
     date=oss.str();
 }
+
+void Album::changeCoverBitmap(string file)
+{
+    coverBitmap->setDirectory(file);
+    save();
+}

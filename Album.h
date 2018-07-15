@@ -30,6 +30,8 @@ public:
         return *coverBitmap;
     }
 
+    void changeCoverBitmap(string file);
+
     virtual void save() override ;
 
 private:
