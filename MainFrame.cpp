@@ -31,6 +31,7 @@ void MainFrame::bindingsSetup()
     Bind(wxEVT_LISTBOX_DCLICK,&MainFrame::OnPlaylistSelected,this,ID_PlayLstBox);
     Bind(wxEVT_LIST_ITEM_ACTIVATED,&MainFrame::OnTracksBoxDoubleClick,this,ID_TracksListBox);
     Bind(wxEVT_LIST_ITEM_RIGHT_CLICK,&MainFrame::OnTracksBoxRightClick,this,ID_TracksListBox);
+    Bind(wxEVT_LIST_ITEM_SELECTED,&MainFrame::OnTracksBoxClick,this,ID_TracksListBox);
     Bind(wxEVT_TOGGLEBUTTON,&MainFrame::OnLoopButton,this,ID_LoopButton);
     Bind(wxEVT_MEDIA_FINISHED, &MainFrame::OnMediaFinished,this,ID_MediaCtrl);
     Bind(wxEVT_MENU,&MainFrame::OnChangeAlbumBitmap,this,ID_ChangeBitmap);
@@ -195,6 +196,23 @@ void MainFrame::NextTrackButton(wxCommandEvent &event)
             mediaCtrl->Load(track->getDirectory());
         }
     }
+}
+
+void MainFrame::OnTracksBoxClick(wxCommandEvent &event)
+{
+    //getSelectedItemIndex is bugged
+    /* long index=tracksListCtrl->getSelectedItemIndex(wxLIST_STATE_FOCUSED|wxLIST_STATE_SELECTED|wxLIST_STATE_INUSE|wxLIST_STATE_PICKED);
+    cout << "selected "<<index<<endl;
+    if(index!=-1)
+        albumBitmap->SetBitmap(Mp3Player::getInstancePtr()->getSelectedList()->getTrack(index).album->getCoverBitmap());*/
+
+
+    //FIXME lines below should be uncommented when Album class is fully functional
+    const Track & track=*(Mp3Player::getInstancePtr()->getSelectedList()->findTrack(tracksListCtrl->getSelectedItem()));
+
+    /*const Bitmap & bitmap=track.album->getCoverBitmap();
+
+    albumBitmap->SetBitmap(bitmap);*/
 }
 
 void MainFrame::OnTracksBoxDoubleClick(wxCommandEvent &event)
@@ -392,8 +410,15 @@ void MainFrame::OnBitmapRightClick(wxCommandEvent &event)
 
 void MainFrame::OnChangeAlbumBitmap(wxCommandEvent &event)
 {
-    //TODO
-    wxMessageBox("TODO open filedialog and choose bitmap");
+    wxFileDialog fileDialog(this, "Change album cover", "", "", "Image files (*.png;*.jpg;*.bmp)|*.png;*.jpg;*.bmp", wxFD_OPEN|wxFD_FILE_MUST_EXIST);
+    if(fileDialog.ShowModal()==wxID_OK)
+    {
+        long index=tracksListCtrl->getSelectedItemIndex();
+        string file=fileDialog.GetPath().ToStdString();
+        Mp3Player::getInstancePtr()->getSelectedList()->getTrack(index).album->changeCoverBitmap(file);
+
+        albumBitmap->SetBitmap(Mp3Player::getInstancePtr()->getSelectedList()->getTrack(index).album->getCoverBitmap());
+    }
 }
 
 void MainFrame::OnSearch(wxCommandEvent &event)
