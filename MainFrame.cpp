@@ -137,7 +137,7 @@ void MainFrame::OnOpenFile(wxCommandEvent& event)
                 mediaCtrl->Load(track->getDirectory());
             }
             else
-                wxMessageBox("Track already exists","Error",wxICON_ERROR);
+                wxMessageBox("Track already exists","Error");
         }
         else
             wxMessageBox("Cannot open this track","Error",wxICON_ERROR);
