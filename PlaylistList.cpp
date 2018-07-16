@@ -66,39 +66,6 @@ void PlaylistList::save()
 {
     for(int i=0; i<existingPlaylists.GetCount(); i++)
     {
-        string path="resources/playlists/"+existingPlaylists[i]->name+".xml";
-        wxXmlDocument doc;
-
-        if(!wxFileExists(path))
-        {
-            std::ofstream outfile (path);
-            outfile.close();
-        }
-        else
-            doc.Load(path);
-
-        doc.SetVersion("1.0");
-        doc.SetFileEncoding("UTF-8");
-
-        wxXmlNode * root=new wxXmlNode(nullptr,wxXML_ELEMENT_NODE,"Playlist");
-        doc.SetRoot(root);
-
-        for(int j=existingPlaylists[i]->tracks.size()-1;i>=0;i--)
-        {
-            wxXmlNode *trackNode = new wxXmlNode(root, wxXML_ELEMENT_NODE, "Track");
-            string dir=existingPlaylists[i]->tracks[j]->getDirectory();
-            wxXmlNode *tmp = new wxXmlNode(wxXML_TEXT_NODE, "", dir);
-            trackNode->AddChild(tmp);
-        }
-
-        wxStringOutputStream stream;
-        doc.Save(stream);
-
-        wxFile file(path,wxFile::OpenMode::write);
-        if(file.IsOpened())
-        {
-            file.Write(stream.GetString());
-            file.Close();
-        }
+        existingPlaylists[i]->save();
     }
 }
