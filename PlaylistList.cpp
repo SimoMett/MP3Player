@@ -69,3 +69,15 @@ void PlaylistList::save()
         existingPlaylists[i]->save();
     }
 }
+
+bool PlaylistList::isPlayListAnAlbum(PlayList *check)
+{
+    bool success;
+    Album* p = dynamic_cast<Album*>(check);
+    if(p != nullptr)
+        success=true;
+    else
+        success=false;
+    delete p;
+    return success;
+}

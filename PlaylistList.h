@@ -19,6 +19,7 @@ public:
     void removePlaylist(string name);
     shared_ptr<Playlist> getPlaylist(string name);
     void save();
+    bool isPlayListAnAlbum(PlayList* check);
 
 private:
     vector<shared_ptr<Playlist>> existingPlaylists;
