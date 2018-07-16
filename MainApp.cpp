@@ -22,7 +22,6 @@ bool MainApp::OnInit()
     Mp3Player::Create();
     MainFrame * mainFrame=new MainFrame("UTunes",wxPoint(50,50),wxSize(1024,728));
 
-    wxYield();
     wxSleep(2);
     mainFrame->Show(true);
 
