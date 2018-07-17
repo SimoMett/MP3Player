@@ -78,11 +78,14 @@ void Mp3Player::loadPlayLists()
     {
         //load playlist
         string name(filename.c_str());
-        name.erase(name.find_last_of("."),name.length());
+        if(name.find("album_",0,5)==string::npos)
+        {
+            name.erase(name.find_last_of("."), name.length());
 
-        auto pl=factory.createPlaylist(name);
-        Mp3Player::getInstancePtr()->playlists.push_back(unique_ptr<PlayList>(pl));
+            auto pl = factory.createPlaylist(name);
+            Mp3Player::getInstancePtr()->playlists.push_back(unique_ptr<PlayList>(pl));
 
+        }
         cont = dir.GetNext(&filename);
     }
 }
