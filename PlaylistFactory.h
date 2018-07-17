@@ -10,7 +10,7 @@
 class PlaylistFactory {
 
 public:
-    PlayList * createPlaylist(string name);
+    shared_ptr<PlayList> createPlaylist(string name);
 };
 
 

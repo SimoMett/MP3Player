@@ -4,6 +4,7 @@
 
 #include "PlaylistsListBox.h"
 #include "PlayList.h"
+#include "Mp3Player.h"
 
 PlaylistsListBox::PlaylistsListBox(wxWindow *parent, wxWindowID id, const wxPoint &pos, const wxSize &size) :
         wxListBox(parent,id,pos,size)
@@ -20,7 +21,7 @@ void PlaylistsListBox::update()
 void PlaylistsListBox::printLists()
 {
     unsigned int pos=1;
-    for(auto item : PlayList::existingLists)
+    for(auto item : Mp3Player::getInstancePtr()->playlists.getExistingPlaylists())
     {
         if(item->getName()=="#mainLibrary")
             wxListBox::Insert("Main Library",0);

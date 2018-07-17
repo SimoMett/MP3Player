@@ -4,17 +4,18 @@
 #include <algorithm>
 #include "PlayList.h"
 #include "Mp3Player.h"
+#include "PlaylistList.h"
 
-vector<PlayList*> PlayList::existingLists;
 
 PlayList::PlayList(string _name) : name(_name)
 {
-    existingLists.push_back(this);
+    Mp3Player::getInstancePtr()->playlists.addPlaylist(shared_from_this());
+    save();
 }
 
 PlayList::~PlayList()
 {
-    existingLists.erase(std::remove(existingLists.begin(),existingLists.end(),this));
+    Mp3Player::getInstancePtr()->playlists.removePlaylist(this->name);
     save();
 }
 
@@ -99,7 +100,7 @@ bool PlayList::rename(string newName)
 {
     bool existingName=false;
     bool success=false;
-    for(auto item: existingLists)
+    for(auto item : Mp3Player::getInstancePtr()->playlists.getExistingPlaylists())
     {
         if(item->name==newName)
         {

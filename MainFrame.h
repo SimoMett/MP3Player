@@ -26,6 +26,7 @@
 #include "Slider.h"
 #include "PlaylistFactory.h"
 #include "AlbumListBox.h"
+#include "PlaylistList.h"
 
 class MainFrame : public wxFrame , public Subject{
 

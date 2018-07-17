@@ -5,56 +5,36 @@
 
 PlaylistList::PlaylistList()
 {
-    wxArrayString playlists;
-    wxDir::GetAllFiles("resources/playlists", playlists);
-    for(int i=0; i<playlists.GetCount(); i++)
-    {
-        existingPlaylists.push_back(new PlayList(playlists[i]));
 
-        string path="resources/playlists/"+playlists[i]+".xml";
-        wxXmlDocument doc;
-        doc.Load(path);
-        if(doc.GetRoot() && doc.GetRoot()->GetName()=="Playlist")
-        {
-            wxXmlNode * child=doc.GetRoot()->GetChildren();
-            TrackFactory factory;
-            while (child)
-            {
-                string track(child->GetNodeContent().c_str());
-                if(track.length())
-                {
-                    existingPlaylists[i]->addTrack(factory.importTrack(string(child->GetNodeContent().c_str())));
-                }
-                child=child->GetNext();
-            }
-        }
-    }
 }
 
-void PlaylistList::addPlaylist(string name)
+PlaylistList::~PlaylistList()
 {
-    existingPlaylists.push_back(new PlayList(name));
-    save();
+
+}
+
+void PlaylistList::addPlaylist(shared_ptr<PlayList> playlist)
+{
+    existingPlaylists.push_back(playlist);
 }
 
 void PlaylistList::removePlaylist(string name)
 {
-    for(int i=0; i<existingPlaylists.GetCount(); i++)
+    for(int i=0; i<existingPlaylists.size(); i++)
     {
-        if(existingPlaylists[i]->name == name)
+        if(existingPlaylists[i]->getName() == name)
         {
-            existingPlaylists.erase(i);
-            save();
+            existingPlaylists.erase(existingPlaylists.begin()+i);
         }
     }
 
 }
 
-shared_ptr<Playlist> PlaylistList::getPlaylist(string name)
+shared_ptr<PlayList> PlaylistList::getPlaylist(string name)
 {
-    for(int i=0; i<existingPlaylists.GetCount(); i++)
+    for(int i=0; i<existingPlaylists.size(); i++)
     {
-        if(existingPlaylists[i]->name == name)
+        if(existingPlaylists[i]->getName() == name)
         {
             return existingPlaylists[i];
         }
@@ -64,20 +44,25 @@ shared_ptr<Playlist> PlaylistList::getPlaylist(string name)
 
 void PlaylistList::save()
 {
-    for(int i=0; i<existingPlaylists.GetCount(); i++)
+    for(int i=0; i<existingPlaylists.size(); i++)
     {
         existingPlaylists[i]->save();
     }
 }
 
-bool PlaylistList::isPlayListAnAlbum(PlayList *check)
+bool PlaylistList::isPlayListAnAlbum(PlayList *check)   //TODO must fix
 {
-    bool success;
+    /*bool success;
     Album* p = dynamic_cast<Album*>(check);
     if(p != nullptr)
         success=true;
     else
         success=false;
     delete p;
-    return success;
+    return success;*/
+}
+
+vector<shared_ptr<PlayList>> PlaylistList::getExistingPlaylists()
+{
+    return existingPlaylists;
 }

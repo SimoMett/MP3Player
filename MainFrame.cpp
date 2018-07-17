@@ -238,7 +238,7 @@ void MainFrame::OnAddToPlaylistClick(wxCommandEvent &event)
 {
     wxArrayString choicesArray; //creates array of Playlists to display in wxSingleChoiceDialog
     long pos=0;
-    for(auto item : PlayList::existingLists)
+    for(auto item : Mp3Player::getInstancePtr()->playlists.getExistingPlaylists())
     {
         if(item->getName()=="#mainLibrary")
             continue;
@@ -251,7 +251,7 @@ void MainFrame::OnAddToPlaylistClick(wxCommandEvent &event)
     wxSingleChoiceDialog playlistDialog(this,"Please choose a playlist where to add the chosen song.","Playlist List",choicesArray);
     if(playlistDialog.ShowModal()==wxID_OK)
     {
-        for(auto item : PlayList::existingLists)
+        for(auto item : Mp3Player::getInstancePtr()->playlists.getExistingPlaylists())
         {
             if(item->getName()==playlistDialog.GetStringSelection().ToStdString())
             {
@@ -337,7 +337,7 @@ void MainFrame::OnNewPlayList(wxCommandEvent &event)
             if(PlayList::isValidName(name))
             {
                 PlaylistFactory factory;
-                PlayList * list=factory.createPlaylist(name);
+                shared_ptr<PlayList> list=factory.createPlaylist(name);
                 list->save();
                 playlistListBox->update();
                 exit=true;
@@ -366,11 +366,11 @@ void MainFrame::OnPlaylistSelected(wxCommandEvent &event)
         }
         else
         {
-            for(auto item : PlayList::existingLists)
+            for(auto item : Mp3Player::getInstancePtr()->playlists.getExistingPlaylists())
             {
                 if(playlistListBox->GetString(selectedItem).ToStdString()==item->getName())
                 {
-                    lista=item;
+                    lista=item.get();
                     break;
                 }
             }

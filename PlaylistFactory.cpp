@@ -4,9 +4,9 @@
 
 #include "PlaylistFactory.h"
 
-PlayList* PlaylistFactory::createPlaylist(string name)
+shared_ptr<PlayList> PlaylistFactory::createPlaylist(string name)
 {
-    PlayList * p=new PlayList(name);
+    shared_ptr<PlayList> p;
     p->load();
     return p;
 }

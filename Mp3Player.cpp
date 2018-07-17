@@ -16,7 +16,7 @@ void Mp3Player::Create()
     }
 }
 
-Mp3Player::Mp3Player() : mainLibrary("#mainLibrary"), playlists(PlayList::existingLists), selectedList(&mainLibrary)
+Mp3Player::Mp3Player() : mainLibrary("#mainLibrary"), selectedList(&mainLibrary)
 {
     mainLibrary.load();
     srand(time(nullptr));

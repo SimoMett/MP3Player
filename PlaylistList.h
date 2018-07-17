@@ -13,15 +13,16 @@ using namespace std;
 class PlaylistList {
 
 public:
-    PlaylistList(); //loads playlists from resources at program init
+    PlaylistList();
     ~PlaylistList();
-    void addPlaylist(string name);
+    void addPlaylist(shared_ptr<PlayList> playlist);
     void removePlaylist(string name);
-    shared_ptr<Playlist> getPlaylist(string name);
+    shared_ptr<PlayList> getPlaylist(string name);
     void save();
     bool isPlayListAnAlbum(PlayList* check);
 
+    vector<shared_ptr<PlayList>> getExistingPlaylists();
 private:
-    vector<shared_ptr<Playlist>> existingPlaylists;
+    vector<shared_ptr<PlayList>> existingPlaylists;
 };
 #endif //MP3PLAYER_PLAYLISTLIST_H

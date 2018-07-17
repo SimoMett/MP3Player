@@ -14,6 +14,7 @@
 #include "Album.h"
 #include "Track.h"
 #include "TrackFactory.h"
+#include "PlaylistList.h"
 
 using namespace std;
 
@@ -26,7 +27,7 @@ public:
     ~Mp3Player();
 
     PlayList mainLibrary;
-    vector <PlayList*> & playlists;
+    PlaylistList playlists;
 
     shared_ptr<Track> currentTrack;
     bool mp3Looping;
@@ -54,6 +55,7 @@ public:
     int getCurrentTrackTiming() const {
         return currentTrackTiming;
     }
+    
 
 private:
     Mp3Player();
