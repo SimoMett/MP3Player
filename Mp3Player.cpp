@@ -3,7 +3,6 @@
 //
 #include <wx/dir.h>
 #include "Mp3Player.h"
-#include "PlaylistFactory.h"
 
 unique_ptr<Mp3Player> Mp3Player::currentPlayer(nullptr);
 const unsigned int Mp3Player::defaultVolume=1;
@@ -13,17 +12,20 @@ void Mp3Player::Create()
     if(currentPlayer== nullptr)
     {
         currentPlayer=unique_ptr<Mp3Player>(new Mp3Player());
+        Mp3Player::getInstancePtr()->mainLibrary=new PlayList("#mainLibrary");
+        Mp3Player::getInstancePtr()->mainLibrary->load();
+        Mp3Player::getInstancePtr()->loadPlayLists();
+        Mp3Player::getInstancePtr()->requestUpdate();
+        Mp3Player::getInstancePtr()->changePlaylist(Mp3Player::getInstancePtr()->mainLibrary);
     }
 }
 
-Mp3Player::Mp3Player() : mainLibrary("#mainLibrary"), playlists(PlayList::existingLists), selectedList(&mainLibrary)
+Mp3Player::Mp3Player() : existingLists(unique_ptr<PlaylistList>(new PlaylistList()))
 {
-    mainLibrary.load();
+    //selectedList=mainLibrary;
     srand(time(nullptr));
     Settings::Instantiate();
     setVolume(Settings::getInstance().getSavedVolume());
-    loadPlayLists();
-    requestUpdate();
 }
 
 void Mp3Player::Destroy()
@@ -34,7 +36,7 @@ void Mp3Player::Destroy()
 
         Settings::Destroy();
 
-        currentPlayer->mainLibrary.save();
+        currentPlayer->mainLibrary->save();
 
         for(auto item : currentPlayer->observers)
         {
@@ -43,14 +45,25 @@ void Mp3Player::Destroy()
                 delete item;*/
         }
         currentPlayer->observers.clear();
-        currentPlayer.reset();
-
     }
 }
 
 Mp3Player::~Mp3Player()
 {
+    //mainLibrary->save();//automatically saved by PlaylistList
 
+    Settings::getInstance().setSavedVolume(currentPlayer->volume);
+    Settings::getInstance().SaveSettings();
+    //Settings::Destroy();
+
+    for(auto item : observers)
+    {
+        //FIXME there is a segmentation violation here on exit
+        /*if(item!= nullptr)
+            delete item;*/
+    }
+    observers.clear();
+    //Destroy();
 }
 
 void Mp3Player::setVolume(unsigned int val)

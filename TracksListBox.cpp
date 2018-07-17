@@ -87,5 +87,5 @@ long TracksListBox::getSelectedItemIndex(int mode)
 
 string TracksListBox::getItemPath(long index)
 {
-    return Mp3Player::getInstancePtr()->mainLibrary.getTrack(index).getDirectory();
+    return Mp3Player::getInstancePtr()->mainLibrary->getTrack(index).getDirectory();
 }

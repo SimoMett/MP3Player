@@ -31,7 +31,7 @@ void Settings::Destroy()
     if(singleIstance!= nullptr)
     {
         singleIstance->SaveSettings();
-        singleIstance.reset(nullptr);
+        singleIstance.reset();
     }
 }
 

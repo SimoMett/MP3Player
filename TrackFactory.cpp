@@ -12,7 +12,7 @@ shared_ptr<Track> TrackFactory::importTrack(string path)
         finalPtr=shared_ptr<Track> (new Track(path));
         if (Mp3Player::getInstancePtr() != nullptr)//Append track to mainLibrary
         {
-            Mp3Player::getInstancePtr()->mainLibrary.addTrack(finalPtr);
+            Mp3Player::getInstancePtr()->mainLibrary->addTrack(finalPtr);
         }
     }
     return finalPtr;

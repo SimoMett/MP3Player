@@ -5,16 +5,16 @@
 #include "PlayList.h"
 #include "Mp3Player.h"
 
-vector<PlayList*> PlayList::existingLists;
-
 PlayList::PlayList(string _name) : name(_name)
 {
-    existingLists.push_back(this);
+    PlaylistList * list=Mp3Player::getInstancePtr()->existingLists.get();
+    list->addPlaylist(this);
 }
 
 PlayList::~PlayList()
 {
-    existingLists.erase(std::remove(existingLists.begin(),existingLists.end(),this));
+    Mp3Player::getInstancePtr()->existingLists->removePlaylist(this);
+    //Mp3Player::getInstancePtr()->existingLists->getPlaylistListRefr().erase(std::remove(Mp3Player::getInstancePtr()->existingLists->getPlaylistListRefr().begin(),Mp3Player::getInstancePtr()->existingLists->getPlaylistListRefr().end(),this));
     save();
 }
 
@@ -99,7 +99,7 @@ bool PlayList::rename(string newName)
 {
     bool existingName=false;
     bool success=false;
-    for(auto item: existingLists)
+    for(auto item: Mp3Player::getInstancePtr()->existingLists->getPlaylistListRefr())
     {
         if(item->name==newName)
         {

@@ -10,9 +10,9 @@
 #include <memory>
 #include "Settings.h"
 #include "Subject.h"
-#include "PlayList.h"
-#include "Album.h"
-#include "Track.h"
+class PlaylistList;
+#include "PlaylistList.h"
+#include "PlaylistFactory.h"
 #include "TrackFactory.h"
 
 using namespace std;
@@ -25,8 +25,8 @@ public:
 
     ~Mp3Player();
 
-    PlayList mainLibrary;
-    vector <PlayList*> & playlists;
+    PlayList *mainLibrary;
+    //vector <PlayList*> & playlists;
 
     shared_ptr<Track> currentTrack;
     bool mp3Looping;
@@ -37,7 +37,6 @@ public:
         return volume;
     }
     void loadPlayLists();
-    void savePlayLists();//maybe this is not necessary
     int find(string text);
     Track & getRandomTrackFromPlaylist(PlayList & list);
 
@@ -46,6 +45,8 @@ public:
     static unique_ptr<Mp3Player> & getInstancePtr(){
         return currentPlayer;
     }
+
+    unique_ptr<PlaylistList> existingLists;//using pointer due to circular dependency
 
     PlayList * getSelectedList() const {
         return selectedList;

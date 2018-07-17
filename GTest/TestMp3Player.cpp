@@ -10,7 +10,7 @@ TEST(Mp3Player,Contructor)
 {
     Mp3Player::Create();
     Mp3Player & p=*(Mp3Player::getInstancePtr());
-    ASSERT_EQ("#mainLibrary",p.mainLibrary.getName());
+    ASSERT_EQ("#mainLibrary",p.mainLibrary->getName());
     Mp3Player::Destroy();
 }
 
@@ -41,9 +41,9 @@ TEST(Mp3Player, findTrack)
 
     Mp3Player & p=*Mp3Player::getInstancePtr();
 
-    p.mainLibrary.addTrack(shared_ptr<Track>(new Track("directory/Traccia1.mp3")));
-    p.mainLibrary.addTrack(shared_ptr<Track>(new Track("directory/Traccia2.mp3")));
-    p.mainLibrary.addTrack(shared_ptr<Track>(new Track("directory/Traccia3.mp3")));
+    p.mainLibrary->addTrack(shared_ptr<Track>(new Track("directory/Traccia1.mp3")));
+    p.mainLibrary->addTrack(shared_ptr<Track>(new Track("directory/Traccia2.mp3")));
+    p.mainLibrary->addTrack(shared_ptr<Track>(new Track("directory/Traccia3.mp3")));
 
     bool found=p.find("Traccia2")!= -1;
 

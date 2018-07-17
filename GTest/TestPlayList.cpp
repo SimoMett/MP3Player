@@ -14,7 +14,7 @@ TEST(PlayList,construction)
     PlayList * list=f.createPlaylist("lista1");
 
     bool ok=false;
-    for(auto item : Mp3Player::getInstancePtr()->playlists)
+    for(auto item : Mp3Player::getInstancePtr()->existingLists->getPlaylistListRefr())
     {
         if(item->getName()=="lista1")
             ok=true;
@@ -27,7 +27,7 @@ TEST(PlayList, loadMainLibrary)
 {
     wxRemoveFile("resources/playlists/#mainLibrary.xml");
     Mp3Player::Create();
-    PlayList & lib=Mp3Player::getInstancePtr()->mainLibrary;
+    PlayList & lib=*Mp3Player::getInstancePtr()->mainLibrary;
     TrackFactory t;
 
     lib.addTrack(t.importTrack("nome.mp3"));
@@ -36,7 +36,7 @@ TEST(PlayList, loadMainLibrary)
 
     Mp3Player::Create();
 
-    ASSERT_TRUE(Mp3Player::getInstancePtr()->mainLibrary.findTrack("nome.mp3")!= nullptr);
+    ASSERT_TRUE((*Mp3Player::getInstancePtr()->mainLibrary).findTrack("nome.mp3")!= nullptr);
     
     Mp3Player::Destroy();
 }
