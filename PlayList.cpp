@@ -5,16 +5,17 @@
 #include "PlayList.h"
 #include "Mp3Player.h"
 
-vector<PlayList*> PlayList::existingLists;
-
 PlayList::PlayList(string _name) : name(_name)
 {
-    existingLists.push_back(this);
+    if(Mp3Player::getInstancePtr())
+    {
+        //Mp3Player::getInstancePtr()->playlists.push_back(unique_ptr<PlayList>(this));
+    }
 }
 
 PlayList::~PlayList()
 {
-    existingLists.erase(std::remove(existingLists.begin(),existingLists.end(),this));
+    //Mp3Player::getInstancePtr()->playlists.erase(std::remove(Mp3Player::getInstancePtr()->playlists.begin(),Mp3Player::getInstancePtr()->playlists.end(),this));
     save();
 }
 
@@ -24,7 +25,7 @@ bool PlayList::addTrack(shared_ptr<Track> track)
     if(track)
     {
         bool found = false;
-        for (auto item: tracks)
+        for (auto &item: tracks)
         {
             if (item->getDirectory() == track->getDirectory())
             {
@@ -99,7 +100,7 @@ bool PlayList::rename(string newName)
 {
     bool existingName=false;
     bool success=false;
-    for(auto item: existingLists)
+    for(auto & item : Mp3Player::getInstancePtr()->playlists)
     {
         if(item->name==newName)
         {
@@ -132,10 +133,12 @@ void PlayList::load()
             TrackFactory factory;
             while (child)
             {
-                string track(child->GetNodeContent().c_str());
+                string track(child->GetNodeContent().ToStdString());
                 if(track.length())
                 {
-                    addTrack(factory.importTrack(string(child->GetNodeContent().c_str())));
+                    auto tstr=string(child->GetNodeContent().ToStdString());
+                    auto t=factory.importTrack(tstr);
+                    this->addTrack(t);
                 }
                 child=child->GetNext();
             }

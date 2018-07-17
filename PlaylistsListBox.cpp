@@ -1,7 +1,7 @@
 //
 // Created by matteo on 30/06/18.
 //
-
+#include "Mp3Player.h"
 #include "PlaylistsListBox.h"
 #include "PlayList.h"
 
@@ -19,15 +19,17 @@ void PlaylistsListBox::update()
 
 void PlaylistsListBox::printLists()
 {
-    unsigned int pos=1;
-    for(auto item : PlayList::existingLists)
+    unsigned int _pos=1;
+    for(auto & item : Mp3Player::getInstancePtr()->playlists)
     {
+
         if(item->getName()=="#mainLibrary")
             wxListBox::Insert("Main Library",0);
         else
         {
-            wxListBox::Insert(item->getName(),pos);
-            pos++;
+            string name=item->getName();
+            wxListBox::Insert(name,_pos);
+            _pos++;
         }
     }
 }

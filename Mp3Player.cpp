@@ -13,16 +13,17 @@ void Mp3Player::Create()
     if(currentPlayer== nullptr)
     {
         currentPlayer=unique_ptr<Mp3Player>(new Mp3Player());
+        currentPlayer->loadPlayLists();
     }
 }
 
-Mp3Player::Mp3Player() : mainLibrary("#mainLibrary"), playlists(PlayList::existingLists), selectedList(&mainLibrary)
+Mp3Player::Mp3Player() :mainLibrary(unique_ptr<PlayList>(new PlayList("#mainLibrary"))), selectedList(mainLibrary.get())
 {
-    mainLibrary.load();
+    //mainLibrary.load();
     srand(time(nullptr));
     Settings::Instantiate();
     setVolume(Settings::getInstance().getSavedVolume());
-    loadPlayLists();
+    //loadPlayLists();
     requestUpdate();
 }
 
@@ -34,7 +35,7 @@ void Mp3Player::Destroy()
 
         Settings::Destroy();
 
-        currentPlayer->mainLibrary.save();
+        currentPlayer->mainLibrary->save();
 
         for(auto item : currentPlayer->observers)
         {
@@ -44,7 +45,6 @@ void Mp3Player::Destroy()
         }
         currentPlayer->observers.clear();
         currentPlayer.reset();
-
     }
 }
 
@@ -80,8 +80,9 @@ void Mp3Player::loadPlayLists()
         string name(filename.c_str());
         name.erase(name.find_last_of("."),name.length());
 
-        if(name!="#mainLibrary")//Main library playlist is already instantiated ( and loaded by constructor)
-            factory.createPlaylist(name);
+        //if(name!="#mainLibrary")//Main library playlist is already instantiated ( and loaded by constructor)
+        auto pl=factory.createPlaylist(name);
+        Mp3Player::getInstancePtr()->playlists.push_back(unique_ptr<PlayList>(pl));
 
         cont = dir.GetNext(&filename);
     }

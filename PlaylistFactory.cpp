@@ -3,6 +3,7 @@
 //
 
 #include "PlaylistFactory.h"
+#include "Mp3Player.h"
 
 PlayList* PlaylistFactory::createPlaylist(string name)
 {

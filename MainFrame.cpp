@@ -132,7 +132,7 @@ void MainFrame::OnOpenFile(wxCommandEvent& event)
         if(path.length())
         {
             shared_ptr<Track> track = shared_ptr<Track>(factory.importTrack(path));
-            if(track && Mp3Player::getInstancePtr()->mainLibrary.trackAlreadyExists(track))
+            if(track && Mp3Player::getInstancePtr()->mainLibrary->trackAlreadyExists(track))
             {
                 tracksListCtrl->playingTrackIndex=tracksListCtrl->GetItemCount()-1;
                 mediaCtrl->Load(track->getDirectory());
@@ -238,27 +238,27 @@ void MainFrame::OnAddToPlaylistClick(wxCommandEvent &event)
 {
     wxArrayString choicesArray; //creates array of Playlists to display in wxSingleChoiceDialog
     long pos=0;
-    for(auto item : PlayList::existingLists)
+    for(vector<unique_ptr<PlayList>>::iterator item=Mp3Player::getInstancePtr()->playlists.begin(); item!=Mp3Player::getInstancePtr()->playlists.end(); item++)
     {
-        if(item->getName()=="#mainLibrary")
+        if((*item)->getName()=="#mainLibrary")
             continue;
         else
         {
-            choicesArray.Insert(item->getName(),pos);
+            choicesArray.Insert((*item)->getName(),pos);
             pos++;
         }
     }
     wxSingleChoiceDialog playlistDialog(this,"Please choose a playlist where to add the chosen song.","Playlist List",choicesArray);
     if(playlistDialog.ShowModal()==wxID_OK)
     {
-        for(auto item : PlayList::existingLists)
+        for(vector<unique_ptr<PlayList>>::iterator item=Mp3Player::getInstancePtr()->playlists.begin();item!=Mp3Player::getInstancePtr()->playlists.end();item++)
         {
-            if(item->getName()==playlistDialog.GetStringSelection().ToStdString())
+            if((*item)->getName()==playlistDialog.GetStringSelection().ToStdString())
             {
                 auto str=tracksListCtrl->getItemPath(tracksListCtrl->rightclickedTrackIndex);
                 auto tr=new Track(str);
-                item->addTrack(unique_ptr<Track>(tr));
-                item->save();
+                (*item)->addTrack(unique_ptr<Track>(tr));
+                (*item)->save();
             }
         }
 
@@ -362,15 +362,15 @@ void MainFrame::OnPlaylistSelected(wxCommandEvent &event)
 
         if(playlistListBox->GetString(selectedItem)=="Main Library")
         {
-            lista=&(Mp3Player::getInstancePtr()->mainLibrary);
+            lista=Mp3Player::getInstancePtr()->mainLibrary.get();
         }
         else
         {
-            for(auto item : PlayList::existingLists)
+            for(auto & item : Mp3Player::getInstancePtr()->playlists)
             {
                 if(playlistListBox->GetString(selectedItem).ToStdString()==item->getName())
                 {
-                    lista=item;
+                    lista=item.get();
                     break;
                 }
             }

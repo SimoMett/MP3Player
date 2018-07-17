@@ -20,8 +20,6 @@ public:
     explicit PlayList(string _name);
     ~PlayList();
 
-    static vector<PlayList*> existingLists;
-
     bool addTrack(shared_ptr<Track> track);
     bool removeTrack(shared_ptr<Track> track);
     bool removeTrack(int index);
