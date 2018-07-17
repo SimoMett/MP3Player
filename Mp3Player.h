@@ -11,6 +11,7 @@
 #include "Settings.h"
 #include "Subject.h"
 #include "PlayList.h"
+class PlayList;
 #include "Album.h"
 #include "Track.h"
 #include "TrackFactory.h"
@@ -26,7 +27,7 @@ public:
     ~Mp3Player();
 
     unique_ptr<PlayList> mainLibrary;
-    vector <unique_ptr<PlayList>> playlists;
+    vector <unique_ptr<AbstractPlayList>> playlists;
 
     shared_ptr<Track> currentTrack;
     bool mp3Looping;

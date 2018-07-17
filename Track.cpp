@@ -3,14 +3,20 @@
 //
 
 #include <iostream>
+#include "AlbumFactory.h"
 #include "Track.h"
 
-Track::Track(string path) : directory(path)
+Track::Track(string path) : directory(path), album(nullptr)
 {
     title=path;
     title.erase(0,title.find_last_of("/")+1);
-    //TODO Retrieve other infos (album name, artists, duration ...)
     artist=getArtistString();
+    string albumName=getAlbumString();
+    if(albumName.length())
+    {
+        AlbumFactory factory;
+        album=factory.createAlbum(albumName);
+    }
 }
 
 

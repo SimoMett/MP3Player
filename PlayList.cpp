@@ -5,7 +5,7 @@
 #include "PlayList.h"
 #include "Mp3Player.h"
 
-PlayList::PlayList(string _name) : name(_name)
+PlayList::PlayList(string _name) : AbstractPlayList(_name)
 {
     if(Mp3Player::getInstancePtr())
     {
@@ -102,7 +102,7 @@ bool PlayList::rename(string newName)
     bool success=false;
     for(auto & item : Mp3Player::getInstancePtr()->playlists)
     {
-        if(item->name==newName)
+        if(item->getName()==newName)
         {
             existingName= true;
             break;

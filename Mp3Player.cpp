@@ -80,7 +80,6 @@ void Mp3Player::loadPlayLists()
         string name(filename.c_str());
         name.erase(name.find_last_of("."),name.length());
 
-        //if(name!="#mainLibrary")//Main library playlist is already instantiated ( and loaded by constructor)
         auto pl=factory.createPlaylist(name);
         Mp3Player::getInstancePtr()->playlists.push_back(unique_ptr<PlayList>(pl));
 

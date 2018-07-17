@@ -6,7 +6,7 @@
 #include <sstream>
 #include "Album.h"
 
-Album::Album(string _name, string cover) : PlayList::PlayList(_name)
+Album::Album(string _name, string cover) : AbstractPlayList(_name)
 {
     string dir;
     if(!isCoverValid(cover))
@@ -137,4 +137,29 @@ void Album::changeCoverBitmap(string file)
 {
     coverBitmap->setDirectory(file);
     save();
+}
+
+bool Album::addTrack(shared_ptr<Track> track)
+{
+    bool ok = false;
+    if (track) {
+        bool found = false;
+        for (auto &item: tracks)
+        {
+            if (item->getDirectory() == track->getDirectory()) {
+                found = true;
+                break;
+            }
+        }
+
+        if (!found)
+        {
+            tracks.push_back(track);
+            ok = true;
+        }
+        requestUpdate();
+        if (Mp3Player::getInstancePtr())
+            Mp3Player::getInstancePtr()->requestUpdate();
+    }
+    return ok;
 }

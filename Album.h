@@ -9,22 +9,23 @@
 #include <wx/xml/xml.h>
 #include <wx/sstream.h>
 #include <wx/file.h>
-#include "PlayList.h"
+#include "AbstractPlayList.h"
+#include "Subject.h"
 #include "TrackFactory.h"
 #include "Bitmap.h"
 
 using namespace std;
 
-class Album : public PlayList
+class Album : public AbstractPlayList, public Subject
 {
-
 public:
-
-    Album(string _name, string cover);
-    virtual ~Album() override ;
+    explicit Album(string _name, string cover="resources/default_album.png");
+    ~Album();
 
     string artists;
     string date;
+
+    virtual bool addTrack(shared_ptr<Track> track) override ;
 
     const Bitmap & getCoverBitmap() const{
         return *coverBitmap;
@@ -32,12 +33,12 @@ public:
 
     void changeCoverBitmap(string file);
 
-    virtual void save() override ;
+    virtual void save();
 
 private:
 
     unique_ptr<Bitmap> coverBitmap;
-    virtual void load() override ;
+    virtual void load();
     bool isCoverValid(string dir);
     void setDate();
 

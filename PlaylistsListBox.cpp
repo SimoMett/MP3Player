@@ -22,14 +22,15 @@ void PlaylistsListBox::printLists()
     unsigned int _pos=1;
     for(auto & item : Mp3Player::getInstancePtr()->playlists)
     {
-
-        if(item->getName()=="#mainLibrary")
-            wxListBox::Insert("Main Library",0);
-        else
+        if(dynamic_cast<Album*>(item.get())== nullptr)
         {
-            string name=item->getName();
-            wxListBox::Insert(name,_pos);
-            _pos++;
+            if (item->getName() == "#mainLibrary")
+                wxListBox::Insert("Main Library", 0);
+            else {
+                string name = item->getName();
+                wxListBox::Insert(name, _pos);
+                _pos++;
+            }
         }
     }
 }
