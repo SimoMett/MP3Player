@@ -4,6 +4,7 @@
 #include <wx/dir.h>
 #include "Mp3Player.h"
 #include "PlaylistFactory.h"
+#include "AlbumFactory.h"
 
 unique_ptr<Mp3Player> Mp3Player::currentPlayer(nullptr);
 const unsigned int Mp3Player::defaultVolume=1;
@@ -73,18 +74,23 @@ void Mp3Player::loadPlayLists()
 
     wxString filename;
     bool cont = dir.GetFirst(&filename);
-    PlaylistFactory factory;
+
     while ( cont )
     {
         //load playlist
         string name(filename.c_str());
+        name.erase(name.find_last_of("."), name.length());
         if(name.find("album_",0,5)==string::npos)
         {
-            name.erase(name.find_last_of("."), name.length());
-
+            PlaylistFactory factory;
             auto pl = factory.createPlaylist(name);
             Mp3Player::getInstancePtr()->playlists.push_back(unique_ptr<PlayList>(pl));
-
+        }
+        else
+        {
+            AlbumFactory factory;
+            auto pl = factory.createAlbum(name);
+            Mp3Player::getInstancePtr()->playlists.push_back(unique_ptr<Album>(pl));
         }
         cont = dir.GetNext(&filename);
     }
