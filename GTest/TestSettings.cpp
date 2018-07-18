@@ -8,7 +8,7 @@
 
 TEST(Settings,DefaultConstructor)
 {
-    Settings::Instantiate();
+    Settings s;
 
     ifstream file ("resources/settings.xml");
 
@@ -16,8 +16,6 @@ TEST(Settings,DefaultConstructor)
 
     if(file.is_open())
         file.close();
-
-    Settings::Destroy();
 }
 
 TEST(Settings, SaveSettings)
@@ -27,17 +25,17 @@ TEST(Settings, SaveSettings)
     for(int i=0;i< 4 ; i++)
     {
         int val=rand()%100;
-        Settings::Instantiate();
+        Settings * s=new Settings;
 
-        Settings::getInstance().setSavedVolume(val);
+        s->setSavedVolume(val);
 
-        Settings::Destroy();
+        delete s;
 
-        Settings::Instantiate();
+        s=new Settings;
 
-        ASSERT_EQ(val, Settings::getInstance().getSavedVolume());
+        ASSERT_EQ(val, s->getSavedVolume());
 
-        Settings::Destroy();
+        delete s;
     }
 }
 
@@ -45,18 +43,14 @@ TEST(Settings,TestNewLoadSettings)
 {
     remove("resources/settings.xml");
 
-    Settings::Instantiate();
+    Settings s;
 
-    ASSERT_FLOAT_EQ(100, Settings::getInstance().getSavedVolume());
-
-    Settings::Destroy();
+    ASSERT_FLOAT_EQ(100, s.getSavedVolume());
 }
 
 TEST(Settings,TestLoadSettings)
 {
-    Settings::Instantiate();
+    Settings s;
 
-    ASSERT_FLOAT_EQ(100, Settings::getInstance().getSavedVolume());
-
-    Settings::Destroy();
+    ASSERT_FLOAT_EQ(100, s.getSavedVolume());
 }

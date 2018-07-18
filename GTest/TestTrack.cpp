@@ -15,7 +15,5 @@ TEST(Track,Constructor)
 
     ASSERT_EQ("nome.mp3",t->title);
 
-    ASSERT_TRUE(Mp3Player::getInstancePtr()->mainLibrary.findTrack("nome.mp3")!= nullptr);
-
-    Mp3Player::Destroy();
+    ASSERT_TRUE(Mp3Player::getInstancePtr()->mainLibrary->findTrack("nome.mp3")!= nullptr);
 }
