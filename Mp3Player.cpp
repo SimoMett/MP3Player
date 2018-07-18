@@ -14,6 +14,7 @@ void Mp3Player::Create()
     if(currentPlayer== nullptr)
     {
         currentPlayer=unique_ptr<Mp3Player>(new Mp3Player());
+        currentPlayer->mainLibrary->save();
         currentPlayer->loadPlayLists();
     }
 }
