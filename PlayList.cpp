@@ -1,6 +1,7 @@
 //
 // Created by matteo on 16/06/18.
 //
+#include <wx/dir.h>
 #include <algorithm>
 #include "PlayList.h"
 #include "Mp3Player.h"
@@ -148,6 +149,9 @@ void PlayList::load()
 
 void PlayList::save()
 {
+    if(!wxDirExists("resources/playlists"))//if dir not exists, create it
+        wxDir dir("resources/playlists");
+
     string path="resources/playlists/"+name+".xml";
     wxXmlDocument doc;
 
