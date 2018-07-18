@@ -394,11 +394,15 @@ void MainFrame::OnAlbumSelected(wxCommandEvent &event)
         for(auto & item : Mp3Player::getInstancePtr()->playlists)
         {
             cout << item->getName()<<endl;
-            /*if (selectedStr == item->getName())
+            if ("album_"+selectedStr == item->getName())
             {
                 lista = static_cast<Album *>(item.get());
+
+                wxMessageBox("Album:\t"+selectedStr+
+                             "\nArtists:\t"+lista->artists+
+                            "\nYear:\t"+lista->year,"Album info");
                 break;
-            }*/
+            }
         }
         //Mp3Player::getInstancePtr()->changePlaylist(lista);
     }
