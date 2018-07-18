@@ -34,11 +34,11 @@ public:
     void changeCoverBitmap(string file);
 
     virtual void save();
-
+    void load();
 private:
 
     unique_ptr<Bitmap> coverBitmap;
-    virtual void load();
+
     bool isCoverValid(string dir);
     void setDate();
 
