@@ -7,11 +7,10 @@
 Album* AlbumFactory::createAlbum(string name)
 {
     Album * a=new Album(name);
-
+    a->load();
     if(Mp3Player::getInstancePtr()!= nullptr)
     {
-        Mp3Player::getInstancePtr()->playlists.push_back(unique_ptr<Album>(a));
+        Mp3Player::getInstancePtr()->playlists.push_back(shared_ptr<Album>(a));
     }
-    a->load();
     return a;
 }

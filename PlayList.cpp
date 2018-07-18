@@ -7,9 +7,7 @@
 #include "Mp3Player.h"
 
 PlayList::PlayList(string _name) : AbstractPlayList(_name)
-{
-    load();
-}
+{}
 
 PlayList::~PlayList()
 {
