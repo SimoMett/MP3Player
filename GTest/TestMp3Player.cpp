@@ -6,19 +6,12 @@
 #include <gtest/gtest.h>
 #include "../Mp3Player.h"
 
-TEST(Mp3Player,Contructor)
+TEST(Mp3Player,ContructorDestructor)
 {
     Mp3Player::Create();
     Mp3Player & p=*(Mp3Player::getInstancePtr());
-    ASSERT_EQ("#mainLibrary",p.mainLibrary.getName());
-    Mp3Player::Destroy();
-}
-
-TEST(Mp3Player,Destructor)
-{
-    Mp3Player::Create();
-
-    Mp3Player::Destroy();
+    ASSERT_EQ("#mainLibrary",p.mainLibrary->getName());
+    //Mp3Player::Destroy();
 }
 
 TEST(Mp3Player,setVolume)
@@ -32,7 +25,6 @@ TEST(Mp3Player,setVolume)
     float normalVal=57;
     p.setVolume(normalVal);
     ASSERT_FLOAT_EQ(normalVal,p.getVolume());
-    Mp3Player::Destroy();
 }
 
 TEST(Mp3Player, findTrack)
@@ -41,13 +33,11 @@ TEST(Mp3Player, findTrack)
 
     Mp3Player & p=*Mp3Player::getInstancePtr();
 
-    p.mainLibrary.addTrack(shared_ptr<Track>(new Track("directory/Traccia1.mp3")));
-    p.mainLibrary.addTrack(shared_ptr<Track>(new Track("directory/Traccia2.mp3")));
-    p.mainLibrary.addTrack(shared_ptr<Track>(new Track("directory/Traccia3.mp3")));
+    p.mainLibrary->addTrack(shared_ptr<Track>(new Track("directory/Traccia1.mp3")));
+    p.mainLibrary->addTrack(shared_ptr<Track>(new Track("directory/Traccia2.mp3")));
+    p.mainLibrary->addTrack(shared_ptr<Track>(new Track("directory/Traccia3.mp3")));
 
     bool found=p.find("Traccia2")!= -1;
 
     ASSERT_TRUE(found);
-
-    Mp3Player::Destroy();
 }
