@@ -14,9 +14,22 @@ Track::Track(string path) : directory(path), album(nullptr)
     string albumName=getAlbumString();
     if(albumName.length())
     {
-        AlbumFactory factory;
-        album=factory.createAlbum(albumName);
-        album->addTrack(shared_ptr<Track>(this));
+        albumName="album_"+albumName;
+        bool found=false;
+        for(auto & item: Mp3Player::getInstancePtr()->playlists)
+        {
+            if(item->getName()==albumName)
+            {
+                found=true;
+                break;
+            }
+        }
+        if(!found)
+        {
+            AlbumFactory factory;
+            album = factory.createAlbum(albumName);
+            album->addTrack(shared_ptr<Track>(this));
+        }
     }
 }
 
