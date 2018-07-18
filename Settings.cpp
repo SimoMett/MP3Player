@@ -6,15 +6,6 @@
 #include <exception>
 #include <algorithm>
 
-unique_ptr<Settings> Settings::singleIstance(nullptr);
-
-void Settings::Instantiate(string settingsfile)
-{
-    if(singleIstance== nullptr) {
-        singleIstance=unique_ptr<Settings>(new Settings(settingsfile));
-    }
-}
-
 Settings::Settings(string cfg) : settingsPath(cfg)
 {
     if (!wxFileExists(cfg))
@@ -26,13 +17,9 @@ Settings::Settings(string cfg) : settingsPath(cfg)
         LoadSettings(cfg);
 }
 
-void Settings::Destroy()
+Settings::~Settings()
 {
-    if(singleIstance!= nullptr)
-    {
-        singleIstance->SaveSettings();
-        singleIstance.reset(nullptr);
-    }
+    SaveSettings();
 }
 
 void Settings::LoadSettings(string file)

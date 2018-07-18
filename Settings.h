@@ -10,7 +10,6 @@
 #include <wx/xml/xml.h>
 #include <wx/file.h>
 #include <string>
-#include <memory>
 #include <wx/sstream.h>
 
 using namespace std;
@@ -19,8 +18,8 @@ class Settings {
 
 public:
 
-    static void Instantiate(string settingsfile = "resources/settings.xml");
-    static void Destroy();
+    Settings(string settingsfile= "resources/settings.xml");
+    ~Settings();
 
     void SaveSettings();
     void setSavedVolume(unsigned int val);
@@ -28,15 +27,8 @@ public:
         return savedVolume;
     }
 
-    static Settings & getInstance() {
-        return *(singleIstance.get());
-    }
-
-protected:
-    explicit Settings(string settingsfile);
-
 private:
-    static unique_ptr<Settings> singleIstance;
+
     unsigned int savedVolume;
     string settingsPath;
     void LoadSettings(string file);
