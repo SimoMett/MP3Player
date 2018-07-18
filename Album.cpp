@@ -15,11 +15,8 @@ Album::Album(string _name, string cover) : AbstractPlayList(_name)
         dir=cover;
 
     coverBitmap=unique_ptr<Bitmap>(new Bitmap(dir));
-
-    load();
 }
 
-//FIXME on destruction of an album will be called album::save and playlist::save (expected only album::save)
 Album::~Album()
 {
     Album::save();
@@ -35,8 +32,6 @@ void Album::save()
         std::ofstream outfile (path);
         outfile.close();
     }
-    else
-        doc.Load(path);
 
     doc.SetVersion("1.0");
     doc.SetFileEncoding("UTF-8");
