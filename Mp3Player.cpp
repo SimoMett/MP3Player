@@ -38,13 +38,18 @@ Mp3Player::~Mp3Player()
 {
     settings.setSavedVolume(currentPlayer->volume);
 
-    mainLibrary->save();
-
     for(auto item : observers)
     {
-        //FIXME there is a segmentation violation here on exit
+        //there is a segmentation violation here on exit (cause: destruction of a wxWidgets object)
         /*if(item!= nullptr)
             delete item;*/
+    }
+
+    mainLibrary->save();
+    for(auto item : playlists)
+    {
+        if(item->getName()!="#mainLibrary")
+            item->save();
     }
     observers.clear();
 }
@@ -64,7 +69,9 @@ Track& Mp3Player::getRandomTrackFromPlaylist(PlayList &list)
 
 void Mp3Player::loadPlayLists()
 {
-    mainLibrary=unique_ptr<PlayList>(new PlayList("#mainLibrary"));
+    mainLibrary=shared_ptr<PlayList>(new PlayList("#mainLibrary"));
+
+    playlists.push_back(mainLibrary);
 
     if(!wxFileExists("resources/playlists/#mainLibrary.xml"))
         mainLibrary->save();
@@ -85,13 +92,13 @@ void Mp3Player::loadPlayLists()
         {
             PlaylistFactory factory;
             auto pl = factory.createPlaylist(name);
-            //Mp3Player::getInstancePtr()->playlists.push_back(unique_ptr<PlayList>(pl));
+            //Mp3Player::getInstancePtr()->playlists.push_back(unique_ptr<PlayList>(pl));//already imported
         }
         else
         {
             AlbumFactory factory;
             auto pl = factory.createAlbum(name);
-            //Mp3Player::getInstancePtr()->playlists.push_back(unique_ptr<Album>(pl));
+            //Mp3Player::getInstancePtr()->playlists.push_back(unique_ptr<Album>(pl));//already imported
         }
         cont = dir.GetNext(&filename);
     }

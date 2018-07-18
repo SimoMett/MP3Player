@@ -11,7 +11,7 @@ PlayList::PlayList(string _name) : AbstractPlayList(_name)
 
 PlayList::~PlayList()
 {
-    save();
+
 }
 
 bool PlayList::addTrack(shared_ptr<Track> track)

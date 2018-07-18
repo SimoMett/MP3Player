@@ -19,14 +19,14 @@ void PlaylistsListBox::update()
 
 void PlaylistsListBox::printLists()
 {
+    wxListBox::Insert("Main Library", 0);
     unsigned int _pos=1;
     for(auto & item : Mp3Player::getInstancePtr()->playlists)
     {
         if(PlayList * list=dynamic_cast<PlayList*>(item.get()))
         {
-            if (list->getName() == "#mainLibrary")
-                wxListBox::Insert("Main Library", 0);
-            else {
+            if (list->getName() != "#mainLibrary")
+            {
                 string name = list->getName();
                 wxListBox::Insert(name, _pos);
                 _pos++;

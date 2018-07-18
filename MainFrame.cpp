@@ -137,6 +137,7 @@ void MainFrame::OnOpenFile(wxCommandEvent& event)
             {
                 tracksListCtrl->playingTrackIndex=tracksListCtrl->GetItemCount()-1;
                 mediaCtrl->Load(track->getDirectory());
+                albumsListBox->update();
             }
             else
                 wxMessageBox("Track already exists","Error");

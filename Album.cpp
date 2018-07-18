@@ -19,12 +19,13 @@ Album::Album(string _name, string cover) : AbstractPlayList(_name), artists("Unk
 
 Album::~Album()
 {
-    Album::save();
+    //Album::save();
 }
-//TODO save will only save album infos
+
+
 void Album::save()
 {
-    string path="resources/playlists/album_"+name+".xml";
+    string path="resources/playlists/"+name+".xml";
     wxXmlDocument doc;
 
     if(!wxFileExists(path))
@@ -50,7 +51,7 @@ void Album::save()
 
     wxXmlNode * node4=new wxXmlNode(root,wxXML_ELEMENT_NODE,"Artists");
     wxXmlNode *node5=new wxXmlNode(wxXML_TEXT_NODE,"",artists);
-    node5->AddChild(node5);
+    node4->AddChild(node5);
     //
 
     wxStringOutputStream stream;
@@ -63,7 +64,8 @@ void Album::save()
         file.Close();
     }
 }
-//TODO load() will load infos from xml (reimplement)
+
+
 void Album::load()
 {
     if(wxFileExists("resources/playlists/album_"+name+".xml"))
@@ -101,7 +103,7 @@ void Album::load()
                     string info(child->GetNodeContent().ToStdString());
                     if(info.length())
                     {
-                        artists=info;
+                        year=info;
                     }
                 }
                 child=child->GetNext();
