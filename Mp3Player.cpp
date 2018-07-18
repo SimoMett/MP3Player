@@ -6,16 +6,25 @@
 #include "PlaylistFactory.h"
 #include "AlbumFactory.h"
 
-unique_ptr<Mp3Player> Mp3Player::currentPlayer(nullptr);
+Mp3Player * Mp3Player::currentPlayer=nullptr;
 const unsigned int Mp3Player::defaultVolume=1;
 
 void Mp3Player::Create()
 {
     if(currentPlayer== nullptr)
     {
-        currentPlayer=unique_ptr<Mp3Player>(new Mp3Player());
+        currentPlayer=new Mp3Player();
         currentPlayer->mainLibrary->save();
         currentPlayer->loadPlayLists();
+    }
+}
+
+void Mp3Player::Destroy()
+{
+    if(currentPlayer!= nullptr)
+    {
+        delete currentPlayer;
+        currentPlayer= nullptr;
     }
 }
 

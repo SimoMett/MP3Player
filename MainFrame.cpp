@@ -113,7 +113,7 @@ void MainFrame::widgetsSetup()
 
     buttonSizer->Add( 0, 0, 1, wxEXPAND, 5 );
 
-    volumeSlider = unique_ptr<VolumeSlider>(new VolumeSlider(Mp3Player::getInstancePtr().get(), this, ID_VolumeSlider,
+    volumeSlider = unique_ptr<VolumeSlider>(new VolumeSlider(Mp3Player::getInstancePtr(), this, ID_VolumeSlider,
                                                              Mp3Player::getInstancePtr()->settings.getSavedVolume(), 0, 100, wxDefaultPosition, wxSize( 150,25 ), wxSL_HORIZONTAL ));
     buttonSizer->Add( volumeSlider.get(), 0, wxTOP|wxLEFT|wxALIGN_RIGHT, 5 );
 

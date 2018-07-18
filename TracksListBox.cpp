@@ -9,7 +9,7 @@ using namespace std;
 
 TracksListBox::TracksListBox(wxWindow * parent,wxWindowID winid) : wxListCtrl(parent,winid,wxDefaultPosition, wxDefaultSize, wxLC_REPORT )
 {
-    AppendColumn("Name");
+    AppendColumn("Name",wxLIST_FORMAT_LEFT,200);
     AppendColumn("Artists");
     AppendColumn("Album");
     //AppendColumn("Duration");
@@ -28,7 +28,7 @@ TracksListBox::TracksListBox(wxWindow * parent,wxWindowID winid) : wxListCtrl(pa
 
 void TracksListBox::update(Subject *subject)
 {
-    if(subject==Mp3Player::getInstancePtr().get())
+    if(subject==Mp3Player::getInstancePtr())
     {
         DeleteAllItems();
         display();

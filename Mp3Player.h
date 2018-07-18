@@ -22,7 +22,7 @@ class Mp3Player : public Subject{
 
 public:
     static void Create();
-
+    static void Destroy();
     ~Mp3Player();
 
     Settings settings;
@@ -43,7 +43,7 @@ public:
 
     void changePlaylist(AbstractPlayList * list);
 
-    static unique_ptr<Mp3Player> & getInstancePtr(){
+    static Mp3Player * getInstancePtr(){
         return currentPlayer;
     }
 
@@ -57,7 +57,7 @@ public:
 
 private:
     Mp3Player();
-    static unique_ptr<Mp3Player> currentPlayer;
+    static Mp3Player * currentPlayer;
     AbstractPlayList * selectedList;
     static const unsigned int defaultVolume;
     int currentTrackTiming;
