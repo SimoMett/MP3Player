@@ -21,7 +21,7 @@ Album::~Album()
 {
     Album::save();
 }
-
+//TODO save will only save album infos
 void Album::save()
 {
     string path="resources/playlists/album_"+name+".xml";
@@ -66,8 +66,8 @@ void Album::save()
         file.Close();
     }
 }
-
-void Album::load() //TODO reimplement
+//TODO load() will load infos from xml (reimplement)
+void Album::load()
 {
     if(wxFileExists("resources/playlists/album_"+name+".xml"))
     {
