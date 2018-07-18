@@ -8,7 +8,9 @@ Album* AlbumFactory::createAlbum(string name)
 {
     Album * a=new Album(name);
 
-    Mp3Player::getInstancePtr()->playlists.push_back(move(unique_ptr<Album>(a)));
-
+    if(Mp3Player::getInstancePtr()!= nullptr)
+    {
+        Mp3Player::getInstancePtr()->playlists.push_back(unique_ptr<Album>(a));
+    }
     return a;
 }
