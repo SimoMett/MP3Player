@@ -38,17 +38,16 @@ public:
         return volume;
     }
     void loadPlayLists();
-    void savePlayLists();//maybe this is not necessary
     int find(string text);
     Track & getRandomTrackFromPlaylist(PlayList & list);
 
-    void changePlaylist(PlayList * list);
+    void changePlaylist(AbstractPlayList * list);
 
     static unique_ptr<Mp3Player> & getInstancePtr(){
         return currentPlayer;
     }
 
-    PlayList * getSelectedList() const {
+    AbstractPlayList * getSelectedList() const {
         return selectedList;
     }
 
@@ -59,7 +58,7 @@ public:
 private:
     Mp3Player();
     static unique_ptr<Mp3Player> currentPlayer;
-    PlayList * selectedList;
+    AbstractPlayList * selectedList;
     static const unsigned int defaultVolume;
     int currentTrackTiming;
     unsigned int volume;
