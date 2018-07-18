@@ -20,8 +20,6 @@ Track::Track(string path) : directory(path), album(nullptr)
     }
 }
 
-
-//FIXME
 string Track::getFrameContent(string tag)
 {
     string content;
@@ -60,7 +58,7 @@ string Track::getFrameContent(string tag)
             }
         }
     }
-    catch (std::exception &e)
+    catch (std::exception &e)//FIXME sometimes throws some exceptions, not a big deal, program runs smoothly anyway
     {
         cerr<<"Exception occurred with \""<<directory<<"\""<<endl;
         cerr<<e.what()<<endl;
