@@ -46,7 +46,7 @@ Mp3Player::~Mp3Player()
     }
 
     mainLibrary->save();
-    for(auto item : playlists)
+    for(auto & item : playlists)
     {
         if(item->getName()!="#mainLibrary")
             item->save();
@@ -88,18 +88,20 @@ void Mp3Player::loadPlayLists()
         //load playlist
         string name(filename.c_str());
         name.erase(name.find_last_of("."), name.length());
-        if(name.find("album_",0,5)==string::npos)
+        if(name.substr(0,6)!="album_")
         {
             PlaylistFactory factory;
             auto pl = factory.createPlaylist(name);
-            //Mp3Player::getInstancePtr()->playlists.push_back(unique_ptr<PlayList>(pl));//already imported
+            Mp3Player::getInstancePtr()->playlists.push_back(shared_ptr<PlayList>(pl));
         }
-        else
+        //Mp3player loads only playlists
+        //Album will be loaded by tracks on creation
+        /*else
         {
             AlbumFactory factory;
             auto pl = factory.createAlbum(name);
             //Mp3Player::getInstancePtr()->playlists.push_back(unique_ptr<Album>(pl));//already imported
-        }
+        }*/
         cont = dir.GetNext(&filename);
     }
 }

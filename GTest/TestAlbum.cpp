@@ -8,7 +8,7 @@
 
 TEST(Album,saveAlbum)
 {
-    Album album("album1");
+    Album album("album_album1");
 
     album.save();
 
@@ -17,7 +17,7 @@ TEST(Album,saveAlbum)
 
 TEST(Album, getcover)
 {
-    Album album("album1","resources/default_album.png");
+    Album album("album_album1","resources/default_album.png");
 
     ASSERT_TRUE(album.getCoverBitmap().getDirectory()=="resources/default_album.png");
 }

@@ -15,21 +15,16 @@ Track::Track(string path) : directory(path), album(nullptr)
     if(albumName.length())
     {
         albumName="album_"+albumName;
-        bool found=false;
-        for(auto & item: Mp3Player::getInstancePtr()->playlists)
+
+        /*if(wxFileExists("resources/playlists/"+albumName+".xml"))
         {
-            if(item->getName()==albumName)
-            {
-                found=true;
-                break;
-            }
-        }
-        if(!found)
-        {
-            AlbumFactory factory;
-            album = factory.createAlbum(albumName);
-            album->addTrack(shared_ptr<Track>(this));
-        }
+
+        }*/
+
+        AlbumFactory factory;
+        album = shared_ptr<Album>(factory.createAlbum(albumName));
+        Mp3Player::getInstancePtr()->playlists.push_back(album);
+        album->addTrack(shared_ptr<Track>(this));
     }
 }
 
