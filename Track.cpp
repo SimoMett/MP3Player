@@ -16,6 +16,7 @@ Track::Track(string path) : directory(path), album(nullptr)
     {
         AlbumFactory factory;
         album=factory.createAlbum(albumName);
+        album->addTrack(shared_ptr<Track>(this));
     }
 }
 
