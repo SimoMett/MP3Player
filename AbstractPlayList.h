@@ -32,6 +32,8 @@ public:
     }
 
     virtual void save()=0;
+    virtual shared_ptr<Track> findTrack(string name) const;
+    virtual int findTrackIndex(string name)const ;
 
 protected:
 

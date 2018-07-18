@@ -75,7 +75,7 @@ shared_ptr<Track> PlayList::findTrack(string name) const
     return ptr;
 }
 
-int PlayList::findTrackIndex(string name)
+int PlayList::findTrackIndex(string name) const
 {
     int index=-1;
 

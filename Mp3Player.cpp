@@ -82,7 +82,7 @@ void Mp3Player::loadPlayLists()
     }
 }
 
-void Mp3Player::changePlaylist(PlayList *list)
+void Mp3Player::changePlaylist(AbstractPlayList *list)
 {
     selectedList=list;
     requestUpdate();

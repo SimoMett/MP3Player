@@ -27,8 +27,8 @@ public:
     bool rename(string newName);
     bool trackAlreadyExists(shared_ptr<Track> track);
 
-    shared_ptr<Track> findTrack(string name) const;
-    int findTrackIndex(string name);
+    virtual shared_ptr<Track> findTrack(string name) const override ;
+    virtual int findTrackIndex(string name) const override ;
 
     virtual void save() override ;
 

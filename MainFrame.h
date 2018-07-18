@@ -58,6 +58,7 @@ private:
     void OnMediaLoaded(wxCommandEvent &event);
     void OnNewPlayList(wxCommandEvent & event);
     void OnPlaylistSelected(wxCommandEvent & event);
+    void OnAlbumSelected(wxCommandEvent &event);
     void OnTracksBoxClick(wxCommandEvent & event);
     void OnTracksBoxDoubleClick(wxCommandEvent & event);
     void OnTracksBoxRightClick(wxListEvent & event);

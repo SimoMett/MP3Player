@@ -29,6 +29,7 @@ void MainFrame::bindingsSetup()
     Bind(wxEVT_MEDIA_LOADED, &MainFrame::OnMediaLoaded,this,ID_MediaCtrl);
     Bind(wxEVT_MENU,&MainFrame::OnNewPlayList,this,ID_NewPlayLst);
     Bind(wxEVT_LISTBOX_DCLICK,&MainFrame::OnPlaylistSelected,this,ID_PlayLstBox);
+    Bind(wxEVT_LISTBOX_DCLICK,&MainFrame::OnAlbumSelected,this,ID_AlbumLstBox);
     Bind(wxEVT_LIST_ITEM_ACTIVATED,&MainFrame::OnTracksBoxDoubleClick,this,ID_TracksListBox);
     Bind(wxEVT_LIST_ITEM_RIGHT_CLICK,&MainFrame::OnTracksBoxRightClick,this,ID_TracksListBox);
     Bind(wxEVT_LIST_ITEM_SELECTED,&MainFrame::OnTracksBoxClick,this,ID_TracksListBox);
@@ -73,7 +74,7 @@ void MainFrame::widgetsSetup()
 
     albumSizer->Add( albumBitmap.get(), 1, wxEXPAND|wxALIGN_RIGHT|wxALL, 4 );
 
-    albumsListBox = unique_ptr<AlbumListBox>(new AlbumListBox( this, wxID_ANY));
+    albumsListBox = unique_ptr<AlbumListBox>(new AlbumListBox( this, ID_AlbumLstBox));
     albumSizer->Add( albumsListBox.get(), 1, wxEXPAND|wxALIGN_CENTER_HORIZONTAL|wxRIGHT|wxLEFT, 4 );
 
     listsSizer->Add( albumSizer, 0, wxEXPAND|wxTOP|wxBOTTOM|wxRIGHT, 5 );
@@ -376,6 +377,29 @@ void MainFrame::OnPlaylistSelected(wxCommandEvent &event)
             }
         }
 
+        Mp3Player::getInstancePtr()->changePlaylist(lista);
+    }
+}
+
+void MainFrame::OnAlbumSelected(wxCommandEvent &event)
+{
+    cout <<"album"<<endl;
+    int selectedItem=albumsListBox->GetSelection();
+
+    string selectedStr=albumsListBox->GetString(selectedItem).ToStdString();
+
+    if(selectedItem!=wxNOT_FOUND)
+    {
+        Album *lista;
+        for(auto & item : Mp3Player::getInstancePtr()->playlists)
+        {
+            cout << item->getName()<<endl;
+            if (selectedStr == item->getName())
+            {
+                lista = static_cast<Album *>(item.get());//static cast because only Playlist pointers can be d-clickedbreak;
+                break;
+            }
+        }
         Mp3Player::getInstancePtr()->changePlaylist(lista);
     }
 }

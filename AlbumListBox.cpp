@@ -25,7 +25,7 @@ void AlbumListBox::printLists()
         if(Album * list=dynamic_cast<Album*>(item.get()))
         {
             string name = list->getName();
-            wxListBox::Insert(name, _pos);
+            wxListBox::Insert(name.erase(0, string("album_").length() ), _pos);
             _pos++;
         }
     }

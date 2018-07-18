@@ -39,7 +39,7 @@ void TracksListBox::display()
 {
     if(Mp3Player::getInstancePtr() && Mp3Player::getInstancePtr()->getSelectedList())
     {
-        const PlayList &list = *(Mp3Player::getInstancePtr()->getSelectedList());
+        const AbstractPlayList &list = *(Mp3Player::getInstancePtr()->getSelectedList());
 
         for (int i = 0; i < list.getTracksCount(); i++)
         {
