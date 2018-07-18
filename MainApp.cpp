@@ -30,5 +30,5 @@ bool MainApp::OnInit()
 
 int MainApp::OnExit()
 {
-    Mp3Player::Destroy();
+
 }
