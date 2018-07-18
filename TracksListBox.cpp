@@ -56,9 +56,9 @@ void TracksListBox::insertItem(long index, Track & track)
     SetItem(item,1,track.artist);
     if(track.album)
     {
-        SetItem(item,2,track.album->getName());
+        string name=track.album->getName();
+        SetItem(item,2,name.erase(0,6));
     }
-    //SetItem(item,2,"SETUP ALBUM");
     //SetItem(item,3,track.getDurationStr());
 }
 
