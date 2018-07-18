@@ -3,6 +3,7 @@
 //
 #include <wx/dir.h>
 #include <algorithm>
+#include <sys/stat.h>
 #include "PlayList.h"
 #include "Mp3Player.h"
 
@@ -152,13 +153,11 @@ void PlayList::save()
     string path="resources/playlists/"+name+".xml";
     wxXmlDocument doc;
 
-    if(!wxFileExists(path))
+    if(access(path.c_str(),F_OK)==-1)
     {
         std::ofstream outfile (path);
         outfile.close();
     }
-    else
-        doc.Load(path);
 
     doc.SetVersion("1.0");
     doc.SetFileEncoding("UTF-8");
@@ -177,14 +176,21 @@ void PlayList::save()
         trackNode->AddChild(tmp);
     }
 
-    wxStringOutputStream stream;
+    wxString stream;
     doc.Save(stream);
 
-    wxFile file(path,wxFile::OpenMode::write);
+    /*wxFile file(path,wxFile::OpenMode::write);
     if(file.IsOpened())
     {
-        file.Write(stream.GetString());
+        file.Write(stream);
         file.Close();
+    }*/
+    ofstream file;
+    file.open(path);
+    if(file.is_open())
+    {
+        file<<stream.ToStdString();
+        file.close();
     }
 }
 

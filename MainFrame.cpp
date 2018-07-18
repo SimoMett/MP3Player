@@ -393,13 +393,13 @@ void MainFrame::OnAlbumSelected(wxCommandEvent &event)
         for(auto & item : Mp3Player::getInstancePtr()->playlists)
         {
             cout << item->getName()<<endl;
-            if (selectedStr == item->getName())
+            /*if (selectedStr == item->getName())
             {
                 lista = static_cast<Album *>(item.get());
                 break;
-            }
+            }*/
         }
-        Mp3Player::getInstancePtr()->changePlaylist(lista);
+        //Mp3Player::getInstancePtr()->changePlaylist(lista);
     }
 }
 
