@@ -8,10 +8,7 @@
 
 PlayList::PlayList(string _name) : AbstractPlayList(_name)
 {
-    if(Mp3Player::getInstancePtr())
-    {
-        //Mp3Player::getInstancePtr()->playlists.push_back(unique_ptr<PlayList>(this));
-    }
+    load();
 }
 
 PlayList::~PlayList()
@@ -149,8 +146,8 @@ void PlayList::load()
 
 void PlayList::save()
 {
-    if(!wxDirExists("resources/playlists"))//if dir not exists, create it
-        wxDir dir("resources/playlists");
+    //if(!wxDirExists("resources/playlists/"))//if dir not exists, create it
+    //    wxDir dir("resources/playlists");
 
     string path="resources/playlists/"+name+".xml";
     wxXmlDocument doc;
