@@ -3,7 +3,6 @@
 //
 #include <wx/dir.h>
 #include <algorithm>
-#include <sys/stat.h>
 #include "PlayList.h"
 #include "Mp3Player.h"
 
@@ -147,13 +146,13 @@ void PlayList::load()
 
 void PlayList::save()
 {
-    //if(!wxDirExists("resources/playlists/"))//if dir not exists, create it
-    //    wxDir dir("resources/playlists");
+    if(!wxDirExists("resources/playlists"))
+        wxDir dir("resources/playlists");
 
     string path="resources/playlists/"+name+".xml";
     wxXmlDocument doc;
 
-    if(access(path.c_str(),F_OK)==-1)
+    if(!wxFileExists(path))
     {
         std::ofstream outfile (path);
         outfile.close();
@@ -176,21 +175,14 @@ void PlayList::save()
         trackNode->AddChild(tmp);
     }
 
-    wxString stream;
+    wxStringOutputStream stream;
     doc.Save(stream);
 
-    /*wxFile file(path,wxFile::OpenMode::write);
+    wxFile file(path,wxFile::OpenMode::write);
     if(file.IsOpened())
     {
-        file.Write(stream);
+        file.Write(stream.GetString());
         file.Close();
-    }*/
-    ofstream file;
-    file.open(path);
-    if(file.is_open())
-    {
-        file<<stream.ToStdString();
-        file.close();
     }
 }
 
