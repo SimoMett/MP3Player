@@ -22,10 +22,10 @@ class Mp3Player : public Subject{
 
 public:
     static void Create();
-    static void Destroy();
 
     ~Mp3Player();
 
+    Settings settings;
     unique_ptr<PlayList> mainLibrary;
     vector <unique_ptr<AbstractPlayList>> playlists;
 

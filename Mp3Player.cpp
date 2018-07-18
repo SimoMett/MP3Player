@@ -18,40 +18,26 @@ void Mp3Player::Create()
     }
 }
 
-Mp3Player::Mp3Player() :mainLibrary(unique_ptr<PlayList>(new PlayList("#mainLibrary"))), selectedList(mainLibrary.get())
+Mp3Player::Mp3Player() : settings(), mainLibrary(unique_ptr<PlayList>(new PlayList("#mainLibrary"))), selectedList(mainLibrary.get())
 {
-    //mainLibrary.load();
     srand(time(nullptr));
-    Settings::Instantiate();
-    setVolume(Settings::getInstance().getSavedVolume());
-    //loadPlayLists();
+    setVolume(settings.getSavedVolume());
     requestUpdate();
-}
-
-void Mp3Player::Destroy()
-{
-    if(currentPlayer!= nullptr)
-    {
-        Settings::getInstance().setSavedVolume(currentPlayer->volume);
-
-        Settings::Destroy();
-
-        currentPlayer->mainLibrary->save();
-
-        for(auto item : currentPlayer->observers)
-        {
-            //FIXME there is a segmentation violation here on exit
-            /*if(item!= nullptr)
-                delete item;*/
-        }
-        currentPlayer->observers.clear();
-        currentPlayer.reset();
-    }
 }
 
 Mp3Player::~Mp3Player()
 {
+    settings.setSavedVolume(currentPlayer->volume);
 
+    mainLibrary->save();
+
+    for(auto item : observers)
+    {
+        //FIXME there is a segmentation violation here on exit
+        /*if(item!= nullptr)
+            delete item;*/
+    }
+    observers.clear();
 }
 
 void Mp3Player::setVolume(unsigned int val)
@@ -84,13 +70,13 @@ void Mp3Player::loadPlayLists()
         {
             PlaylistFactory factory;
             auto pl = factory.createPlaylist(name);
-            Mp3Player::getInstancePtr()->playlists.push_back(unique_ptr<PlayList>(pl));
+            //Mp3Player::getInstancePtr()->playlists.push_back(unique_ptr<PlayList>(pl));
         }
         else
         {
             AlbumFactory factory;
             auto pl = factory.createAlbum(name);
-            Mp3Player::getInstancePtr()->playlists.push_back(unique_ptr<Album>(pl));
+            //Mp3Player::getInstancePtr()->playlists.push_back(unique_ptr<Album>(pl));
         }
         cont = dir.GetNext(&filename);
     }
