@@ -12,5 +12,6 @@ Album* AlbumFactory::createAlbum(string name)
     {
         Mp3Player::getInstancePtr()->playlists.push_back(unique_ptr<Album>(a));
     }
+    a->load();
     return a;
 }
