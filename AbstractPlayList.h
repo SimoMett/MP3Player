@@ -27,7 +27,7 @@ public:
         return *(tracks[index]);
     }
 
-    const string & getName() const{
+    virtual const string & getName() const{
         return name;
     }
 

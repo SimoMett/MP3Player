@@ -241,7 +241,7 @@ void MainFrame::OnAddToPlaylistClick(wxCommandEvent &event)
     long pos=0;
     for(auto & item : Mp3Player::getInstancePtr()->playlists)
     {
-        if(item->getName()=="#mainLibrary")
+        if(item->getName()=="#mainLibrary" || item->getName().substr(0,6)=="album_")
             continue;
         else
         {
@@ -383,7 +383,6 @@ void MainFrame::OnPlaylistSelected(wxCommandEvent &event)
 
 void MainFrame::OnAlbumSelected(wxCommandEvent &event)
 {
-    cout <<"album"<<endl;
     int selectedItem=albumsListBox->GetSelection();
 
     string selectedStr=albumsListBox->GetString(selectedItem).ToStdString();
@@ -396,7 +395,7 @@ void MainFrame::OnAlbumSelected(wxCommandEvent &event)
             cout << item->getName()<<endl;
             if (selectedStr == item->getName())
             {
-                lista = static_cast<Album *>(item.get());//static cast because only Playlist pointers can be d-clickedbreak;
+                lista = static_cast<Album *>(item.get());
                 break;
             }
         }
