@@ -8,7 +8,7 @@
 
 TEST(Album,saveAlbum)
 {
-    Album album("album1","");
+    Album album("album1");
 
     album.save();
 
