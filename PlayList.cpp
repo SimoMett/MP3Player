@@ -11,7 +11,6 @@ PlayList::PlayList(string _name) : AbstractPlayList(_name)
 
 PlayList::~PlayList()
 {
-    //Mp3Player::getInstancePtr()->playlists.erase(std::remove(Mp3Player::getInstancePtr()->playlists.begin(),Mp3Player::getInstancePtr()->playlists.end(),this));
     save();
 }
 

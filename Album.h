@@ -23,7 +23,7 @@ public:
     ~Album();
 
     string artists;
-    string date;
+    string year;
 
     virtual bool addTrack(shared_ptr<Track> track) override ;
 
