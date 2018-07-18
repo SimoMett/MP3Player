@@ -14,7 +14,6 @@ void Mp3Player::Create()
     if(currentPlayer== nullptr)
     {
         currentPlayer=new Mp3Player();
-        currentPlayer->mainLibrary->save();
         currentPlayer->loadPlayLists();
     }
 }
@@ -28,7 +27,7 @@ void Mp3Player::Destroy()
     }
 }
 
-Mp3Player::Mp3Player() : settings(), mainLibrary(unique_ptr<PlayList>(new PlayList("#mainLibrary"))), selectedList(mainLibrary.get())
+Mp3Player::Mp3Player()
 {
     srand(time(nullptr));
     setVolume(settings.getSavedVolume());
@@ -65,6 +64,12 @@ Track& Mp3Player::getRandomTrackFromPlaylist(PlayList &list)
 
 void Mp3Player::loadPlayLists()
 {
+    mainLibrary=unique_ptr<PlayList>(new PlayList("#mainLibrary"));
+
+    if(!wxFileExists("resources/playlists/#mainLibrary.xml"))
+        mainLibrary->save();
+
+    selectedList=mainLibrary.get();
     //This method should check every .xml file and load (if possible) every playlist
     wxDir dir("resources/playlists");
 

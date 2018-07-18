@@ -26,8 +26,8 @@ public:
     ~Mp3Player();
 
     Settings settings;
-    unique_ptr<PlayList> mainLibrary;
-    vector <unique_ptr<AbstractPlayList>> playlists;
+    shared_ptr<PlayList> mainLibrary;
+    vector <shared_ptr<AbstractPlayList>> playlists;
 
     shared_ptr<Track> currentTrack;
     bool mp3Looping;
