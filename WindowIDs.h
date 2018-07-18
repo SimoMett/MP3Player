@@ -25,7 +25,8 @@ enum
     ID_Bitmap=wxID_HIGHEST+14,
     ID_ChangeBitmap=wxID_HIGHEST+15,
     ID_TrackFinder=wxID_HIGHEST+16,
-    ID_AddToPlaylist=wxID_HIGHEST+17
+    ID_AddToPlaylist=wxID_HIGHEST+17,
+    ID_AlbumLstBox=wxID_HIGHEST+18
 };
 
 #endif //MP3PLAYER_WINDOWIDS_H
