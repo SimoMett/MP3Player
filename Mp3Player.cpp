@@ -88,7 +88,7 @@ void Mp3Player::loadPlayLists()
         //load playlist
         string name(filename.c_str());
         name.erase(name.find_last_of("."), name.length());
-        if(name.substr(0,6)!="album_")
+        if(name.substr(0,6)!="album_" && name != "#mainLibrary")
         {
             PlaylistFactory factory;
             auto pl = factory.createPlaylist(name);
