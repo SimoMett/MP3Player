@@ -32,7 +32,7 @@ Track::Track(string path) : directory(path), album(nullptr)
         AlbumFactory factory;
         shared_ptr<Album> sptr(factory.createAlbum(albumName));
         album =sptr.get();
-        //album->addTrack(move(shared_ptr<Track>(this)));//FIXME this was causing SIGABRT
+        //album->addTrack(shared_ptr<Track>(this));//FIXME this was causing SIGABRT
         Mp3Player::getInstancePtr()->playlists.push_back(move(sptr));
     }
 }
