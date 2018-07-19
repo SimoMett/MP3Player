@@ -340,6 +340,7 @@ void MainFrame::OnNewPlayList(wxCommandEvent &event)
             {
                 PlaylistFactory factory;
                 PlayList * list=factory.createPlaylist(name);
+                Mp3Player::getInstancePtr()->playlists.push_back(shared_ptr<PlayList>(list));
                 list->save();
                 playlistListBox->update();
                 exit=true;
