@@ -76,6 +76,7 @@ void Mp3Player::loadPlayLists()
     if(!wxFileExists("resources/playlists/#mainLibrary.xml"))
         mainLibrary->save();
 
+    mainLibrary->load();
     selectedList=mainLibrary.get();
     //This method should check every .xml file and load (if possible) every playlist
     wxDir dir("resources/playlists");
