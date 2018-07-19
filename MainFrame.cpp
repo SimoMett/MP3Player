@@ -71,6 +71,7 @@ void MainFrame::widgetsSetup()
     bitmap.LoadFile("resources/default_album.png");
     albumBitmap =unique_ptr<wxStaticBitmap>(new wxStaticBitmap( this, ID_Bitmap, bitmap, wxDefaultPosition, wxDefaultSize, 0 ));
     albumBitmap->SetMinSize( wxSize( 200,200 ) );
+    albumBitmap->SetMaxSize(wxSize(200,200));
 
     albumSizer->Add( albumBitmap.get(), 1, wxEXPAND|wxALIGN_RIGHT|wxALL, 4 );
 
@@ -399,6 +400,8 @@ void MainFrame::OnAlbumSelected(wxCommandEvent &event)
             {
                 lista = static_cast<Album *>(item.get());
 
+                albumBitmap->SetBitmap(lista->getCoverBitmap());
+
                 wxMessageBox("Album:\t"+selectedStr+
                              "\nArtists:\t"+lista->artists+
                             "\nYear:\t"+lista->year,"Album info");
@@ -435,11 +438,20 @@ void MainFrame::OnChangeAlbumBitmap(wxCommandEvent &event)
     wxFileDialog fileDialog(this, "Change album cover", "", "", "Image files (*.png;*.jpg;*.bmp)|*.png;*.jpg;*.bmp", wxFD_OPEN|wxFD_FILE_MUST_EXIST);
     if(fileDialog.ShowModal()==wxID_OK)
     {
-        long index=tracksListCtrl->getSelectedItemIndex();
-        string file=fileDialog.GetPath().ToStdString();
-        Mp3Player::getInstancePtr()->getSelectedList()->getTrack(index).album->changeCoverBitmap(file);
+        string albumName=albumsListBox->GetStringSelection().ToStdString();
+        cout << albumName<<endl;
 
-        albumBitmap->SetBitmap(Mp3Player::getInstancePtr()->getSelectedList()->getTrack(index).album->getCoverBitmap());
+        string file=fileDialog.GetPath().ToStdString();
+
+        for(auto & item : Mp3Player::getInstancePtr()->playlists)
+        {
+            if(item->getName()=="album_"+albumName)
+            {
+                static_cast<Album*>(item.get())->changeCoverBitmap(file);
+                albumBitmap->SetBitmap(static_cast<Album*>(item.get())->getCoverBitmap());
+                break;
+            }
+        }
     }
 }
 
