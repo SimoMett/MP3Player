@@ -110,7 +110,7 @@ void Album::load()
             }
         }
 
-        if(isCoverValid(coverDir))
+        if(wxFileExists(coverDir))
         {
             coverBitmap=unique_ptr<Bitmap>(new Bitmap(coverDir));
         }

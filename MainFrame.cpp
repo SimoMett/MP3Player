@@ -402,6 +402,7 @@ void MainFrame::OnAlbumSelected(wxCommandEvent &event)
 
                 albumBitmap->SetBitmap(lista->getCoverBitmap());
 
+
                 wxMessageBox("Album:\t"+selectedStr+
                              "\nArtists:\t"+lista->artists+
                             "\nYear:\t"+lista->year,"Album info");
