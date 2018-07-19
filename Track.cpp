@@ -15,25 +15,30 @@ Track::Track(string path) : directory(path), album(nullptr)
     if(albumName.length())  //TODO check if album already exists, if so append track without creating album
     {
         albumName="album_"+albumName;
-        /*bool ok=false;
+
+        bool ok=false;
 
         for(auto & item : Mp3Player::getInstancePtr()->playlists)
         {
-            if(item->getName() == albumName && ok==false)
+            if(item->getName() == albumName && !ok)
             {
                 //append track without creating album
-                //ok=true; break;
+                Album * lista = static_cast<Album*>(item.get());
+                album=lista;
+
+                ok=true;
+                break;
             }
         }
-        if(ok==false)
+        if(!ok)
         {
             //create album and append track
-        }*/
-        AlbumFactory factory;
-        shared_ptr<Album> sptr(factory.createAlbum(albumName));
-        album =sptr.get();
-        //album->addTrack(shared_ptr<Track>(this));//FIXME this was causing SIGABRT
-        Mp3Player::getInstancePtr()->playlists.push_back(move(sptr));
+            AlbumFactory factory;
+            shared_ptr<Album> sptr(factory.createAlbum(albumName));
+            album =sptr.get();
+            //album->addTrack(shared_ptr<Track>(this));//FIXME this was causing SIGABRT
+            Mp3Player::getInstancePtr()->playlists.push_back(move(sptr));
+        }
     }
 }
 
