@@ -400,7 +400,10 @@ void MainFrame::OnAlbumSelected(wxCommandEvent &event)
             {
                 lista = static_cast<Album *>(item.get());
 
-                albumBitmap->SetBitmap(lista->getCoverBitmap());
+
+                wxImage tmpcover=lista->getCoverBitmap().ConvertToImage();
+                tmpcover.Rescale(200,200);
+                albumBitmap->SetBitmap(tmpcover);
 
 
                 wxMessageBox("Album:\t"+selectedStr+
