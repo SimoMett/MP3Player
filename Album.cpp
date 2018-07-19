@@ -68,9 +68,9 @@ void Album::save()
 
 void Album::load()
 {
-    if(wxFileExists("resources/playlists/album_"+name+".xml"))
+    if(wxFileExists("resources/playlists/"+name+".xml"))
     {
-        string path="resources/playlists/album_"+name+".xml";
+        string path="resources/playlists/"+name+".xml";
         wxXmlDocument doc;
         doc.Load(path);
 
@@ -88,6 +88,7 @@ void Album::load()
                     if(info.length())
                     {
                         coverDir=info;
+
                     }
                 }
                 if(child->GetName()=="Artists")
@@ -112,7 +113,7 @@ void Album::load()
 
         if(wxFileExists(coverDir))
         {
-            coverBitmap=unique_ptr<Bitmap>(new Bitmap(coverDir));
+            coverBitmap->setDirectory(coverDir);
         }
     }
 }
