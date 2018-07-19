@@ -84,6 +84,7 @@ void Mp3Player::loadPlayLists()
     wxString filename;
     bool cont = dir.GetFirst(&filename);
 
+    PlaylistFactory factory;
     while ( cont )
     {
         //load playlist
@@ -91,7 +92,7 @@ void Mp3Player::loadPlayLists()
         name.erase(name.find_last_of("."), name.length());
         if(name.substr(0,6)!="album_" && name != "#mainLibrary")
         {
-            PlaylistFactory factory;
+
             auto pl = factory.createPlaylist(name);
             Mp3Player::getInstancePtr()->playlists.push_back(shared_ptr<PlayList>(pl));
         }
