@@ -15,7 +15,20 @@ Track::Track(string path) : directory(path), album(nullptr)
     if(albumName.length())  //TODO check if album already exists, if so append track without creating album
     {
         albumName="album_"+albumName;
+        /*bool ok=false;
 
+        for(auto & item : Mp3Player::getInstancePtr()->playlists)
+        {
+            if(item->getName() == albumName && ok==false)
+            {
+                //append track without creating album
+                //ok=true; break;
+            }
+        }
+        if(ok==false)
+        {
+            //create album and append track
+        }*/
         AlbumFactory factory;
         shared_ptr<Album> sptr(factory.createAlbum(albumName));
         album =sptr.get();
