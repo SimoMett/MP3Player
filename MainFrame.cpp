@@ -184,7 +184,6 @@ void MainFrame::PlayButton(wxCommandEvent &event)
 
 void MainFrame::NextTrackButton(wxCommandEvent &event)
 {
-    cout << tracksListCtrl->playingTrackIndex <<endl;
     if(tracksListCtrl->playingTrackIndex!=-1)
     {
         tracksListCtrl->playingTrackIndex=(tracksListCtrl->playingTrackIndex+1)%tracksListCtrl->GetItemCount();
@@ -269,7 +268,6 @@ void MainFrame::OnAddToPlaylistClick(wxCommandEvent &event)
 }
 void MainFrame::PrevTrackButton(wxCommandEvent &event)
 {
-    cout << tracksListCtrl->playingTrackIndex <<endl;
     if(tracksListCtrl->playingTrackIndex!=-1)
     {
         tracksListCtrl->playingTrackIndex=(tracksListCtrl->playingTrackIndex-1)%tracksListCtrl->GetItemCount();
@@ -395,7 +393,6 @@ void MainFrame::OnAlbumSelected(wxCommandEvent &event)
         Album *lista;
         for(auto & item : Mp3Player::getInstancePtr()->playlists)
         {
-            cout << item->getName()<<endl;
             if ("album_"+selectedStr == item->getName())
             {
                 lista = static_cast<Album *>(item.get());
@@ -443,7 +440,6 @@ void MainFrame::OnChangeAlbumBitmap(wxCommandEvent &event)
     if(fileDialog.ShowModal()==wxID_OK)
     {
         string albumName=albumsListBox->GetStringSelection().ToStdString();
-        cout << albumName<<endl;
 
         string file=fileDialog.GetPath().ToStdString();
 
