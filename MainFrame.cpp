@@ -224,47 +224,64 @@ void MainFrame::OnTracksBoxDoubleClick(wxCommandEvent &event)
 
 void MainFrame::OnTracksBoxRightClick(wxListEvent &event)
 {
-    tracksListCtrl->rightclickedTrackIndex=event.GetIndex(); //save index for OnAddToPlaylistClick
     if(event.GetIndex()>=0)
     {
-        wxMenu* addMenu=new wxMenu;
-        addMenu->Append(ID_AddToPlaylist,"Add to playlist...");
-        addMenu->Connect(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrame::OnAddToPlaylistClick), nullptr, this);
+        tracksListCtrl->rightclickedTrackIndex=event.GetIndex(); //save index for OnAddToPlaylistClick
+        void *data= reinterpret_cast<void*>(event.GetItem().GetData());
+        wxMenu* popupMenu=new wxMenu;
+        popupMenu->SetClientData(data);
+        popupMenu->Append(ID_AddToPlaylist,"Add to playlist...");
+        popupMenu->Append(ID_RemoveFromPlaylist,"Remove from playlist");
+        popupMenu->Connect(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrame::OnPopupMenuClick), nullptr, this);
         //should replace with Bind(), didn't work for some reason
-        PopupMenu(addMenu);
+        PopupMenu(popupMenu);
     }
 
 }
 
-void MainFrame::OnAddToPlaylistClick(wxCommandEvent &event)
+void MainFrame::OnPopupMenuClick(wxCommandEvent &event)
 {
-    wxArrayString choicesArray; //creates array of Playlists to display in wxSingleChoiceDialog
-    long pos=0;
-    for(auto & item : Mp3Player::getInstancePtr()->playlists)
-    {
-        if(item->getName()=="#mainLibrary" || item->getName().substr(0,6)=="album_")
-            continue;
-        else
+    void *data=static_cast<wxMenu *>(event.GetEventObject())->GetClientData();
+    switch(event.GetId()) {
+        case ID_AddToPlaylist:
         {
-            choicesArray.Insert(item->getName(),pos);
-            pos++;
-        }
-    }
-    wxSingleChoiceDialog playlistDialog(this,"Please choose a playlist where to add the chosen song.","Playlist List",choicesArray);
-    if(playlistDialog.ShowModal()==wxID_OK)
-    {
-        for(auto & item : Mp3Player::getInstancePtr()->playlists)
-        {
-            if(item->getName()==playlistDialog.GetStringSelection().ToStdString())
+            wxArrayString choicesArray; //creates array of Playlists to display in wxSingleChoiceDialog
+            long pos=0;
+            for(auto & item : Mp3Player::getInstancePtr()->playlists)
             {
-                auto str=tracksListCtrl->getItemPath(tracksListCtrl->rightclickedTrackIndex);
-                auto tr=new Track(str);
-                item->addTrack(unique_ptr<Track>(tr));
-                item->save();
+                if(item->getName()=="#mainLibrary" || item->getName().substr(0,6)=="album_")
+                    continue;
+                else
+                {
+                    choicesArray.Insert(item->getName(),pos);
+                    pos++;
+                }
             }
+            wxSingleChoiceDialog playlistDialog(this,"Please choose a playlist where to add the chosen song.","Playlist List",choicesArray);
+            if(playlistDialog.ShowModal()==wxID_OK)
+            {
+                for(auto & item : Mp3Player::getInstancePtr()->playlists)
+                {
+                    if(item->getName()==playlistDialog.GetStringSelection().ToStdString())
+                    {
+                        auto str=tracksListCtrl->getItemPath(tracksListCtrl->rightclickedTrackIndex);
+                        auto tr=new Track(str);
+                        item->addTrack(unique_ptr<Track>(tr));
+                        item->save();
+                    }
+                }
+
+            }
+            break;
+        }
+        case ID_RemoveFromPlaylist:
+        {
+            //TODO remove track from playlist
+            break;
         }
 
     }
+
 }
 void MainFrame::PrevTrackButton(wxCommandEvent &event)
 {
