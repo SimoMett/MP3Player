@@ -75,19 +75,6 @@ string TracksListBox::getSelectedItem()
     return result;
 }
 
-//FIXME
-long TracksListBox::getSelectedItemIndex(int mode)
-{
-    long index = -1;
-
-    while ((index = GetNextItem(index,wxLIST_NEXT_ALL, mode)) != wxNOT_FOUND)
-    {
-
-    }
-
-    return index;
-}
-
 string TracksListBox::getItemPath(long index)
 {
     return Mp3Player::getInstancePtr()->mainLibrary->getTrack(index).getDirectory();
