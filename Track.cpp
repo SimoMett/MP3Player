@@ -12,7 +12,7 @@ Track::Track(string path) : directory(path), album(nullptr)
     title.erase(0,title.find_last_of("/")+1);
     artist=getArtistString();
     string albumName=getAlbumString();
-    if(albumName.length())  //TODO check if album already exists, if so append track without creating album
+    if(albumName.length())
     {
         albumName="album_"+albumName;
 

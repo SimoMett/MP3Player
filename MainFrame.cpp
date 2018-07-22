@@ -202,12 +202,11 @@ void MainFrame::NextTrackButton(wxCommandEvent &event)
 
 void MainFrame::OnTracksBoxClick(wxCommandEvent &event)
 {
-    //FIXME lines below should be uncommented when Album class is fully functional
     const Track & track=*(Mp3Player::getInstancePtr()->getSelectedList()->findTrack(tracksListCtrl->getSelectedItem()));
 
-    /*const Bitmap & bitmap=track.album->getCoverBitmap();
+    const Bitmap & bitmap=track.album->getCoverBitmap();
 
-    albumBitmap->SetBitmap(bitmap);*/
+    albumBitmap->SetBitmap(bitmap);
 }
 
 void MainFrame::OnTracksBoxDoubleClick(wxCommandEvent &event)
