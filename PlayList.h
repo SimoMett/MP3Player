@@ -22,8 +22,7 @@ public:
     ~PlayList();
 
     virtual bool addTrack(shared_ptr<Track> track) override ;
-    bool removeTrack(shared_ptr<Track> track);
-    bool removeTrack(int index);
+    virtual bool removeTrack(shared_ptr<Track> track) override ;
     bool rename(string newName);
     bool trackAlreadyExists(shared_ptr<Track> track);
 

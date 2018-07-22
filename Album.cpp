@@ -4,7 +4,9 @@
 #include <ctime>
 #include <iomanip>
 #include <sstream>
+#include <algorithm>
 #include "Album.h"
+
 
 Album::Album(string _name, string cover) : AbstractPlayList(_name), artists("Unknown"), year("2018")
 {
@@ -166,4 +168,15 @@ bool Album::addTrack(shared_ptr<Track> track)
             Mp3Player::getInstancePtr()->requestUpdate();
     }
     return ok;
+}
+
+bool Album::removeTrack(shared_ptr<Track> track)
+{
+    if(track)
+    {
+        tracks.erase(std::remove(tracks.begin(),tracks.end(),track));
+        requestUpdate();
+        if(Mp3Player::getInstancePtr())
+            Mp3Player::getInstancePtr()->requestUpdate();
+    }
 }

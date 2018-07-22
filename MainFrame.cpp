@@ -276,7 +276,10 @@ void MainFrame::OnPopupMenuClick(wxCommandEvent &event)
         }
         case ID_RemoveFromPlaylist:
         {
-            //TODO remove track from playlist
+            auto str=tracksListCtrl->getItemPath(tracksListCtrl->rightclickedTrackIndex);
+            auto tr=new Track(str);
+            Mp3Player::getInstancePtr()->getSelectedList()->removeTrack(unique_ptr<Track>(tr));
+            Mp3Player::getInstancePtr()->getSelectedList()->save();
             break;
         }
 

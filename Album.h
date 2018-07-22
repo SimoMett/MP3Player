@@ -26,6 +26,7 @@ public:
     string year;
 
     virtual bool addTrack(shared_ptr<Track> track) override ;
+    virtual bool removeTrack(shared_ptr<Track> track) override ;
 
     const Bitmap & getCoverBitmap() const{
         return *coverBitmap;

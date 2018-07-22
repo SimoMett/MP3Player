@@ -18,6 +18,7 @@ public:
     virtual ~AbstractPlayList(){};
 
     virtual bool addTrack(shared_ptr<Track> track)=0;
+    virtual bool removeTrack(shared_ptr<Track> track)=0;
 
     unsigned long getTracksCount() const {
         return tracks.size();

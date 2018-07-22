@@ -43,19 +43,14 @@ bool PlayList::addTrack(shared_ptr<Track> track)
 
 bool PlayList::removeTrack(shared_ptr<Track> track)
 {
-    tracks.erase(std::remove(tracks.begin(),tracks.end(),track));
-    requestUpdate();
-}
-
-bool PlayList::removeTrack(int index)
-{
-    bool success=false;
-    if(index > 0 || index > tracks.size())
+    if(track)
     {
-        removeTrack(tracks[index]);
-        success=true;
+        tracks.erase(std::remove(tracks.begin(),tracks.end(),track));
+        requestUpdate();
+        if(Mp3Player::getInstancePtr())
+            Mp3Player::getInstancePtr()->requestUpdate();
     }
-    return success;
+
 }
 
 shared_ptr<Track> PlayList::findTrack(string name) const

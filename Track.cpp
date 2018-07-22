@@ -36,7 +36,7 @@ Track::Track(string path) : directory(path), album(nullptr)
             AlbumFactory factory;
             shared_ptr<Album> sptr(factory.createAlbum(albumName));
             album =sptr.get();
-            album->addTrack(make_shared<Track>(*this)); 
+            album->addTrack(make_shared<Track>(*this));
             Mp3Player::getInstancePtr()->playlists.push_back(move(sptr));
         }
     }
