@@ -204,15 +204,15 @@ void MainFrame::OnTracksBoxClick(wxCommandEvent &event)
 {
     const Track & track=*(Mp3Player::getInstancePtr()->getSelectedList()->findTrack(tracksListCtrl->getSelectedItem()));
 
+    wxImage tmpbitmap;
+
     if(track.album)
-    {
-        const Bitmap &bitmap = track.album->getCoverBitmap();
-        albumBitmap->SetBitmap(bitmap);
-    }
+        tmpbitmap=track.album->getCoverBitmap().ConvertToImage();
     else
-    {
-        albumBitmap->SetBitmap(Bitmap("resources/default_album.png"));
-    }
+        tmpbitmap=wxBitmap("resources/default_album.png").ConvertToImage();
+
+    tmpbitmap.Rescale(200,200);
+    albumBitmap->SetBitmap(tmpbitmap);
 }
 
 void MainFrame::OnTracksBoxDoubleClick(wxCommandEvent &event)
