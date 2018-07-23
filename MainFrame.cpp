@@ -247,7 +247,8 @@ void MainFrame::OnTracksBoxRightClick(wxListEvent &event)
 void MainFrame::OnPopupMenuClick(wxCommandEvent &event)
 {
     void *data=static_cast<wxMenu *>(event.GetEventObject())->GetClientData();
-    switch(event.GetId()) {
+    switch(event.GetId())
+    {
         case ID_AddToPlaylist:
         {
             wxArrayString choicesArray; //creates array of Playlists to display in wxSingleChoiceDialog
@@ -281,9 +282,8 @@ void MainFrame::OnPopupMenuClick(wxCommandEvent &event)
         }
         case ID_RemoveFromPlaylist:
         {
-            auto str=tracksListCtrl->getItemPath(tracksListCtrl->rightclickedTrackIndex);
-            auto tr=new Track(str);
-            Mp3Player::getInstancePtr()->getSelectedList()->removeTrack(unique_ptr<Track>(tr));
+            auto tr=Mp3Player::getInstancePtr()->getSelectedList()->findTrack(tracksListCtrl->getSelectedItem());
+            Mp3Player::getInstancePtr()->getSelectedList()->removeTrack(tr);
             Mp3Player::getInstancePtr()->getSelectedList()->save();
             break;
         }

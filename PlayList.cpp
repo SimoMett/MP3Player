@@ -45,12 +45,24 @@ bool PlayList::removeTrack(shared_ptr<Track> track)
 {
     if(track)
     {
-        tracks.erase(std::remove(tracks.begin(),tracks.end(),track));
+        vector<shared_ptr<Track>>::iterator it=tracks.begin();
+        for(auto item: tracks)
+        {
+            if(item.get()!=track.get())
+            {
+                it++;
+            }
+            else
+            {
+                tracks.erase(it);
+                break;
+            }
+        }
+
         requestUpdate();
         if(Mp3Player::getInstancePtr())
             Mp3Player::getInstancePtr()->requestUpdate();
     }
-
 }
 
 shared_ptr<Track> PlayList::findTrack(string name) const
