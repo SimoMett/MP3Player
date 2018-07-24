@@ -62,11 +62,6 @@ void Mp3Player::setVolume(unsigned int val)
     requestUpdate();
 }
 
-Track& Mp3Player::getRandomTrackFromPlaylist(PlayList &list)
-{
-    return list.getTrack(rand());
-}
-
 void Mp3Player::loadPlayLists()
 {
     mainLibrary=shared_ptr<PlayList>(new PlayList("#mainLibrary"));

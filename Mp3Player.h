@@ -39,7 +39,6 @@ public:
     }
     void loadPlayLists();
     int find(string text);
-    Track & getRandomTrackFromPlaylist(PlayList & list);
 
     void changePlaylist(AbstractPlayList * list);
 

@@ -232,9 +232,7 @@ void MainFrame::OnTracksBoxRightClick(wxListEvent &event)
     if(event.GetIndex()>=0)
     {
         tracksListCtrl->rightclickedTrackIndex=event.GetIndex(); //save index for OnAddToPlaylistClick
-        void *data= reinterpret_cast<void*>(event.GetItem().GetData());
         wxMenu* popupMenu=new wxMenu;
-        popupMenu->SetClientData(data);
         popupMenu->Append(ID_AddToPlaylist,"Add to playlist...");
         popupMenu->Append(ID_RemoveFromPlaylist,"Remove from playlist");
         popupMenu->Connect(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainFrame::OnPopupMenuClick), nullptr, this);
@@ -246,7 +244,6 @@ void MainFrame::OnTracksBoxRightClick(wxListEvent &event)
 
 void MainFrame::OnPopupMenuClick(wxCommandEvent &event)
 {
-    void *data=static_cast<wxMenu *>(event.GetEventObject())->GetClientData();
     switch(event.GetId())
     {
         case ID_AddToPlaylist:
